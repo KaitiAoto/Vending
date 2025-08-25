@@ -1,0 +1,293 @@
+//================================
+//
+// ゲーム処理[game.cpp]
+// Author:kaiti
+//
+//================================
+#include "game.h"
+#include "manager.h"
+#include "fade.h"
+
+//静的メンバ変数
+CPlayer* CGame::m_pPlayer = NULL;
+CTimerMana* CGame::m_pTimer = NULL;
+CObject3D* CGame::m_pObj3D = NULL;
+CScoreMana* CGame::m_pScore = NULL;
+CBulletCntMana* CGame::m_pBulletCount = NULL;
+CCollision* CGame::m_pColl = NULL;
+CMatchUp* CGame::m_pMatchup = NULL;
+CHpGauge* CGame::m_pHpGauge = NULL;
+CLoadStage* CGame::m_pStage = NULL;
+CStart* CGame::m_pStart = NULL;
+CResetGauge* CGame::m_pReset = NULL;
+CMap* CGame::m_pMap = NULL;
+CBuff* CGame::m_pBuff = NULL;
+
+CPause* CGame::m_pPause = NULL;
+
+CGame::MODE CGame::m_mode = CGame::MODE_NONE;
+//==================
+// コンストラクタ
+//==================
+CGame::CGame():CScene(CScene::MODE_GAME)
+{
+}
+//================
+// デストラクタ
+//================
+CGame::~CGame()
+{
+}
+//=======================
+// 初期化
+//=======================
+void CGame::Init(void)
+{
+	//当たり判定生成
+	if (m_pColl == NULL)
+	{
+		m_pColl = new CCollision;
+	}
+
+	//相性生成
+	if (m_pMatchup == NULL)
+	{
+		m_pMatchup = new CMatchUp;
+	}
+
+
+	//タイマー生成
+	if (m_pTimer == NULL)
+	{
+		m_pTimer = CTimerMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (TIMER_SIZE * 2), 40.0f, 0.0f));
+	}
+
+	//スコア生成
+	if (m_pScore == NULL)
+	{
+		m_pScore = CScoreMana::Create(D3DXVECTOR3(1000.0f, 40.0f, 0.0f), SCORE_SIZE, SCORE_SIZE);
+	}
+
+	//弾数カウント生成
+	if (m_pBulletCount == NULL)
+	{
+		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.25f, 0.0f));
+	}
+
+	////補充生成
+	//if (m_pRestock == NULL)
+	//{
+	//	m_pRestock = CRestock::Create("data\\TEXTURE\\restock00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, 500.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE);
+	//}
+
+	if (m_pHpGauge == NULL)
+	{
+		m_pHpGauge = CHpGauge::Create(D3DXVECTOR3(50.0f, 40.0f, 0.0f), PLAYER_LIFE, GAUGE_Y, D3DCOLOR_RGBA(1, 255, 1, 255));
+	}
+
+	if (m_pReset == NULL)
+	{
+		m_pReset = CResetGauge::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (BULLET_COUNT_SIZE * 5), SCREEN_HEIGHT / 1.25f - 50.0f, 0.0f), 0, GAUGE_Y, D3DCOLOR_RGBA(255, 255, 1, 255));
+	}
+
+	if (m_pBuff == NULL)
+	{
+		m_pBuff = new CBuff;
+	}
+
+	m_pMap = CMap::Create(D3DXVECTOR3(1150.0f, 600.0f, 0.0f), 200.0f, 200.0f);
+
+
+	if (m_pStage == NULL)
+	{
+		m_pStage = new CLoadStage;
+
+		m_pStage->Load("data\\STAGE\\model01.txt");
+	}
+
+	//プレイヤー
+	if (m_pPlayer == nullptr)
+	{
+		m_pPlayer = CPlayer::Create("data\\STAGE\\motion_vending.txt", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	}
+
+	m_pStart = CStart::Create("data\\MODEL\\barricade00.x", D3DXVECTOR3(-870.0f, 0.0f, -880.0f), D3DXVECTOR3(0.0f, -D3DX_PI / 2, 0.0f));
+	
+
+
+	//CItem::Create(D3DXVECTOR3(-700.0f, 0.0f, -880.0f), D3DXVECTOR3(0.0f, -D3DX_PI / 2, 0.0f), CItem::TYPE_LIFE);
+
+	CObject3D::Create("data\\TEXTURE\\field00.jpeg", D3DXVECTOR3(0.0f, -0.1f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, CObject3D::TYPE_FIELD);
+	CMeshCylinder::Create("data\\TEXTURE\\city00.png", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 2900, 200, D3DXCOLOR(1.0, 1.0, 1.0, 1.0), CMeshCylinder::TYPE_IN);
+	CMeshSphere::Create("data\\TEXTURE\\sky001.jpg", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, D3DXCOLOR(1.0, 1.0, 1.0, 1.0), CMeshSphere::TYPE_HALF_TOP);
+	//CMeshSphere::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, D3DXCOLOR(0.0, 0.0, 0.5, 1.0), CMeshSphere::TYPE_HALF_BOTTOM);
+
+	if (m_pPause == nullptr)
+	{
+		m_pPause = CPause::Create();
+	}
+
+	CTutorial::Create(D3DXVECTOR3(TUTORIAL_SIZE / 1.5f, SCREEN_HEIGHT - (TUTORIAL_SIZE / 1.5f), 0.0f), TUTORIAL_SIZE, TUTORIAL_SIZE);
+
+	CStartUI::Create("data\\TEXTURE\\tutorial_start00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), STARTUI_SIZE_X, STARTUI_SIZE_Y);
+
+
+	SetMode(MODE_TUTORIAL);
+
+	CSound* pSound = CManager::GetSound();
+	pSound->PlaySound(CSound::SOUND_LABEL_GAME);
+}
+//=============
+// 終了処理
+//=============
+void CGame::Uninit(void)
+{
+	if (m_pStage != NULL)
+	{
+		m_pStage->Unload();
+		delete m_pStage;
+		m_pStage = nullptr;
+	}
+
+	//
+	if (m_pHpGauge != NULL)
+	{
+		m_pHpGauge = NULL;
+	}
+
+	////スコア破棄
+	//if (m_pRestock != NULL)
+	//{
+	//	m_pRestock = NULL;
+	//}
+
+	//スコア破棄
+	if (m_pScore != NULL)
+	{
+		//スコア終了処理
+		m_pScore->Uninit();
+
+		delete m_pScore;
+		m_pScore = NULL;
+	}
+
+	//タイマー破棄
+	if (m_pTimer != NULL)
+	{
+		//タイマー終了処理
+		m_pTimer->Uninit();
+
+		delete m_pTimer;
+		m_pTimer = NULL;
+	}
+
+	//弾数カウンター破棄
+	if (m_pBulletCount != NULL)
+	{
+		//弾数カウンター終了処理
+		m_pBulletCount->Uninit();
+
+		delete m_pBulletCount;
+		m_pBulletCount = NULL;
+	}
+
+
+	//当たり判定
+	if (m_pColl != NULL)
+	{
+		delete m_pColl;
+		m_pColl = nullptr;
+	}
+
+	//相性マネージャー
+	if (m_pMatchup != NULL)
+	{
+		delete m_pMatchup;
+		m_pMatchup = nullptr;
+	}
+
+	//
+	if (m_pBuff != NULL)
+	{
+		delete m_pBuff;
+		m_pBuff = nullptr;
+	}
+
+
+	if (m_pPause != nullptr)
+	{
+		m_pPause->Uninit();
+		delete m_pPause;
+		m_pPause = nullptr;
+	}
+
+	CObject::Release();
+}
+//=======================
+// マネージャーの更新
+//=======================
+void CGame::Update(void)
+{
+	//キー取得
+	CInputKey* pInputKey = CManager::GetInputKey();
+	//パッド
+	CInputPad* pInputPad = CManager::GetInputPad();
+
+	CFade* pFade = CManager::GetFade();
+
+	if (m_mode == MODE_FIN)
+	{
+		pFade->Set(CScene::MODE_RESULT);
+		return;
+	}
+	else if (m_mode == MODE_BACK)
+	{
+		pFade->Set(CScene::MODE_TITLE);
+		return;
+	}
+	else if (m_mode == MODE_PLAY)
+	{
+		bool bStart = m_pStart->GetStart();
+		if (bStart == true)
+		{
+			if (m_pTimer != nullptr)
+			{
+				//タイマー更新
+				m_pTimer->Update();
+			}
+		}
+		if (m_pHpGauge != nullptr)
+		{
+			//
+			m_pHpGauge->Update();
+		}
+		if (m_pBuff != nullptr)
+		{
+			m_pBuff->Update(1.0f / 60.0f);
+		}
+	}
+	if (m_pBulletCount != nullptr)
+	{
+		//弾数カウント更新
+		m_pBulletCount->Update();
+	}
+
+	if (pInputKey->GetTrigger(DIK_P) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_START) == true)
+	{
+		CManager::SetPause(true);
+	}
+
+	if (pInputKey->GetTrigger(DIK_F1) == true)
+	{
+		pFade->Set(CScene::MODE_RANKING);
+		return;
+	}
+
+}
+//=======================
+// マネージャーの描画
+//=======================
+void CGame::Draw(void)
+{
+
+}
