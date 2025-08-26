@@ -65,7 +65,7 @@ HRESULT CBuffIcon::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	const char* apFileName[CBuff::TYPE_MAX] =
 	{
-		"data\\TEXTURE\\tutorial00.jpg",
+		"data\\TEXTURE\\speedUP00.png",
 	};
 
 	for (int nCnt = 0; nCnt < CBuff::TYPE_MAX; nCnt++)
