@@ -14,6 +14,8 @@ public:
 	
 	static float OutBounce(float fX);
 	static float OutElastic(float fX);
+	static float OutExpo(float fX);
+
 private:
 	CEasing() {};
 };

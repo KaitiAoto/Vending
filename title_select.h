@@ -51,6 +51,8 @@ private:
 	CObject2D* m_pCursor;
 
 	int m_Select;
+
+	float m_fAnim[SELECT_MAX];
 };
 
 #endif

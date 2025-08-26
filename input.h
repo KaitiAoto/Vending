@@ -124,7 +124,10 @@ public:
 	int GetY(void);
 
 	int GetWheel(void);
+	void ResetWheel(void) { m_wheel = 0; };
+
 private:
+
 	BYTE m_aButtonState[8];
 	BYTE m_aOldButtonState[8];
 

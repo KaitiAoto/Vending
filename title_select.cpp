@@ -12,6 +12,7 @@
 #include "input.h"
 #include "title_logo.h"
 #include "title.h"
+#include "easing.h"
 //==================
 // コンストラクタ
 //==================
@@ -21,6 +22,11 @@ CTitleSelect::CTitleSelect(int nPriority):CObject(nPriority)
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	m_Select = SELECT_GAME;
+
+	for (int nCnt = 0; nCnt < SELECT_MAX; nCnt++)
+	{
+		m_fAnim[nCnt] = 0.0f;
+	}
 }
 //================
 // デストラクタ
@@ -78,6 +84,7 @@ void CTitleSelect::Uninit(void)
 //============
 void CTitleSelect::Update(void)
 {
+	const float fAnim = 0.05f;
 	Select();
 
 	m_pCursor->SetPos(m_pSelect[m_Select]->GetPos());
@@ -87,13 +94,29 @@ void CTitleSelect::Update(void)
 		if (m_Select == nCnt)
 		{
 			m_pSelect[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
-			m_pSelect[nCnt]->SetSize(T_SELECT_X * 1.25f, T_SELECT_Y * 1.25f);
+
+			// 進行度を増やす（最大 1.0）
+			m_fAnim[nCnt] += fAnim;
+			if (m_fAnim[nCnt] > 1.0f)
+			{
+				m_fAnim[nCnt] = 1.0f;
+			}
 		}
 		else
 		{
 			m_pSelect[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-			m_pSelect[nCnt]->SetSize(T_SELECT_X, T_SELECT_Y);
+
+			// 進行度を減らす（最小 0.0）
+			m_fAnim[nCnt] -= fAnim;
+			if (m_fAnim[nCnt] < 0.0f)
+			{
+				m_fAnim[nCnt] = 0.0f;
+			}
 		}
+		// OutExpo でスケール計算
+		float eased = CEasing::OutExpo(m_fAnim[nCnt]);
+		float scale = 1.0f + 0.25f * eased;
+		m_pSelect[nCnt]->SetSize(T_SELECT_X * scale, T_SELECT_Y * scale);
 	}
 }
 //============

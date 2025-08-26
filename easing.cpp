@@ -45,3 +45,15 @@ float CEasing::OutElastic(float fX)
     else
         return powf(2.0f, -10.0f * fX) * sinf((fX * 10.0f - 0.75f) * c4) + 1.0f;
 }
+
+float CEasing::OutExpo(float fX)
+{
+    if (fX == 1.0f)
+    {
+        return 1.0f;
+    }
+    else
+    {
+        return 1.0f - powf(2.0f, -10.0f * fX);
+    }
+}
