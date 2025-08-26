@@ -77,6 +77,8 @@ public:
 	CBullet::TYPE GetMyBullet(void) { return m_Bullet; }
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
 	int GetLife(void) { return m_nLife; }
+	STATE GetState(void) { return m_State; }
+
 
 	void AddContents(int nAdd) { m_nCntContents += nAdd; if (m_nCntContents >= 99) { m_nCntContents = 99; } }
 	void ClearContents(void) { m_nCntContents = 0; }
@@ -85,7 +87,6 @@ public:
 	void AddSpeed(float fAddSpeed) { m_fSpeed += fAddSpeed; }
 
 	void Hit(const int nDamage);
-	void HitBack(void);
 private:
 	void Move(void);
 	void Action(void);
@@ -93,6 +94,7 @@ private:
 	void State(STATE state);
 	void CheckStack(bool bColl, bool bMove);
 	void RecoverFromStuck(void);
+	void Blink(void);
 
 	//メンバ変数
 	D3DXVECTOR3 m_pos;					//位置
@@ -135,6 +137,9 @@ private:
 	CShadowS* m_pShadowS;					//影へのポインタ
 
 	int m_nCnStackt;					//スタックカウント
+
+	D3DXCOLOR m_BaseColor;          // 通常の色
+	D3DXCOLOR m_DamageColor;        // ダメージ時の色
 };
 
 #endif

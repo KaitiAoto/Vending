@@ -66,6 +66,9 @@ CPlayer::CPlayer(int nPriority):CObject(nPriority)
 	m_pShadow = NULL;
 
 	m_nCnStackt = 0;
+
+	m_BaseColor = { 1.0f,1.0f,1.0f,1.0f };
+	m_DamageColor = { 1.0f, 1.0f, 1.0f,0.0f };
 }
 //================
 // デストラクタ
@@ -189,6 +192,10 @@ void CPlayer::Update(void)
 			m_bUse = false;
 		}
 
+		if (m_State == STATE_HIT)
+		{
+			Blink();
+		}
 		m_nCntState--;
 		if (m_nCntState <= 0)
 		{
@@ -224,14 +231,6 @@ void CPlayer::Draw(void)
 	pDegub->Print("プレイヤーのサイズ：%.1f,%.1f,%.1f", m_size.x, m_size.y, m_size.z);
 	pDegub->Print("プレイヤーのHP：%d", m_nLife);
 	pDegub->Print("プレイヤーの中身：%d", m_nCntContents);
-	//if (m_bLanding == true)
-	//{
-	//	pDegub->Print("プレイヤーの着地：true");
-	//}
-	//else if (m_bLanding == false)
-	//{
-	//	pDegub->Print("プレイヤーの着地：false");
-	//}
 	if (m_State == STATE_HIT)
 	{
 		pDegub->Print("ダメージヒット");
@@ -413,12 +412,6 @@ void CPlayer::Move(void)
 			m_pMotion->SetType(CMotion::TYPE_NEUTRAL);
 		}
 	}
-
-	if (m_State == STATE_HIT)
-	{
-		HitBack();
-	}
-
 	//前回の位置保存
 	m_posOld = m_pos;
 	
@@ -473,7 +466,6 @@ void CPlayer::Action(void)
 		{
 			pSound->PlaySound(CSound::SOUND_LABEL_MISS);
 		}
-
 	}
 	else
 	{
@@ -519,42 +511,32 @@ void CPlayer::Hit(const int nDamage)
 		pSound->PlaySound(CSound::SOUND_LABEL_HIT);
 	}
 }
-void CPlayer::HitBack(void)
+//===============
+// 点滅処理
+//===============
+void CPlayer::Blink(void)
 {
-	float BackSpeed = 5.0f;
-	D3DXVECTOR3 dir = m_TargetPos - m_pos;
-	float dist = D3DXVec3Length(&dir);
+	const int nBlinkFrame = 5;//点滅フレーム数
 
-	if (dist > 0.0f)
-	{
-		D3DXVec3Normalize(&dir, &dir);
-
-		// 1フレームの移動量を小刻みに処理
-		float step = 1.0f;
-		float moveThisFrame = min(dist, BackSpeed);
-
-		float moved = 0.0f;
-		while (moved < moveThisFrame)
+	if ((m_nCntState / nBlinkFrame) % 2 == 0)
+	{//ダメージ色にする
+		for (int nCnt = 0; nCnt < m_nNumModel; nCnt++)
 		{
-			m_pos += dir * step;
-			moved += step;
-
-			// 壁判定
-			D3DXVECTOR3 outNormal;
-			if (CGame::GetColl()->ToStage(
-				m_pos,
-				m_rot,
-				m_size,
-				outNormal))
+			if (m_apModel[nCnt] != NULL)
 			{
-				// 壁に当たったら法線で補正
-				m_pos += outNormal * step;
+				m_apModel[nCnt]->SetColor(m_DamageColor);
 			}
 		}
 	}
 	else
-	{
-		m_State = STATE_NONE; // ヒットバック終了
+	{//通常色に戻す
+		for (int nCnt = 0; nCnt < m_nNumModel; nCnt++)
+		{
+			if (m_apModel[nCnt] != NULL)
+			{
+				m_apModel[nCnt]->SetColor(m_BaseColor);
+			}
+		}
 	}
 }
 //=================
@@ -571,20 +553,12 @@ void CPlayer::State(STATE state)
 		{
 			if (m_apModel[nCnt] != NULL)
 			{
-				m_apModel[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+				m_apModel[nCnt]->SetColor(m_BaseColor);
 			}
 		}
-
 		break;
 	case STATE_HIT:
-		m_nCntState = 30;
-		for (int nCnt = 0; nCnt < m_nNumModel; nCnt++)
-		{
-			if (m_apModel[nCnt] != NULL)
-			{
-				m_apModel[nCnt]->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
-			}
-		}
+		m_nCntState = 180;
 		break;
 	case STATE_DEAD:
 		m_bUse = false;

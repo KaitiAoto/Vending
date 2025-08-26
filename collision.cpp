@@ -316,11 +316,10 @@ bool CCollision::Player(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	bool bColl = Radius(pos, size, PlayerPos, Playersize);
 	if (bColl == true)
 	{//“–‚½‚Á‚½‚ç
-		D3DXVECTOR3 move = PlayerPos - pos;
-		D3DXVECTOR3 HitPos = PlayerPos + move;
-
-		pPlayer->SetTargetPos(HitPos);
-		pPlayer->Hit(1);
+		if (pPlayer->GetState() != pPlayer->STATE_HIT)
+		{
+			pPlayer->Hit(1);
+		}
 	}
 
 	return bColl;
@@ -480,9 +479,10 @@ bool CCollision::Gimmick(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 size, CObje
 
 			CParticle::Create(GimmickPos, pPlayer->GetRot(), D3DCOLOR_RGBA(255, 1, 1, 255), 30, 5, CParticle::TYPE_NONE);
 
-			pPlayer->MovePos(move);
-			pPlayer->Hit(5);
-
+			if (pPlayer->GetState() != pPlayer->STATE_HIT)
+			{
+				pPlayer->Hit(5);
+			}
 		}
 		CSound* pSound = CManager::GetSound();
 		pSound->PlaySound(CSound::SOUND_LABEL_CAR);
