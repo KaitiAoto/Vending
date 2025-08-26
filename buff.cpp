@@ -1,5 +1,6 @@
 #include "buff.h"
 #include "game.h"
+#include "buff_icon.h"
 
 CBuff::CBuff()
 {
@@ -44,4 +45,6 @@ void CBuff::AddSpeed(float fSpeed, float fDuration)
     CGame::GetPlayer()->AddSpeed(m_fSpeed);
 
     m_type = TYPE_SPEED;
+
+    CBuffIcon::Create({ BUFF_X  / 1.5f,SCREEN_HEIGHT / 2 + 100.0f,0.0f }, BUFF_X, BUFF_Y);
 }

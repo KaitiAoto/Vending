@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="buff.cpp" />
+    <ClCompile Include="buff_icon.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="bullet_counter.cpp" />
     <ClCompile Include="bullet_counter_manager.cpp" />
@@ -234,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buff.h" />
+    <ClInclude Include="buff_icon.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="bullet_counter.h" />
     <ClInclude Include="bullet_counter_manager.h" />

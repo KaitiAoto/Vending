@@ -23,6 +23,8 @@ public:
 	void Update(float deltaTime);
 
 	void AddSpeed(float fSpeed, float fDuration);
+
+	TYPE GetType(void) { return m_type; }
 private:
 
 	float m_fSpeed;
