@@ -33,7 +33,7 @@ void CTitle::Init(void)
 {
 	CManager::GetLight()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
-	m_pLogo = CTitleLogo::Create("data\\TEXTURE\\title01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3, 0.0f), LOGO_SIZE_X, LOGO_SIZE_Y);
+	m_pLogo = CTitleLogo::Create("data\\TEXTURE\\title01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3.5f, 0.0f), LOGO_SIZE_X, LOGO_SIZE_Y);
 
 	CTitleSelect::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.5f, 0.0f));
 

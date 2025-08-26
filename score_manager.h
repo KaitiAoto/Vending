@@ -32,6 +32,7 @@ public:
 
 	int GetScore(void) { return m_nScore; }
 	void SetPos(D3DXVECTOR3 pos);
+	void SetColor(D3DXCOLOR col);
 private:
 	void ChangeTex(void);
 	//ƒƒ“ƒo•Ï”

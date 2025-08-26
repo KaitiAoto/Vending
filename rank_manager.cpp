@@ -7,6 +7,7 @@
 #include "rank_manager.h"
 #include "renderer.h"
 #include "manager.h"
+#include "easing.h"
 //静的メンバ変数
 CScoreMana* CRankMana::m_pScore[MAX_RANK] = {};
 int CRankMana::m_nScore[MAX_RANK] = {};
@@ -109,21 +110,33 @@ void CRankMana::Uninit(void)
 // 更新処理
 //============
 void CRankMana::Update(void)
-{
-	const float MoveSpeed = 10.0f;//移動量
+{	
+	const float MoveDuration = 120.0f;  //1つのスコアが滑り込むフレーム数
+	const float Stagger = 10.0f;        //順番にずらすフレーム差
+	const float startX = -500.0f;		//開始時のX座標
 
-	//移動
-	m_pos.x += MoveSpeed;
-
-	if (m_pos.x >= m_posOffset.x)
-	{//止める
-		m_pos.x = m_posOffset.x;
-	}
-
-	//位置更新
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_pScore[nCnt]->SetPos(D3DXVECTOR3(m_pos.x, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f ));
+		//各スコア用のカウンター
+		static float AnimCnt[MAX_RANK] = { 0 };
+
+		if (AnimCnt[nCnt] < MoveDuration)
+		{
+			AnimCnt[nCnt] += 1.0f;
+		}
+
+		//遅延
+		float t = (AnimCnt[nCnt] - nCnt * Stagger) / MoveDuration;
+		if (t < 0.0f) t = 0.0f;
+		if (t > 1.0f) t = 1.0f;
+
+		// 弾性イージング
+		float ease = CEasing::OutElastic(t);
+
+		m_pos.x = startX + (m_posOffset.x - startX) * ease;
+
+		//位置更新
+		m_pScore[nCnt]->SetPos(D3DXVECTOR3(m_pos.x, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f));
 	}
 }
 //============

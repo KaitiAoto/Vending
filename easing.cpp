@@ -33,3 +33,15 @@ float CEasing::OutBounce(float t)
         return n1 * (t -= 2.625f / d1) * t + 0.984375f;
     }
 }
+
+float CEasing::OutElastic(float fX)
+{
+    const float c4 = (2.0f * D3DX_PI) / 3.0f;
+
+    if (fX == 0.0f)
+        return 0.0f;
+    else if (fX == 1.0f)
+        return 1.0f;
+    else
+        return powf(2.0f, -10.0f * fX) * sinf((fX * 10.0f - 0.75f) * c4) + 1.0f;
+}

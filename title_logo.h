@@ -10,8 +10,8 @@
 #include "main.h"
 #include "object2D.h"
 
-#define LOGO_SIZE_X (450)
-#define LOGO_SIZE_Y (300)
+#define LOGO_SIZE_X (550)
+#define LOGO_SIZE_Y (350)
 
 //オブジェクト2Dクラス
 class CTitleLogo:public CObject2D

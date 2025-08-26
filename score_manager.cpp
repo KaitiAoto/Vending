@@ -84,6 +84,13 @@ void CScoreMana::SetPos(D3DXVECTOR3 pos)
 		m_pScore[nCnt]->GetNumber()->SetPos({ pos.x + +(nCnt * m_fWidth * 2.5f), pos.y, pos.z });
 	}
 }
+void CScoreMana::SetColor(D3DXCOLOR col)
+{
+	for (int nCnt = 0; nCnt < MAX_SCORE; nCnt++)
+	{
+		m_pScore[nCnt]->GetNumber()->SetColor(col);
+	}
+}
 
 void CScoreMana::ChangeTex(void)
 {

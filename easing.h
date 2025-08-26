@@ -13,6 +13,7 @@ public:
 	~CEasing();
 	
 	static float OutBounce(float fX);
+	static float OutElastic(float fX);
 private:
 	CEasing() {};
 };

@@ -55,7 +55,7 @@ HRESULT CTitleSelect::Init(D3DXVECTOR3 pos)
 	//’l‚ð‘ã“ü
 	m_pos = pos;
 
-	m_pCursor = CObject2D::Create("data\\TEXTURE\\select00.png", m_pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), T_SELECT_X, T_SELECT_Y, 7);
+	m_pCursor = CObject2D::Create("data\\TEXTURE\\select00.png", m_pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), T_SELECT_X * 1.25f, T_SELECT_Y * 1.25f, 7);
 
 	m_pSelect[SELECT_GAME] = CObject2D::Create("data\\TEXTURE\\start00.png", m_pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), T_SELECT_X, T_SELECT_Y, 8);
 	m_pSelect[SELECT_END] = CObject2D::Create("data\\TEXTURE\\end00.png", D3DXVECTOR3(m_pos.x, m_pos.y + T_SELECT_Y, m_pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), T_SELECT_X, T_SELECT_Y, 8);
@@ -87,10 +87,12 @@ void CTitleSelect::Update(void)
 		if (m_Select == nCnt)
 		{
 			m_pSelect[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+			m_pSelect[nCnt]->SetSize(T_SELECT_X * 1.25f, T_SELECT_Y * 1.25f);
 		}
 		else
 		{
 			m_pSelect[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pSelect[nCnt]->SetSize(T_SELECT_X, T_SELECT_Y);
 		}
 	}
 }
