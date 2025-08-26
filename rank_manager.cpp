@@ -65,6 +65,7 @@ HRESULT CRankMana::Init(D3DXVECTOR3 pos)
 {
 	Reset();
 
+	//順位テクスチャ
 	const char* apFileName[MAX_RANK] =
 	{
 		"data\\TEXTURE\\rank01.png",
@@ -109,16 +110,20 @@ void CRankMana::Uninit(void)
 //============
 void CRankMana::Update(void)
 {
-	m_pos.x += 10.0f;
+	const float MoveSpeed = 10.0f;//移動量
+
+	//移動
+	m_pos.x += MoveSpeed;
 
 	if (m_pos.x >= m_posOffset.x)
-	{
+	{//止める
 		m_pos.x = m_posOffset.x;
 	}
 
+	//位置更新
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_pScore[nCnt]->GetpScore()->GetNumber()->SetPos({ m_pos.x, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f });
+		m_pScore[nCnt]->SetPos(D3DXVECTOR3(m_pos.x, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f ));
 	}
 }
 //============
@@ -145,16 +150,16 @@ void CRankMana::Set(int nScore)
 	}
 
 	int tempScore[MAX_RANK + 1];
-	for (int i = 0; i < MAX_RANK; i++)
+	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		tempScore[i] = m_nScore[i];
+		tempScore[nCnt] = m_nScore[nCnt];
 	}
 	tempScore[MAX_RANK] = nScore;
 
 	//ソート
-	for (int i = 0; i < MAX_RANK; i++)
+	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		for (int j = 0; j < MAX_RANK - i; j++)
+		for (int j = 0; j < MAX_RANK - nCnt; j++)
 		{
 			if (tempScore[j] < tempScore[j + 1])
 			{
@@ -165,12 +170,12 @@ void CRankMana::Set(int nScore)
 		}
 	}
 	//上位を保存
-	for (int i = 0; i < MAX_RANK; i++)
+	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_nScore[i] = tempScore[i];
-		if (m_pScore[i] != nullptr)
+		m_nScore[nCnt] = tempScore[nCnt];
+		if (m_pScore[nCnt] != nullptr)
 		{
-			m_pScore[i]->Set(m_nScore[i]);
+			m_pScore[nCnt]->Set(m_nScore[nCnt]);
 		}
 	}
 

@@ -27,18 +27,20 @@ public:
 	void Draw(void);
 
 	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
-	static void AddScore(int nAdd);
-	static void Set(int nScore) { m_nScore = nScore; ChangeTex();};
+	void AddScore(int nAdd);
+	void Set(int nScore) { m_nScore = nScore; ChangeTex();};
 
-	static int GetScore(void) { return m_nScore; }
-	static CScore* GetpScore(void) { return m_pScore[0]; }
+	int GetScore(void) { return m_nScore; }
+	void SetPos(D3DXVECTOR3 pos);
 private:
-	static void ChangeTex(void);
+	void ChangeTex(void);
 	//メンバ変数
-	static CScore* m_pScore[MAX_SCORE];	//オブジェクトへのポインタ
+	CScore* m_pScore[MAX_SCORE];	//オブジェクトへのポインタ
 
-	static int m_nScore;
-	static int m_nDigit;
+	int m_nScore;
+	int m_nDigit;
+
+	float m_fWidth;
 };
 
 #endif

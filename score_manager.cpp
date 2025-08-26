@@ -7,10 +7,6 @@
 #include "score_manager.h"
 #include "renderer.h"
 #include "manager.h"
-//静的メンバ変数
-int CScoreMana::m_nScore = 0;
-int CScoreMana::m_nDigit = 0;
-CScore* CScoreMana::m_pScore[MAX_SCORE] = {};
 
 //==================
 // コンストラクタ
@@ -33,8 +29,9 @@ CScoreMana* CScoreMana::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	for (int nCnt = 0; nCnt < MAX_SCORE; nCnt++)
 	{
-		m_pScore[nCnt] = CScore::Create(D3DXVECTOR3(pos.x + (nCnt * fWidth * 2.5f), pos.y, 0.0f), fWidth, fHeight);
+		pScoreMana->m_pScore[nCnt] = CScore::Create(D3DXVECTOR3(pos.x + (nCnt * fWidth * 2.5f), pos.y, 0.0f), fWidth, fHeight);
 	}
+	pScoreMana->m_fWidth = fWidth;
 
 	pScoreMana->Init();
 
@@ -55,13 +52,6 @@ HRESULT CScoreMana::Init(void)
 void CScoreMana::Uninit(void)
 {
 	m_nScore = 0;
-	//for (int nCnt = 0; nCnt < MAX_SCORE; nCnt++)
-	//{
-	//	if (m_pScore[nCnt] != nullptr)
-	//	{
-	//		m_pScore[nCnt]->Uninit();
-	//	}
-	//}
 }
 //============
 // 更新処理
@@ -84,6 +74,16 @@ void CScoreMana::AddScore(int nAdd)
 	m_nScore += nAdd;
 	ChangeTex();
 }
+//================
+// 位置設定
+//================
+void CScoreMana::SetPos(D3DXVECTOR3 pos)
+{
+	for (int nCnt = 0; nCnt < MAX_SCORE; nCnt++)
+	{
+		m_pScore[nCnt]->GetNumber()->SetPos({ pos.x + +(nCnt * m_fWidth * 2.5f), pos.y, pos.z });
+	}
+}
 
 void CScoreMana::ChangeTex(void)
 {
@@ -98,7 +98,7 @@ void CScoreMana::ChangeTex(void)
 	for (int nCnt = 0; nCnt < MAX_SCORE; nCnt++)
 	{
 		if (m_pScore[nCnt] != nullptr)
-		{//オブジェクトが敵なら
+		{
 			CNumber* pNumber = m_pScore[nCnt]->GetNumber();
 
 			aPosTexU[nCnt] = m_nScore % nData / nData2;

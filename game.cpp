@@ -277,7 +277,7 @@ void CGame::Update(void)
 		CManager::SetPause(true);
 	}
 
-	if (pInputKey->GetTrigger(DIK_F1) == true)
+	if (pInputKey->GetTrigger(DIK_F3) == true)
 	{
 		pFade->Set(CScene::MODE_RANKING);
 		return;
