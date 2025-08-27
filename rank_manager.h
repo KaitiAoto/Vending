@@ -11,6 +11,7 @@
 #include "score_manager.h"
 
 #define MAX_RANK (5)
+#define RANK_Y (4)
 
 //オブジェクト2Dクラス
 class CRankMana

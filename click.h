@@ -33,11 +33,13 @@ public:
 	//İ’èˆ—
 	void SetUse(bool bUse) { m_bUse = bUse; }
 private:
-
+	void Blink(void);
 	//ƒƒ“ƒo•Ï”
 	D3DXVECTOR3 m_pos;	//ˆÊ’u
-
+	D3DXCOLOR m_col;
 	bool m_bUse;
+
+	bool m_bSub;
 };
 
 #endif

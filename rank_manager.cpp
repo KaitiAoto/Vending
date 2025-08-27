@@ -76,17 +76,17 @@ HRESULT CRankMana::Init(D3DXVECTOR3 pos)
 		"data\\TEXTURE\\rank05.png",
 	};
 
-	float fSize = SCORE_SIZE * 1.5f;
+	float fSize = RANKSCORE_SIZE * 1.5f;
 	m_posOffset = pos;
 	m_fSize = fSize;
 
 	//初期化
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * 3.0f), 0.0f), fSize, fSize);
+		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize);
 		m_pScore[nCnt]->Set(m_nScore[nCnt]);
 
-		CObject2D::Create(apFileName[nCnt], D3DXVECTOR3(pos.x - (fSize * 4.0f), pos.y + (nCnt * fSize * 3.0f), 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fSize * 2.0f, fSize * 2.0f, 7);
+		CObject2D::Create(apFileName[nCnt], D3DXVECTOR3(pos.x - (fSize * 4.0f), pos.y + (nCnt * fSize * RANK_Y), 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fSize * 2.0f, fSize * 2.0f, 7);
 	}
 
 	return S_OK;
@@ -161,7 +161,7 @@ void CRankMana::Move(void)
 		pDegub->Print("位置：%.1f", posX);
 
 		//位置更新
-		m_pScore[nCnt]->SetPos(D3DXVECTOR3(posX, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f));
+		m_pScore[nCnt]->SetPos(D3DXVECTOR3(posX, m_posOffset.y + (nCnt * m_fSize * RANK_Y), 0.0f));
 	}
 }
 //============

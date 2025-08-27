@@ -42,6 +42,8 @@ HRESULT CClick::Init(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float 
 {
 	//’l‚ð‘ã“ü
 	m_pos = pos;
+	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_bSub = true;
 
 	CObject2D::Init(pTexName, m_pos, D3DXVECTOR3(0.0f,0.0f,0.0f), fWidth, fHeight);
 
@@ -62,7 +64,7 @@ void CClick::Uninit(void)
 //============
 void CClick::Update(void)
 {
-
+	Blink();
 }
 //============
 // •`‰æˆ—
@@ -83,4 +85,27 @@ void CClick::Draw(void)
 
 		pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	}
+}
+
+//===========
+// “_–Å
+//===========
+void CClick::Blink(void)
+{
+	const float Sub = 0.025f;
+
+	m_col.a += (m_bSub ? -Sub : Sub);
+
+	if (m_col.a <= 0.0f)
+	{
+		m_col.a = 0.0f;
+		m_bSub = false;
+	}
+	else if (m_col.a >= 1.0f)
+	{
+		m_col.a = 1.0f;
+		m_bSub = true;
+	}
+
+	CObject2D::SetColor(m_col);
 }

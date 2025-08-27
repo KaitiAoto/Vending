@@ -14,7 +14,7 @@
 
 //É}ÉNÉçíËã`
 #define RESULT_STAY (90)
-
+#define RANKSCORE_SIZE (15)
 class CScene;
 class CLoadStage;
 
