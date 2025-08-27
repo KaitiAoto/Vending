@@ -127,20 +127,27 @@ void CObject2D::Draw(void)
 
 		//テクスチャの設定
 		LPDIRECT3DTEXTURE9 tex = pTex->GetAddress(m_nIdxTex);
-		pDevice->SetTexture(0, tex);
+		if (tex != NULL)
+		{
+			pDevice->SetTexture(0, tex);
+		}
+		else
+		{
+			pDevice->SetTexture(0, NULL);
+		}
 
-		// テクスチャなしでも描画するよう、適切に設定
-		if (!tex) {
-			// テクスチャなし用のレンダーステート設定
-			pDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
-			pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-		}
-		else {
-			// テクスチャありの場合（通常）
-			pDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-			pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-			pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-		}
+		//// テクスチャなしでも描画するよう、適切に設定
+		//if (!tex) {
+		//	// テクスチャなし用のレンダーステート設定
+		//	pDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+		//	pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		//}
+		//else {
+		//	// テクスチャありの場合（通常）
+		//	pDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+		//	pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		//	pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		//}
 
 		//描画
 		pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);

@@ -49,6 +49,7 @@
 #include "minimap.h"
 #include "startUI.h"
 #include "buff.h"
+#include "screen_flash.h"
 
 ////É}ÉNÉçíËã`
 #define GAME_TIME (180)
@@ -92,6 +93,7 @@ public:
 	static CResetGauge* GetReset(void) { return m_pReset; }
 	static CMap* GetMap(void) { return m_pMap; }
 	static CBuff* GetBuff(void) { return m_pBuff; }
+	static CScreenFlash* GetFlash(void) { return m_pScreenFlash; }
 
 	static CPause* GetPause(void) { return m_pPause; }
 
@@ -112,6 +114,7 @@ private:
 	static CResetGauge* m_pReset;
 	static CMap* m_pMap;
 	static CBuff* m_pBuff;
+	static CScreenFlash* m_pScreenFlash;
 
 	static CPause* m_pPause;
 

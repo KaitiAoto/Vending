@@ -473,14 +473,9 @@ bool CCollision::Gimmick(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 size, CObje
 		{
 			CPlayer* pPlayer = CGame::GetPlayer();
 
-			D3DXVECTOR3 move = pos - GimmickPos;
-			D3DXVec3Normalize(&move, &move);
-			move *= 100.0f;
-
-			CParticle::Create(GimmickPos, pPlayer->GetRot(), D3DCOLOR_RGBA(255, 1, 1, 255), 30, 5, CParticle::TYPE_NONE);
-
 			if (pPlayer->GetState() != pPlayer->STATE_HIT)
 			{
+				CParticle::Create(GimmickPos, pPlayer->GetRot(), D3DCOLOR_RGBA(255, 1, 1, 255), 30, 5, CParticle::TYPE_NONE);
 				pPlayer->Hit(5);
 			}
 		}

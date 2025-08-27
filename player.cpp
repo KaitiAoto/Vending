@@ -498,6 +498,8 @@ void CPlayer::Hit(const int nDamage)
 	{
 		m_nLife -= nDamage;
 
+		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f));
+
 		if (m_nLife > 0)
 		{
 			State(STATE_HIT);

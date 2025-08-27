@@ -9,21 +9,22 @@
 #include "fade.h"
 
 //ê√ìIÉÅÉìÉoïœêî
-CPlayer* CGame::m_pPlayer = NULL;
-CTimerMana* CGame::m_pTimer = NULL;
-CObject3D* CGame::m_pObj3D = NULL;
-CScoreMana* CGame::m_pScore = NULL;
-CBulletCntMana* CGame::m_pBulletCount = NULL;
-CCollision* CGame::m_pColl = NULL;
-CMatchUp* CGame::m_pMatchup = NULL;
-CHpGauge* CGame::m_pHpGauge = NULL;
-CLoadStage* CGame::m_pStage = NULL;
-CStart* CGame::m_pStart = NULL;
-CResetGauge* CGame::m_pReset = NULL;
-CMap* CGame::m_pMap = NULL;
-CBuff* CGame::m_pBuff = NULL;
+CPlayer* CGame::m_pPlayer = nullptr;
+CTimerMana* CGame::m_pTimer = nullptr;
+CObject3D* CGame::m_pObj3D = nullptr;
+CScoreMana* CGame::m_pScore = nullptr;
+CBulletCntMana* CGame::m_pBulletCount = nullptr;
+CCollision* CGame::m_pColl = nullptr;
+CMatchUp* CGame::m_pMatchup = nullptr;
+CHpGauge* CGame::m_pHpGauge = nullptr;
+CLoadStage* CGame::m_pStage = nullptr;
+CStart* CGame::m_pStart = nullptr;
+CResetGauge* CGame::m_pReset = nullptr;
+CMap* CGame::m_pMap = nullptr;
+CBuff* CGame::m_pBuff = nullptr;
+CScreenFlash* CGame::m_pScreenFlash = nullptr;
 
-CPause* CGame::m_pPause = NULL;
+CPause* CGame::m_pPause = nullptr;
 
 CGame::MODE CGame::m_mode = CGame::MODE_NONE;
 //==================
@@ -130,7 +131,8 @@ void CGame::Init(void)
 	CTutorial::Create(D3DXVECTOR3(TUTORIAL_SIZE / 1.5f, SCREEN_HEIGHT - (TUTORIAL_SIZE / 1.5f), 0.0f), TUTORIAL_SIZE, TUTORIAL_SIZE);
 
 	CStartUI::Create("data\\TEXTURE\\tutorial_start00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), STARTUI_SIZE_X, STARTUI_SIZE_Y);
-
+	
+	m_pScreenFlash = CScreenFlash::Create();
 
 	SetMode(MODE_TUTORIAL);
 
