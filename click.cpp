@@ -4,6 +4,7 @@
 // Author:kaiti
 //
 //==============================
+
 #include "click.h"
 #include "renderer.h"
 #include "manager.h"
@@ -29,10 +30,12 @@ CClick::~CClick()
 //===========
 CClick* CClick::Create(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
+	// メモリ確保
 	CClick* pObject2D;
 	pObject2D = new CClick;
 	//初期化
 	pObject2D->Init(pTexName, pos, fWidth, fHeight);
+	// ポインタを返す
 	return pObject2D;
 }
 //===============
@@ -43,8 +46,9 @@ HRESULT CClick::Init(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float 
 	//値を代入
 	m_pos = pos;
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	m_bSub = true;
+	//m_bSub = true;
 
+	// 初期化処理
 	CObject2D::Init(pTexName, m_pos, D3DXVECTOR3(0.0f,0.0f,0.0f), fWidth, fHeight);
 
 	//オブジェクトの種類設定
@@ -64,6 +68,8 @@ void CClick::Uninit(void)
 //============
 void CClick::Update(void)
 {
+	m_nCntTime++;
+	// 点滅させる
 	Blink();
 }
 //============
@@ -74,6 +80,8 @@ void CClick::Draw(void)
 	//デバイスの取得
 	CRenderer* pRenderer = CManager::GetRenderer();
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
+
+	// 使われていたら
 	if (m_bUse == true)
 	{
 		//ALPHAテストの設定
@@ -83,6 +91,7 @@ void CClick::Draw(void)
 
 		CObject2D::Draw();
 
+		// 設定を元に戻す
 		pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	}
 }
@@ -92,20 +101,11 @@ void CClick::Draw(void)
 //===========
 void CClick::Blink(void)
 {
-	const float Sub = 0.025f;
+	// 点滅する速さ
+	const float Speed = 0.025f;
 
-	m_col.a += (m_bSub ? -Sub : Sub);
+	m_col.a = 1.0f * fabsf(sinf(Speed * m_nCntTime));
 
-	if (m_col.a <= 0.0f)
-	{
-		m_col.a = 0.0f;
-		m_bSub = false;
-	}
-	else if (m_col.a >= 1.0f)
-	{
-		m_col.a = 1.0f;
-		m_bSub = true;
-	}
-
+	// 色を設定
 	CObject2D::SetColor(m_col);
 }

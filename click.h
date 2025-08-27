@@ -36,10 +36,9 @@ private:
 	void Blink(void);
 	//メンバ変数
 	D3DXVECTOR3 m_pos;	//位置
-	D3DXCOLOR m_col;
-	bool m_bUse;
-
-	bool m_bSub;
+	D3DXCOLOR m_col;	// 色
+	bool m_bUse;		// 有効か無効か
+	int m_nCntTime;		// カウンター
 };
-
+//until
 #endif
