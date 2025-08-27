@@ -10,7 +10,7 @@
 #include "main.h"
 #include "number.h"
 
-#define SCORE_SIZE (25)
+#define SCORE_SIZE (15)
 
 //オブジェクト2Dクラス
 class CScore:public CObject

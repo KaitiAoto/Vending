@@ -190,10 +190,10 @@ void CManager::SetMode(CScene::MODE mode)
 		//スコア代入
 		CResult::GetScoreMana()->Set(nScore);
 	}
-	//else if (m_pScene != nullptr && m_pScene->GetMode() == CScene::MODE_RANKING)
-	//{//NULLチェック＆現在がリザルト
-	//	CRanking::GetRankMana()->Set(nScore);
-	//}
+	if (mode == CScene::MODE_RANKING)
+	{//NULLチェック＆現在がリザルト
+		CRanking::GetRankMana()->SetRankIn(nScore);
+	}
 
 	//カメラ初期化
 	m_pCamera->Init();

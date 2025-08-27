@@ -30,7 +30,11 @@ public:
 	static void Reset(void);
 
 	static void Set(int nScore);
+	static void SetRankIn(int nScore);
 private:
+	void Move(void);
+	void Blink(void);
+
 	//メンバ変数
 	static CScoreMana* m_pScore[MAX_RANK];	//オブジェクトへのポインタ
 
@@ -39,6 +43,11 @@ private:
 	static D3DXVECTOR3 m_posOffset;
 	static D3DXVECTOR3 m_pos;
 	static float m_fSize;
+
+	static float m_AnimCnt[MAX_RANK];
+
+	static int m_nRankIn;
+	static int m_BlinkTime;
 };
 
 #endif

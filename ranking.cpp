@@ -32,7 +32,7 @@ void CRanking::Init(void)
 {
 	m_nCntStay = RESULT_STAY;
 
-	m_pRankMana = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 4.0f, 0.0f));
+	m_pRankMana = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.25f, SCREEN_HEIGHT / 3.5f, 0.0f));
 
 	CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
 

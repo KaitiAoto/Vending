@@ -103,26 +103,21 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 	//ƒvƒŒƒCƒ„[î•ñŽæ“¾
 	CPlayer* pPlayer = CGame::GetPlayer();
 
-	//if (bUse == true)
-	//{
-		pDegub->Print("•â[‰Â”\");
-		m_bUse = true;
-		if (pInputKey->GetTrigger(DIK_F) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_Y) == true)
-		{
-			//’†g•â[
-			pPlayer->AddContents(nRestock);
-			//Ží—ÞÝ’è
-			pPlayer->SetBulletType(type);
+	pDegub->Print("•â[‰Â”\");
+	m_bUse = true;
+	if (pInputKey->GetTrigger(DIK_F) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_Y) == true)
+	{
+		//’†g•â[
+		pPlayer->AddContents(nRestock);
+		//Ží—ÞÝ’è
+		pPlayer->SetBulletType(type);
 
-			pVender->SetUseRestock(false);
-			m_bUse = false;
+		pVender->SetUseRestock(false);
+		m_bUse = false;
 
-			CSound* pSound = CManager::GetSound();
-			pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
-		}
-	//}
-	//else if (bUse == false)
-	//{
-	//	m_bUse = false;
-	//}
+		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.5f));
+
+		CSound* pSound = CManager::GetSound();
+		pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
+	}
 }

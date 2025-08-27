@@ -43,7 +43,8 @@ CScoreMana* CScoreMana::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 HRESULT CScoreMana::Init(void)
 {
 	//èâä˙âª
-	
+	m_nScore = 0;
+
 	return S_OK;
 }
 //============
@@ -81,7 +82,7 @@ void CScoreMana::SetPos(D3DXVECTOR3 pos)
 {
 	for (int nCnt = 0; nCnt < MAX_SCORE; nCnt++)
 	{
-		m_pScore[nCnt]->GetNumber()->SetPos({ pos.x + +(nCnt * m_fWidth * 2.5f), pos.y, pos.z });
+		m_pScore[nCnt]->GetNumber()->SetPos({ pos.x + (nCnt * m_fWidth * 2.5f), pos.y, pos.z });
 	}
 }
 void CScoreMana::SetColor(D3DXCOLOR col)

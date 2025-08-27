@@ -47,4 +47,6 @@ void CBuff::AddSpeed(float fSpeed, float fDuration)
     m_type = TYPE_SPEED;
 
     CBuffIcon::Create({ BUFF_X  / 1.5f,SCREEN_HEIGHT / 2 + 100.0f,0.0f }, BUFF_X, BUFF_Y);
+
+    CGame::GetFlash()->SetColor(D3DXCOLOR(0.0f, 0.0f, 1.0f, 0.5f));
 }

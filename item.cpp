@@ -201,12 +201,14 @@ void CItem::Bonus(void)
 
 		pPlayer->AddContents(ITEM_BULLET);
 
-		CEffectCircle::Create(pos, m_rot, 30.0f, D3DXCOLOR(0.8f, 0.5f, 0.0f, 0.3f), CMeshCircle::TYPE_BOTHSIDES, CEffectCircle::TYPE_UPDOWN);
+		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.5f));
+
 		break;
 	}
 	case TYPE_LIFE:
 		pPlayer->Heal(ITEM_HEAL);
-		CEffectCircle::Create(pos, m_rot, 30.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 0.3f), CMeshCircle::TYPE_BOTHSIDES, CEffectCircle::TYPE_UPDOWN);
+		CGame::GetFlash()->SetColor(D3DXCOLOR(0.0f, 1.0f, 0.0f, 0.5f));
+
 		break;
 	default:
 		break;

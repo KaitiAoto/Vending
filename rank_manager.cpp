@@ -14,6 +14,9 @@ int CRankMana::m_nScore[MAX_RANK] = {};
 D3DXVECTOR3 CRankMana::m_posOffset = {};
 D3DXVECTOR3 CRankMana::m_pos = {};
 float CRankMana::m_fSize = NULL;
+float CRankMana::m_AnimCnt[MAX_RANK] = {};
+int CRankMana::m_nRankIn = -1;
+int CRankMana::m_BlinkTime = NULL;
 //==================
 // コンストラクタ
 //==================
@@ -111,34 +114,78 @@ void CRankMana::Uninit(void)
 //============
 void CRankMana::Update(void)
 {	
+	Move();
+
+	Blink();
+}
+//===========
+// 移動
+//===========
+void CRankMana::Move(void)
+{
 	const float MoveDuration = 120.0f;  //1つのスコアが滑り込むフレーム数
 	const float Stagger = 10.0f;        //順番にずらすフレーム差
 	const float startX = -500.0f;		//開始時のX座標
 
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		//各スコア用のカウンター
-		static float AnimCnt[MAX_RANK] = { 0 };
-
-		if (AnimCnt[nCnt] < MoveDuration)
+		if (m_AnimCnt[nCnt] < MoveDuration + nCnt * Stagger)
 		{
-			AnimCnt[nCnt] += 1.0f;
+			m_AnimCnt[nCnt] += 1.0f;
 		}
 
 		//遅延
-		float t = (AnimCnt[nCnt] - nCnt * Stagger) / MoveDuration;
+		float t = (m_AnimCnt[nCnt] - nCnt * Stagger) / MoveDuration;
 		if (t < 0.0f) t = 0.0f;
-		if (t > 1.0f) t = 1.0f;
 
-		// 弾性イージング
-		float ease = CEasing::OutElastic(t);
-
-		m_pos.x = startX + (m_posOffset.x - startX) * ease;
+		float posX;
+		if (t >= 1.0f)
+		{
+			posX = m_posOffset.x;
+		}
+		else
+		{
+			// 弾性イージング
+			float ease = CEasing::OutElastic(t);
+			posX = startX + (m_posOffset.x - startX) * ease;
+		}
 
 		//位置更新
-		m_pScore[nCnt]->SetPos(D3DXVECTOR3(m_pos.x, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f));
+		m_pScore[nCnt]->SetPos(D3DXVECTOR3(posX, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f));
 	}
 }
+//============
+// 点滅
+//============
+void CRankMana::Blink(void)
+{
+	const int nBlinkFrame = 5;//点滅フレーム数
+	const int nBlinkTime = 60;
+	const D3DXCOLOR BaseCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	const D3DXCOLOR BlinkCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+
+	m_BlinkTime++;
+
+	if ((m_BlinkTime / nBlinkFrame) % 2 == 0)
+	{//ダメージ色にする
+		if (m_pScore[m_nRankIn] != NULL)
+		{
+			m_pScore[m_nRankIn]->SetColor(BlinkCol);
+		}
+	}
+	else
+	{//通常色に戻す
+		if (m_pScore[m_nRankIn] != NULL)
+		{
+			m_pScore[m_nRankIn]->SetColor(BaseCol);
+		}
+	}
+	if (m_BlinkTime >= nBlinkTime)
+	{
+		m_BlinkTime = 0;
+	}
+}
+
 //============
 // 描画処理
 //============
@@ -207,3 +254,16 @@ void CRankMana::Set(int nScore)
 	{//エラーチェック
 	}
 }
+
+void CRankMana::SetRankIn(int nScore)
+{
+	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
+	{
+		if (m_nScore[nCnt] == nScore)
+		{
+			m_nRankIn = nCnt;
+			break;
+		}
+	}
+}
+

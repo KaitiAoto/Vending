@@ -485,6 +485,17 @@ void CPlayer::Action(void)
 		CEffectCircle::Create(m_pos, m_rot, 30.0f, D3DXCOLOR(0.8f, 0.5f, 0.0f, 0.3f), CMeshCircle::TYPE_BOTHSIDES, CEffectCircle::TYPE_UPDOWN);
 	}
 
+	if (pInputKey->GetTrigger(DIK_0) == true)
+	{
+		m_nLife -= 10;
+	}
+	if (pInputKey->GetTrigger(DIK_9) == true)
+	{
+		CScoreMana* pScore = CGame::GetScoreMana();
+		pScore->AddScore(1);
+	}
+
+
 #endif
 }
 //================
