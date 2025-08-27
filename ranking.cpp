@@ -12,6 +12,7 @@
 CLoadStage* CRanking::m_pStage = NULL;
 CRankMana* CRanking::m_pRankMana = NULL;
 int CRanking::m_nPendingScore = 0;
+int CRanking::m_NowScore = 0;
 //==================
 // コンストラクタ
 //==================
@@ -96,4 +97,10 @@ void CRanking::Update(void)
 void CRanking::Draw(void)
 {
 
+}
+
+void CRanking::Set(void)
+{
+	m_pRankMana->Set(m_NowScore);
+	m_pRankMana->SetRankIn(m_NowScore);
 }

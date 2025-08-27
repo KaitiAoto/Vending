@@ -27,27 +27,27 @@ public:
 
 	static CRankMana* Create(D3DXVECTOR3 pos);
 
-	static void Reset(void);
+	void Reset(void);
 
-	static void Set(int nScore);
-	static void SetRankIn(int nScore);
+	void Set(int nScore);
+	void SetRankIn(int nScore);
 private:
 	void Move(void);
 	void Blink(void);
 
 	//メンバ変数
-	static CScoreMana* m_pScore[MAX_RANK];	//オブジェクトへのポインタ
+	CScoreMana* m_pScore[MAX_RANK];	//オブジェクトへのポインタ
 
-	static int m_nScore[MAX_RANK];
+	int m_nScore[MAX_RANK];
 
-	static D3DXVECTOR3 m_posOffset;
-	static D3DXVECTOR3 m_pos;
-	static float m_fSize;
+	D3DXVECTOR3 m_posOffset;
+	D3DXVECTOR3 m_pos;
+	float m_fSize;
 
-	static float m_AnimCnt[MAX_RANK];
+	float m_AnimCnt[MAX_RANK];
 
-	static int m_nRankIn;
-	static int m_BlinkTime;
+	int m_nRankIn;
+	int m_BlinkTime;
 };
 
 #endif

@@ -115,7 +115,7 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 		pVender->SetUseRestock(false);
 		m_bUse = false;
 
-		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.5f));
+		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.5f));
 
 		CSound* pSound = CManager::GetSound();
 		pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);

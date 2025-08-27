@@ -35,6 +35,8 @@ public:
 	static void SetPendingScore(int score) { m_nPendingScore = score; }
     static int GetPendingScore() { return m_nPendingScore; }
 
+	static void SetNowScore(int nScore) { m_NowScore = nScore; }
+	static void Set(void);
 private:
 	static CLoadStage* m_pStage;
 	static CRankMana* m_pRankMana;
@@ -42,6 +44,7 @@ private:
 	int m_nCntStay;
 
 	static int m_nPendingScore;
+	static int m_NowScore;
 };
 
 #endif

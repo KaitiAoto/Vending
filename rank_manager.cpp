@@ -8,20 +8,17 @@
 #include "renderer.h"
 #include "manager.h"
 #include "easing.h"
-//静的メンバ変数
-CScoreMana* CRankMana::m_pScore[MAX_RANK] = {};
-int CRankMana::m_nScore[MAX_RANK] = {};
-D3DXVECTOR3 CRankMana::m_posOffset = {};
-D3DXVECTOR3 CRankMana::m_pos = {};
-float CRankMana::m_fSize = NULL;
-float CRankMana::m_AnimCnt[MAX_RANK] = {};
-int CRankMana::m_nRankIn = -1;
-int CRankMana::m_BlinkTime = NULL;
+#include "debugproc.h"
 //==================
 // コンストラクタ
 //==================
 CRankMana::CRankMana()
 {
+	m_nRankIn = -1;
+	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
+	{
+		m_AnimCnt[nCnt] = 0.0f;
+	}
 }
 //================
 // デストラクタ
@@ -113,10 +110,20 @@ void CRankMana::Uninit(void)
 // 更新処理
 //============
 void CRankMana::Update(void)
-{	
+{
 	Move();
 
-	Blink();
+	if (m_nRankIn != -1)
+	{
+		Blink();
+	}
+	else
+	{
+		for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
+		{
+			m_pScore[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+	}
 }
 //===========
 // 移動
@@ -150,6 +157,9 @@ void CRankMana::Move(void)
 			posX = startX + (m_posOffset.x - startX) * ease;
 		}
 
+		CDebugProc* pDegub = CManager::GetDebug();
+		pDegub->Print("位置：%.1f", posX);
+
 		//位置更新
 		m_pScore[nCnt]->SetPos(D3DXVECTOR3(posX, m_posOffset.y + (nCnt * m_fSize * 3.0f), 0.0f));
 	}
@@ -159,7 +169,7 @@ void CRankMana::Move(void)
 //============
 void CRankMana::Blink(void)
 {
-	const int nBlinkFrame = 5;//点滅フレーム数
+	const int nBlinkFrame = 20;//点滅フレーム数
 	const int nBlinkTime = 60;
 	const D3DXCOLOR BaseCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	const D3DXCOLOR BlinkCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);

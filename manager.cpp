@@ -178,21 +178,18 @@ void CManager::SetMode(CScene::MODE mode)
 
 	m_pScene = CScene::Create(mode);
 	
+
+	m_pScene->Init();
+	
 	if (mode == CScene::MODE_RANKING)
 	{//NULLチェック＆現在がリザルト
-		CRanking::GetRankMana()->Set(nScore);
+		CRanking::SetNowScore(nScore);
+		CRanking::Set();
 	}
-	
-	m_pScene->Init();
-
 	if (m_pScene != nullptr && m_pScene->GetMode() == CScene::MODE_RESULT)
 	{//NULLチェック＆現在がリザルト
 		//スコア代入
 		CResult::GetScoreMana()->Set(nScore);
-	}
-	if (mode == CScene::MODE_RANKING)
-	{//NULLチェック＆現在がリザルト
-		CRanking::GetRankMana()->SetRankIn(nScore);
 	}
 
 	//カメラ初期化
