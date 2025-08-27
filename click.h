@@ -17,7 +17,6 @@
 class CClick:public CObject2D
 {
 public:
-
 	//ƒƒ“ƒoŠÖ”
 	CClick(int nPriority = 9);
 	~CClick();
