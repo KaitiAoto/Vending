@@ -99,6 +99,7 @@ public:
 	static CPause* GetPause(void) { return m_pPause; }
 
 	static void SetMode(MODE mode) { m_mode = mode; }
+	static MODE GetMode(void) { return m_mode; }
 private:
 
 	//Ã“Iƒƒ“ƒo•Ï”

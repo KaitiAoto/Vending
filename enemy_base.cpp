@@ -113,7 +113,8 @@ void CEnemyBase::Uninit(void)
 //============
 void CEnemyBase::Update(void)
 {
-	CScoreMana* pScore = CGame::GetBreakCnt();
+	CScoreMana* pBreakScore = CGame::GetBreakCnt();
+	CScoreMana* pTotalScore = CGame::GetTotalScore();
 	CDebugProc* pDegub = CManager::GetDebug();
 
 	if (m_bUse == true)
@@ -132,7 +133,8 @@ void CEnemyBase::Update(void)
 
 			m_bUse = false;
 
-			pScore->AddScore(1);
+			pBreakScore->AddScore(1);
+			pTotalScore->AddScore(10000);
 
 			CSound* pSound = CManager::GetSound();
 			pSound->PlaySound(CSound::SOUND_LABEL_BREAK);

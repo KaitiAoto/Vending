@@ -178,6 +178,8 @@ void CItem::Move(void)
 //============
 void CItem::Bonus(void)
 {
+	CScoreMana* pTotalScore = CGame::GetTotalScore();
+
 	//ƒvƒŒƒCƒ„[î•ñŽæ“¾
 	CPlayer* pPlayer = CGame::GetPlayer();
 	D3DXVECTOR3 pos = pPlayer->GetPos();
@@ -203,11 +205,14 @@ void CItem::Bonus(void)
 
 		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.5f));
 
+		pTotalScore->AddScore(100);
 		break;
 	}
 	case TYPE_LIFE:
 		pPlayer->Heal(ITEM_HEAL);
 		CGame::GetFlash()->SetColor(D3DXCOLOR(0.0f, 1.0f, 0.0f, 0.5f));
+
+		pTotalScore->AddScore(200);
 
 		break;
 	default:

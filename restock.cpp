@@ -103,6 +103,8 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 	//プレイヤー情報取得
 	CPlayer* pPlayer = CGame::GetPlayer();
 
+	CScoreMana* pTotalScore = CGame::GetTotalScore();
+
 	pDegub->Print("補充可能");
 	m_bUse = true;
 	if (pInputKey->GetTrigger(DIK_F) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_Y) == true)
@@ -119,5 +121,10 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 
 		CSound* pSound = CManager::GetSound();
 		pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
+
+		if (CGame::GetMode() != CGame::MODE_TUTORIAL)
+		{
+			pTotalScore->AddScore(50);
+		}
 	}
 }

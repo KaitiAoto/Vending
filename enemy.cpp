@@ -14,6 +14,7 @@
 #include "debugproc.h"
 #include "collision.h"
 #include "matchup.h"
+#include "score_manager.h"
 //==================
 // コンストラクタ
 //==================
@@ -541,6 +542,8 @@ void CEnemy::Hit(const int nDamage)
 {
 	CSound* pSound = CManager::GetSound();
 
+	CScoreMana* pTotalScore = CGame::GetTotalScore();
+
 	m_nLife -= nDamage;
 
 	if (m_nLife > 0)
@@ -554,20 +557,30 @@ void CEnemy::Hit(const int nDamage)
 			if (nDamage == BULLET_ATTACK)
 			{//通常ダメ
 				m_pModel->SetColor(D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f));
+				
 				CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 255, 1, 255), 5, 5, CParticle::TYPE_NONE);
+				
 				pSound->PlaySound(CSound::SOUND_LABEL_DAMAGE);
+
+				pTotalScore->AddScore(200);
 			}
 			else if (nDamage == BULLET_ATTACK * ADVANTAGE)
 			{//効果抜群
 				m_pModel->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+				
 				CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 127, 1, 255), 5, 8, CParticle::TYPE_NONE);
+				
 				pSound->PlaySound(CSound::SOUND_LABEL_CRITICAL);
+
+				pTotalScore->AddScore(400);
 			}
 			else if (nDamage == BULLET_ATTACK / DISADVANTAGE)
 			{//効果いまひとつ
 				m_pModel->SetColor(D3DXCOLOR(0.4f, 0.4f, 0.9f, 1.0f));
 				CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(1, 127, 255, 255), 5, 3, CParticle::TYPE_NONE);
 				pSound->PlaySound(CSound::SOUND_LABEL_RESIST);
+
+				pTotalScore->AddScore(50);
 			}
 			else if (nDamage <= 0)
 			{//ノーダメ
@@ -582,6 +595,8 @@ void CEnemy::Hit(const int nDamage)
 					m_pModel->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 					CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 1, 255, 255), 5, 3, CParticle::TYPE_NONE);
 					pSound->PlaySound(CSound::SOUND_LABEL_DAMAGE);
+
+					pTotalScore->AddScore(100);
 				}
 			}
 		}
@@ -590,6 +605,8 @@ void CEnemy::Hit(const int nDamage)
 	{
 		State(STATE_DEAD);
 		pSound->PlaySound(CSound::SOUND_LABEL_KILL);
+
+		pTotalScore->AddScore(1000);
 	}
 }
 //=================

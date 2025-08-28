@@ -717,4 +717,7 @@ void CPlayer::RecoverFromStuck(void)
 	{
 		m_pShadow->SetPos(m_pos);
 	}
+
+	CScoreMana* pTotalScore = CGame::GetTotalScore();
+	pTotalScore->AddScore(1);
 }
