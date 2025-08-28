@@ -47,6 +47,7 @@ HRESULT CScoreMana::Init(int MaxScore)
 {
 	//初期化
 	m_nScore = 0;
+	m_nCntUp = 0;
 	
 	m_MaxScore = MaxScore;
 
@@ -70,7 +71,23 @@ void CScoreMana::Uninit(void)
 //============
 void CScoreMana::Update(void)
 {
+	if (m_nCntUp < m_nScore)
+	{
+		//目標のスコアと表示のスコアの差分を計算
+		int nDiff = m_nScore - m_nCntUp;
 
+		//差分の10分の１の値を足す
+		int nAdd = max(1, nDiff / 10);//足す値を計算
+		m_nCntUp += nAdd;//加算
+
+		if (m_nCntUp >= m_nScore)
+		{//目標の値を超えないようにする
+			m_nCntUp = m_nScore;
+		}
+
+		//数字切り替え
+		ChangeTex();
+	}
 }
 //============
 // 描画処理
@@ -86,7 +103,6 @@ void CScoreMana::AddScore(int nAdd)
 	if (CGame::GetMode() == CGame::MODE_PLAY)
 	{
 		m_nScore += nAdd;
-		ChangeTex();
 	}
 }
 //================
@@ -115,9 +131,9 @@ void CScoreMana::SetColor(D3DXCOLOR col)
 void CScoreMana::ChangeTex(void)
 {
 	int aPosTexU;
-	if (m_nScore <= 0)
+	if (m_nCntUp <= 0)
 	{
-		m_nScore = 0;
+		m_nCntUp = 0;
 	}
 
 	int nData = m_ScoreData * 10;
@@ -128,11 +144,13 @@ void CScoreMana::ChangeTex(void)
 		{
 			CNumber* pNumber = m_pScore[nCnt]->GetNumber();
 
-			aPosTexU = m_nScore % nData / nData2;
+			aPosTexU = m_nCntUp % nData / nData2;
 			nData /= 10;
 			nData2 /= 10;
-
-			pNumber->SetTex((aPosTexU * 0.1f), (aPosTexU * 0.1f) + 0.1f, 0.0f, 1.0f);
+			if (pNumber != nullptr)
+			{
+				pNumber->SetTex((aPosTexU * 0.1f), (aPosTexU * 0.1f) + 0.1f, 0.0f, 1.0f);
+			}
 		}
 	}
 }

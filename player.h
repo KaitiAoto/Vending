@@ -78,7 +78,7 @@ public:
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
 	int GetLife(void) { return m_nLife; }
 	STATE GetState(void) { return m_State; }
-
+	bool GetbMove(void) { return m_bMove; }
 
 	void AddContents(int nAdd) { m_nCntContents += nAdd; if (m_nCntContents >= 99) { m_nCntContents = 99; } }
 	void ClearContents(void) { m_nCntContents = 0; }
@@ -116,7 +116,7 @@ private:
 	static bool m_bUse;					//使用しているか
 	//bool m_bJump;						//ジャンプしているか
 	//bool m_bLanding;					//着地判定
-
+	bool m_bMove;
 	//ステータス
 	int m_nLife;						//ライフ
 	float m_fSpeed;						//移動速度

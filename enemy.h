@@ -14,7 +14,7 @@
 
 #define ENEMY_LIFE (30)
 #define ENEMY_ACTIONSTATE (300)
-#define ENEMY_SPEED (1.3f)
+#define ENEMY_SPEED (1.35f)
 
 //“GƒNƒ‰ƒX
 class CEnemy :public CObject

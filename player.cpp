@@ -281,6 +281,8 @@ void CPlayer::Move(void)
 	CInputKey* pInputKey = CManager::GetInputKey();
 	//パッド
 	CInputPad* pInputPad = CManager::GetInputPad();
+	//マウス取得
+	CInputMouse* pInputMouse = CManager::GetInputMouse();
 
 	CCamera* pCamera = CManager::GetCamera();
 	D3DXVECTOR3 CameraRot = pCamera->GetRot();
@@ -378,6 +380,26 @@ void CPlayer::Move(void)
 
 			m_rotDest.y = rotY + D3DX_PI;
 		}
+
+
+		const float sensitivity = 0.05f; // 感度調整用
+		float rx = pInputPad->GetRightStickX(); // 横
+		// デッドゾーン処理
+		const float deadZone = 0.2f;
+		if (fabsf(rx) > deadZone)
+		{
+			m_rot.y += rx * sensitivity;
+		}
+	}
+
+	//マウスの左右移動で視点旋回
+	if (pInputMouse != nullptr)
+	{
+		int mouseMoveX = pInputMouse->GetRelX();
+
+		const float sensitivity = 0.0003f; // 感度調整用
+
+		m_rotDest.y += mouseMoveX * sensitivity;
 	}
 
 	//角度の正規化
@@ -394,7 +416,6 @@ void CPlayer::Move(void)
 
 	m_move.y -= GRAVITY; //重力加算
 
-	bool bMove = false;
 	//動いていたら
 	if (m_move.x != 0 || m_move.z != 0)
 	{//モーションをMOVEに
@@ -403,7 +424,7 @@ void CPlayer::Move(void)
 			m_pMotion->SetType(CMotion::TYPE_MOVE);
 		}
 		//m_pMotion->SetType(CMotion::TYPE_MOVE);
-		bMove = true;
+		m_bMove = true;
 	}
 	else
 	{
@@ -411,6 +432,7 @@ void CPlayer::Move(void)
 		{
 			m_pMotion->SetType(CMotion::TYPE_NEUTRAL);
 		}
+		m_bMove = false;
 	}
 	//前回の位置保存
 	m_posOld = m_pos;
@@ -420,7 +442,7 @@ void CPlayer::Move(void)
 
 	//当たり判定
 	bool bColl = Collision();
-	CheckStack(bColl, bMove);
+	CheckStack(bColl, m_bMove);
 	
 	if (m_pos.y < 0.0f)
 	{
@@ -460,6 +482,19 @@ void CPlayer::Action(void)
 				pSound->PlaySound(CSound::SOUND_LABEL_SHOT);
 
 				m_fShotTimer = SHOT_INTERVAL;
+
+				//チュートリアルクリア判定
+				if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+				{
+					CTutorial* pTutorial = CGame::GetTutorial();
+					if (pTutorial != nullptr)
+					{
+						if (pTutorial->GetType() == CTutorial::TYPE_BULLET)
+						{
+								CGame::GetTutorial()->SetClear(true);
+						}
+					}
+				}
 			}
 		}
 		else

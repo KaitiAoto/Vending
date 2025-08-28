@@ -118,6 +118,15 @@ void CResult::Update(void)
 			pFade->Set(CScene::MODE_RANKING);
 		}
 	}
+
+	if (m_pBreakCnt != nullptr)
+	{
+		m_pBreakCnt->Update();
+	}
+	if (m_pTotalScore != nullptr)
+	{
+		m_pTotalScore->Update();
+	}
 }
 //=======================
 // •`‰æ

@@ -121,12 +121,12 @@ void CCamera::Update(void)
 	}
 
 
-	//マウスの左右移動で視点旋回（感度は適宜調整）
+	//マウスの左右移動で視点旋回
 	if (pInputMouse != nullptr)
 	{
 		int mouseMoveX = pInputMouse->GetRelX();
 
-		const float sensitivity = 0.0005f; // 感度調整用
+		const float sensitivity = 0.0003f; // 感度調整用
 
 		m_rot.y += mouseMoveX * sensitivity;
 
@@ -155,7 +155,7 @@ void CCamera::Update(void)
 		float rx = pInputPad->GetRightStickX(); // 横
 		float ry = pInputPad->GetRightStickY(); // 縦
 
-		// デッドゾーン処理（わずかな傾きによる誤動作防止）
+		// デッドゾーン処理
 		const float deadZone = 0.2f;
 		if (fabsf(rx) > deadZone)
 		{

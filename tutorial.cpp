@@ -184,32 +184,19 @@ void CTutorial::Move(void)
 
 void CTutorial::CheckClear(void)
 {
-	//キー取得
-	CInputKey* pInputKey = CManager::GetInputKey();
 	//マウス取得
 	CInputMouse* pInputMouse = CManager::GetInputMouse();
 	//パッド
 	CInputPad* pInputPad = CManager::GetInputPad();
+
+	CPlayer* pPlayer = CGame::GetPlayer();
 
 	switch (m_type)
 	{
 	case TYPE_MOVE:
 	{
 		//プレイヤー移動でクリア
-		if (pInputKey->GetTrigger(DIK_W) == true || pInputKey->GetTrigger(DIK_A) == true || pInputKey->GetTrigger(DIK_S) == true || pInputKey->GetTrigger(DIK_D) == true)
-		{
-			m_bClear = true;
-		}
-
-		const float DEADZONE = 3000.0f;  // デッドゾーン
-		XINPUT_STATE* pJoyState = pInputPad->GetJoyStickAngle();
-		SHORT lx = pJoyState->Gamepad.sThumbLX;
-		SHORT ly = pJoyState->Gamepad.sThumbLY;
-
-		float fLX = (abs(lx) > DEADZONE) ? lx / 32768.0f : 0.0f;
-		float fLY = (abs(ly) > DEADZONE) ? ly / 32768.0f : 0.0f;
-
-		if (fLX != 0.0f || fLY != 0.0f)
+		if(pPlayer->GetbMove())
 		{
 			m_bClear = true;
 		}
@@ -235,27 +222,6 @@ void CTutorial::CheckClear(void)
 
 		break;
 	}
-	//case TYPE_JUMP:
-	//	//ジャンプでクリア
-	//	if (pInputKey->GetTrigger(DIK_SPACE) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_A) == true)
-	//	{
-	//		m_bClear = true;
-	//	}
-	//	break;
-	case TYPE_BULLET:
-		//弾発射でクリア
-		if (pInputMouse->GetTrigger(0) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_B) == true)
-		{
-			m_bClear = true;
-		}
-		break;
-	case TYPE_RESTOCK:
-		//補充でクリア
-		if (pInputKey->GetTrigger(DIK_F) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_Y) == true)
-		{
-			m_bClear = true;
-		}
-		break;
 	case TYPE_MATCHUP:
 		//時間経過でクリア
 		m_nTime++;

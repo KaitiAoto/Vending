@@ -95,6 +95,7 @@ public:
 	static CMap* GetMap(void) { return m_pMap; }
 	static CBuff* GetBuff(void) { return m_pBuff; }
 	static CScreenFlash* GetFlash(void) { return m_pScreenFlash; }
+	static CTutorial* GetTutorial(void) { return m_pTutprial; }
 
 	static CPause* GetPause(void) { return m_pPause; }
 
@@ -118,6 +119,7 @@ private:
 	static CMap* m_pMap;
 	static CBuff* m_pBuff;
 	static CScreenFlash* m_pScreenFlash;
+	static CTutorial* m_pTutprial;
 
 	static CPause* m_pPause;
 

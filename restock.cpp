@@ -123,5 +123,18 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 		pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
 
 		pTotalScore->AddScore(50);
+
+		//チュートリアルクリア判定
+		if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+		{
+			CTutorial* pTutorial = CGame::GetTutorial();
+			if (pTutorial != nullptr)
+			{
+				if (pTutorial->GetType() == CTutorial::TYPE_RESTOCK)
+				{
+					CGame::GetTutorial()->SetClear(true);
+				}
+			}
+		}
 	}
 }

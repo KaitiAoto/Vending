@@ -16,8 +16,8 @@
 #include "map_enemybase.h"
 
 #define ENEMY_BASE_LIFE (120)
-#define ENEMY_SPAN (240)
-#define ENEMYBASE_RESPAWN (3600)
+#define ENEMY_SPAN (180)
+#define ENEMYBASE_RESPAWN (3000)
 
 //オブジェクト2Dクラス
 class CEnemyBase:public CObject

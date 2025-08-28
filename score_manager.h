@@ -39,6 +39,7 @@ private:
 	CScore* m_pScore[MAX_SCORE];	//オブジェクトへのポインタ
 
 	int m_nScore;
+	int m_nCntUp;
 	int m_nDigit;
 
 	float m_fWidth;

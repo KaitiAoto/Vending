@@ -51,9 +51,11 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	bool GetUse(void){return m_bUse;}
+	TYPE GetType(void) { return m_type; }
 	//ê›íËèàóù
 
 	void SetUse(bool bUse) { m_bUse = bUse; }
+	void SetClear(bool bClear) { m_bClear = bClear; }
 private:
 	void Move(void);
 

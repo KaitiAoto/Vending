@@ -130,6 +130,10 @@ void CRankMana::Update(void)
 			m_pScore[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 	}
+	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
+	{
+		m_pScore[nCnt]->Update();
+	}
 }
 //===========
 // ˆÚ“®
