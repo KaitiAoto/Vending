@@ -85,7 +85,8 @@ public:
 	static CPlayer* GetPlayer(void) { return m_pPlayer; }
 	static CTimerMana* GetTime(void) { return m_pTimer; }
 	static CObject3D* GetObj3D(void) { return m_pObj3D; }
-	static CScoreMana* GetScoreMana(void) { return m_pScore; }
+	static CScoreMana* GetBreakCnt(void) { return m_pBreakCnt; }
+	static CScoreMana* GetTotalScore(void) { return m_pTotalScore; }
 	static CCollision* GetColl(void) { return m_pColl; }
 	static CMatchUp* GetMatchup(void) { return m_pMatchup; }
 	static CHpGauge* GetHpGauge(void) { return m_pHpGauge; }
@@ -104,7 +105,8 @@ private:
 	static CPlayer* m_pPlayer;					//パッドへのポインタ
 	static CTimerMana* m_pTimer;				//タイマーへのポインタ
 	static CObject3D* m_pObj3D;					//3Dオブジェクトへのポインタ
-	static CScoreMana* m_pScore;				//スコアへのポインタ
+	static CScoreMana* m_pBreakCnt;				//スコアへのポインタ
+	static CScoreMana* m_pTotalScore;			//スコアへのポインタ
 	static CBulletCntMana* m_pBulletCount;		//弾数カウンターへのポインタ
 	static CCollision* m_pColl;					//当たり判定へのポインタ
 	static CMatchUp* m_pMatchup;				//タイプ相性へのポインタ

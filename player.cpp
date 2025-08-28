@@ -489,11 +489,21 @@ void CPlayer::Action(void)
 	{
 		m_nLife -= 10;
 	}
+	CScoreMana* pScore = CGame::GetBreakCnt();
+	CScoreMana* pScore1= CGame::GetTotalScore();
+
 	if (pInputKey->GetTrigger(DIK_9) == true)
 	{
-		CScoreMana* pScore = CGame::GetScoreMana();
 		pScore->AddScore(1);
 	}
+	if (pInputKey->GetTrigger(DIK_8) == true)
+	{
+		pScore1->AddScore(1);
+		
+	}
+	CDebugProc* pDegub = CManager::GetDebug();
+	pDegub->Print("破壊数：%d", pScore->GetScore());
+	pDegub->Print("トータル：%d", pScore1->GetScore());
 
 
 #endif

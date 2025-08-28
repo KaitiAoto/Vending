@@ -30,11 +30,13 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CScoreMana* GetScoreMana(void) { return m_pScore; }
+	static CScoreMana* GetBreakCnt(void) { return m_pBreakCnt; }
+	static CScoreMana* GetTotalScore(void) { return m_pTotalScore; }
 
 private:
 	static CLoadStage* m_pStage;
-	static CScoreMana* m_pScore;				//スコアへのポインタ
+	static CScoreMana* m_pBreakCnt;				//スコアへのポインタ
+	static CScoreMana* m_pTotalScore;			//スコアへのポインタ
 
 	int m_nCntStay;
 };

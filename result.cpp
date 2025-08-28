@@ -12,7 +12,8 @@
 #include "click.h"
 //
 CLoadStage* CResult::m_pStage = NULL;
-CScoreMana* CResult::m_pScore = NULL;
+CScoreMana* CResult::m_pBreakCnt = nullptr;
+CScoreMana* CResult::m_pTotalScore = nullptr;
 
 //==================
 // コンストラクタ
@@ -36,16 +37,21 @@ void CResult::Init(void)
 
 	m_nCntStay = RESULT_STAY;
 
-	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 2.75f, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 2.75f, SCREEN_HEIGHT / 2.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 2.75f, SCREEN_HEIGHT / 1.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
 
 	CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
 
 	//スコア生成
-	if (m_pScore == NULL)
+	if (m_pBreakCnt == NULL)
 	{
-		m_pScore = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.5f, SCREEN_HEIGHT / 2, 0.0f), SCORE_SIZE * 1.5f, SCORE_SIZE * 1.5f);
+		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.5f, SCREEN_HEIGHT / 2.5f, 0.0f), SCORE_SIZE * 2.0f, SCORE_SIZE * 2.0f, 2);
 	}
-	
+	if (m_pTotalScore == NULL)
+	{
+		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.5f, SCREEN_HEIGHT / 1.5f, 0.0f), SCORE_SIZE * 2.0f, SCORE_SIZE * 2.0f, 2);
+	}
+
 	if (m_pStage == NULL)
 	{
 		m_pStage = new CLoadStage;
@@ -73,13 +79,21 @@ void CResult::Uninit(void)
 		m_pStage = nullptr;
 	}
 	//スコア破棄
-	if (m_pScore != NULL)
+	if (m_pBreakCnt != NULL)
 	{
 		//スコア終了処理
-		m_pScore->Uninit();
+		m_pBreakCnt->Uninit();
 
-		delete m_pScore;
-		m_pScore = NULL;
+		delete m_pBreakCnt;
+		m_pBreakCnt = NULL;
+	}
+	if (m_pTotalScore != NULL)
+	{
+		//スコア終了処理
+		m_pTotalScore->Uninit();
+
+		delete m_pTotalScore;
+		m_pTotalScore = NULL;
 	}
 
 	CObject::Release();

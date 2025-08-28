@@ -19,6 +19,10 @@ CRankMana::CRankMana()
 	{
 		m_AnimCnt[nCnt] = 0.0f;
 	}
+	for (int nCnt = 0; nCnt < 64; nCnt++)
+	{
+		m_pTxtName[nCnt] = {};
+	}
 }
 //================
 // デストラクタ
@@ -29,11 +33,11 @@ CRankMana::~CRankMana()
 //===========
 // 生成処理
 //===========
-CRankMana* CRankMana::Create(D3DXVECTOR3 pos)
+CRankMana* CRankMana::Create(D3DXVECTOR3 pos, const char* pTxtName)
 {
 	CRankMana* pScoreMana = new CRankMana;
 
-	pScoreMana->Init(pos);
+	pScoreMana->Init(pos, pTxtName);
 
 	return pScoreMana;
 }
@@ -41,7 +45,7 @@ void CRankMana::Reset(void)
 {
 	FILE* pFile;
 	// ランキングファイルを読み込んで m_nScore に格納
-	pFile = fopen("data\\TEXT\\ranking.txt", "r");
+	pFile = fopen(m_pTxtName, "r");
 	if (pFile != NULL)
 	{
 		for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
@@ -62,8 +66,10 @@ void CRankMana::Reset(void)
 //===============
 // 初期化処理
 //===============
-HRESULT CRankMana::Init(D3DXVECTOR3 pos)
+HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName)
 {
+	strcpy(m_pTxtName, pTxtName);
+
 	Reset();
 
 	//順位テクスチャ
@@ -83,7 +89,7 @@ HRESULT CRankMana::Init(D3DXVECTOR3 pos)
 	//初期化
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize);
+		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize, 2);
 		m_pScore[nCnt]->Set(m_nScore[nCnt]);
 
 		CObject2D::Create(apFileName[nCnt], D3DXVECTOR3(pos.x - (fSize * 4.0f), pos.y + (nCnt * fSize * RANK_Y), 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fSize * 2.0f, fSize * 2.0f, 7);
@@ -209,7 +215,7 @@ void CRankMana::Set(int nScore)
 {
 	FILE* pFile;
 	// ファイルから既存スコアを読み込む
-	pFile = fopen("data\\TEXT\\ranking.txt", "r");
+	pFile = fopen(m_pTxtName, "r");
 	if (pFile != NULL)
 	{
 		for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
@@ -250,7 +256,7 @@ void CRankMana::Set(int nScore)
 	}
 
 	//ファイルに書き込む
-	pFile = fopen("data\\TEXT\\ranking.txt", "w");
+	pFile = fopen(m_pTxtName, "w");
 	if (pFile != NULL)
 	{
 		for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)

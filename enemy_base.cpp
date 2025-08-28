@@ -113,7 +113,7 @@ void CEnemyBase::Uninit(void)
 //============
 void CEnemyBase::Update(void)
 {
-	CScoreMana* pScore = CGame::GetScoreMana();
+	CScoreMana* pScore = CGame::GetBreakCnt();
 	CDebugProc* pDegub = CManager::GetDebug();
 
 	if (m_bUse == true)

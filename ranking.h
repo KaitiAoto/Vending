@@ -13,7 +13,7 @@
 #include "rank_manager.h"
 
 //É}ÉNÉçíËã`
-#define RESULT_STAY (90)
+#define RANK_STAY (90)
 #define RANKSCORE_SIZE (15)
 class CScene;
 class CLoadStage;
@@ -30,21 +30,16 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CRankMana* GetRankMana(void) { return m_pRankMana; }
+	static CRankMana* GetBreakRankMana(void) { return m_pBreakRank; }
+	static CRankMana* GetTotalRankMana(void) { return m_pTotalRank; }
 
-	static void SetPendingScore(int score) { m_nPendingScore = score; }
-    static int GetPendingScore() { return m_nPendingScore; }
-
-	static void SetNowScore(int nScore) { m_NowScore = nScore; }
-	static void Set(void);
+	static void SetNowScore(int nBreakScore, int nTotalScore);
 private:
 	static CLoadStage* m_pStage;
-	static CRankMana* m_pRankMana;
+	static CRankMana* m_pBreakRank;
+	static CRankMana* m_pTotalRank;
 
 	int m_nCntStay;
-
-	static int m_nPendingScore;
-	static int m_NowScore;
 };
 
 #endif

@@ -21,12 +21,12 @@ public:
 	//ÉÅÉìÉoä÷êî
 	CRankMana();
 	~CRankMana();
-	HRESULT Init(D3DXVECTOR3 pos);
+	HRESULT Init(D3DXVECTOR3 pos, const char* pTxtName);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	static CRankMana* Create(D3DXVECTOR3 pos);
+	static CRankMana* Create(D3DXVECTOR3 pos, const char* pTxtName);
 
 	void Reset(void);
 
@@ -49,6 +49,8 @@ private:
 
 	int m_nRankIn;
 	int m_BlinkTime;
+
+	char m_pTxtName[64];
 };
 
 #endif

@@ -146,50 +146,52 @@ HRESULT CManager::CreatePointa(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	return S_OK;
 }
-//
-//
-//
+//==================
+// モードの設定
+//==================
 void CManager::SetMode(CScene::MODE mode)
 {
 	if (mode != CScene::MODE_RANKING)
-	{
+	{//ランキング以外は音を止める
 		m_pSound->Stop();
 	}
 
-	//スコア保存
-	int nScore = 0;
+	//スコア保存用変数
+	int nBreakCnt = 0;
+	int nTotalScore = 0;
 
 	if (m_pScene != nullptr)
-	{
+	{//NULLチェック
 		if (mode == CScene::MODE_RESULT && m_pScene->GetMode() == CScene::MODE_GAME)
 		{//現在がゲームで次がリザルト
-			nScore = CGame::GetScoreMana()->GetScore();//スコア保存
+			nBreakCnt = CGame::GetBreakCnt()->GetScore();//破壊スコア保存
+			nTotalScore = CGame::GetTotalScore()->GetScore();//トータルスコア保存
 		}
 		else if (mode == CScene::MODE_RANKING && m_pScene->GetMode() == CScene::MODE_RESULT)
 		{//現在がゲームで次がリザルト
-			nScore = CResult::GetScoreMana()->GetScore();//スコア保存
+			nBreakCnt = CResult::GetBreakCnt()->GetScore();//破壊スコア保存
+			nTotalScore = CResult::GetTotalScore()->GetScore();//トータルスコア保存
 		}
-
+		//シーンの終了処理
 		m_pScene->Uninit();
 	}
-
+	//オブジェクト総破棄
 	CObject::ReleaseAll();
 
-
+	//新しいシーンを生成
 	m_pScene = CScene::Create(mode);
-	
-
+	//シーンの初期化
 	m_pScene->Init();
 	
 	if (mode == CScene::MODE_RANKING)
-	{//NULLチェック＆現在がリザルト
-		CRanking::SetNowScore(nScore);
-		CRanking::Set();
+	{//現在がリザルト
+		CRanking::SetNowScore(nBreakCnt, nTotalScore);//今回のスコアを保存
 	}
 	if (m_pScene != nullptr && m_pScene->GetMode() == CScene::MODE_RESULT)
 	{//NULLチェック＆現在がリザルト
 		//スコア代入
-		CResult::GetScoreMana()->Set(nScore);
+		CResult::GetBreakCnt()->Set(nBreakCnt);
+		CResult::GetTotalScore()->Set(nTotalScore);
 	}
 
 	//カメラ初期化

@@ -10,7 +10,7 @@
 #include "main.h"
 #include "score.h"
 
-#define MAX_SCORE (2)
+#define MAX_SCORE (10)
 #define SCOREDATA (10)
 
 //オブジェクト2Dクラス
@@ -21,12 +21,12 @@ public:
 	//メンバ関数
 	CScoreMana();
 	~CScoreMana();
-	HRESULT Init(void);
+	HRESULT Init(int MaxScore);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, int MaxScore);
 	void AddScore(int nAdd);
 	void Set(int nScore) { m_nScore = nScore; ChangeTex();};
 
@@ -42,6 +42,9 @@ private:
 	int m_nDigit;
 
 	float m_fWidth;
+
+	int m_MaxScore;
+	int m_ScoreData;
 };
 
 #endif

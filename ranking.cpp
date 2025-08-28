@@ -10,9 +10,8 @@
 #include "click.h"
 //
 CLoadStage* CRanking::m_pStage = NULL;
-CRankMana* CRanking::m_pRankMana = NULL;
-int CRanking::m_nPendingScore = 0;
-int CRanking::m_NowScore = 0;
+CRankMana* CRanking::m_pBreakRank = NULL;
+CRankMana* CRanking::m_pTotalRank = NULL;
 //==================
 // コンストラクタ
 //==================
@@ -31,9 +30,10 @@ CRanking::~CRanking()
 //=======================
 void CRanking::Init(void)
 {
-	m_nCntStay = RESULT_STAY;
+	m_nCntStay = RANK_STAY;
 
-	m_pRankMana = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.25f, SCREEN_HEIGHT / 3.5f, 0.0f));
+	m_pBreakRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.25f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\BreakRank.txt");
+	m_pTotalRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 4.0f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\TotalRank.txt");
 
 	CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
 
@@ -58,11 +58,17 @@ void CRanking::Uninit(void)
 		delete m_pStage;
 		m_pStage = nullptr;
 	}
-	if (m_pRankMana != NULL)
+	if (m_pBreakRank != NULL)
 	{
-		m_pRankMana->Uninit();
-		delete m_pRankMana;
-		m_pRankMana = nullptr;
+		m_pBreakRank->Uninit();
+		delete m_pBreakRank;
+		m_pBreakRank = nullptr;
+	}
+	if (m_pTotalRank != NULL)
+	{
+		m_pTotalRank->Uninit();
+		delete m_pTotalRank;
+		m_pTotalRank = nullptr;
 	}
 
 	CObject::Release();
@@ -72,7 +78,8 @@ void CRanking::Uninit(void)
 //=======================
 void CRanking::Update(void)
 {
-	m_pRankMana->Update();
+	m_pBreakRank->Update();
+	m_pTotalRank->Update();
 
 	m_nCntStay--;
 	if (m_nCntStay <= 0)
@@ -98,9 +105,14 @@ void CRanking::Draw(void)
 {
 
 }
-
-void CRanking::Set(void)
+//===================================
+// 今回のスコアからRankManaの設定
+//===================================
+void CRanking::SetNowScore(int nBreakScore, int nTotalScore)
 {
-	m_pRankMana->Set(m_NowScore);
-	m_pRankMana->SetRankIn(m_NowScore);
+	m_pBreakRank->Set(nBreakScore);//今回のスコアを保存
+	m_pBreakRank->SetRankIn(nBreakScore);//ランクインしたか
+
+	m_pTotalRank->Set(nTotalScore);//今回のスコアを保存
+	m_pTotalRank->SetRankIn(nTotalScore);//ランクインしたか
 }

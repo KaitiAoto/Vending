@@ -12,7 +12,8 @@
 CPlayer* CGame::m_pPlayer = nullptr;
 CTimerMana* CGame::m_pTimer = nullptr;
 CObject3D* CGame::m_pObj3D = nullptr;
-CScoreMana* CGame::m_pScore = nullptr;
+CScoreMana* CGame::m_pBreakCnt = nullptr;
+CScoreMana* CGame::m_pTotalScore = nullptr;
 CBulletCntMana* CGame::m_pBulletCount = nullptr;
 CCollision* CGame::m_pColl = nullptr;
 CMatchUp* CGame::m_pMatchup = nullptr;
@@ -63,10 +64,16 @@ void CGame::Init(void)
 		m_pTimer = CTimerMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (TIMER_SIZE * 2), 40.0f, 0.0f));
 	}
 
+	const float ScoreX = 950.0f;
 	//スコア生成
-	if (m_pScore == NULL)
+	if (m_pBreakCnt == NULL)
 	{
-		m_pScore = CScoreMana::Create(D3DXVECTOR3(1000.0f, 40.0f, 0.0f), SCORE_SIZE, SCORE_SIZE);
+		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(ScoreX, 80.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, 2);
+	}
+	//スコア生成
+	if (m_pTotalScore == NULL)
+	{
+		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(ScoreX, 40.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, 6);
 	}
 
 	//弾数カウント生成
@@ -164,13 +171,22 @@ void CGame::Uninit(void)
 	//}
 
 	//スコア破棄
-	if (m_pScore != NULL)
+	if (m_pBreakCnt != NULL)
 	{
 		//スコア終了処理
-		m_pScore->Uninit();
+		m_pBreakCnt->Uninit();
 
-		delete m_pScore;
-		m_pScore = NULL;
+		delete m_pBreakCnt;
+		m_pBreakCnt = NULL;
+	}
+	//スコア破棄
+	if (m_pTotalScore != NULL)
+	{
+		//スコア終了処理
+		m_pTotalScore->Uninit();
+
+		delete m_pTotalScore;
+		m_pTotalScore = NULL;
 	}
 
 	//タイマー破棄
