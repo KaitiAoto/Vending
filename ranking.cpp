@@ -32,8 +32,12 @@ void CRanking::Init(void)
 {
 	m_nCntStay = RANK_STAY;
 
-	m_pBreakRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.25f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\BreakRank.txt");
-	m_pTotalRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 4.0f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\TotalRank.txt");
+	m_pBreakRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.35f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\BreakRank.txt");
+	m_pTotalRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\TotalRank.txt");
+
+	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 1.35f, SCREEN_HEIGHT / 5.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 400.0f, 80.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 3.5f, SCREEN_HEIGHT / 5.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 400.0f, 80.0f, 7);
+
 
 	CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
 
