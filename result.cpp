@@ -37,19 +37,19 @@ void CResult::Init(void)
 
 	m_nCntStay = RESULT_STAY;
 
-	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 2.75f, SCREEN_HEIGHT / 2.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
-	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 2.75f, SCREEN_HEIGHT / 1.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 3.25f, SCREEN_HEIGHT / 2.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\result02.png", D3DXVECTOR3(SCREEN_WIDTH / 3.25f, SCREEN_HEIGHT / 1.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
 
 	CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
 
 	//ÉXÉRÉAê∂ê¨
 	if (m_pBreakCnt == NULL)
 	{
-		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.5f, SCREEN_HEIGHT / 2.5f, 0.0f), SCORE_SIZE * 2.0f, SCORE_SIZE * 2.0f, 2);
+		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.75f, SCREEN_HEIGHT / 2.5f, 0.0f), SCORE_SIZE * 2.0f, SCORE_SIZE * 2.0f, 2);
 	}
 	if (m_pTotalScore == NULL)
 	{
-		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.5f, SCREEN_HEIGHT / 1.5f, 0.0f), SCORE_SIZE * 2.0f, SCORE_SIZE * 2.0f, 2);
+		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.75f, SCREEN_HEIGHT / 1.5f, 0.0f), SCORE_SIZE * 1.5f, SCORE_SIZE * 2.0f, 6);
 	}
 
 	if (m_pStage == NULL)

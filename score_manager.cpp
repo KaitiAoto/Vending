@@ -83,8 +83,11 @@ void CScoreMana::Draw(void)
 //==============
 void CScoreMana::AddScore(int nAdd)
 {
-	m_nScore += nAdd;
-	ChangeTex();
+	if (CGame::GetMode() == CGame::MODE_PLAY)
+	{
+		m_nScore += nAdd;
+		ChangeTex();
+	}
 }
 //================
 // à íuê›íË

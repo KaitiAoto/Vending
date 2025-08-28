@@ -33,11 +33,11 @@ CRankMana::~CRankMana()
 //===========
 // ê∂ê¨èàóù
 //===========
-CRankMana* CRankMana::Create(D3DXVECTOR3 pos, const char* pTxtName)
+CRankMana* CRankMana::Create(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore)
 {
 	CRankMana* pScoreMana = new CRankMana;
 
-	pScoreMana->Init(pos, pTxtName);
+	pScoreMana->Init(pos, pTxtName, MaxScore);
 
 	return pScoreMana;
 }
@@ -66,7 +66,7 @@ void CRankMana::Reset(void)
 //===============
 // èâä˙âªèàóù
 //===============
-HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName)
+HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore)
 {
 	strcpy(m_pTxtName, pTxtName);
 
@@ -89,7 +89,7 @@ HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName)
 	//èâä˙âª
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize, 2);
+		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize, MaxScore);
 		m_pScore[nCnt]->Set(m_nScore[nCnt]);
 
 		CObject2D::Create(apFileName[nCnt], D3DXVECTOR3(pos.x - (fSize * 4.0f), pos.y + (nCnt * fSize * RANK_Y), 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fSize * 2.0f, fSize * 2.0f, 7);

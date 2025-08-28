@@ -581,7 +581,7 @@ void CPlayer::State(STATE state)
 		}
 		break;
 	case STATE_HIT:
-		m_nCntState = 180;
+		m_nCntState = 90;
 		break;
 	case STATE_DEAD:
 		m_bUse = false;

@@ -122,9 +122,6 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 		CSound* pSound = CManager::GetSound();
 		pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
 
-		if (CGame::GetMode() != CGame::MODE_TUTORIAL)
-		{
-			pTotalScore->AddScore(50);
-		}
+		pTotalScore->AddScore(50);
 	}
 }
