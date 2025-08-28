@@ -38,7 +38,7 @@ public:
 
 
 	//ÉÅÉìÉoä÷êî
-	CTutorial(int nPriority = 7);
+	CTutorial(int nPriority = 8);
 	~CTutorial();
 
 	static CTutorial* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
@@ -57,7 +57,7 @@ public:
 	void SetUse(bool bUse) { m_bUse = bUse; }
 	void SetClear(bool bClear) { m_bClear = bClear; }
 private:
-	void Move(void);
+	void BackBlink(void);
 
 	void CheckClear(void);
 
@@ -78,6 +78,11 @@ private:
 	int m_nTime;
 
 	STATE m_state;
+
+	CObject2D* m_pBack;
+
+	D3DXCOLOR m_col;
+	int m_nCntTime;
 };
 
 #endif

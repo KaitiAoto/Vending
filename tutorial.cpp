@@ -63,6 +63,9 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_bClear = false;
 	m_nTime = 0;
 
+	m_nCntTime = 0;
+	m_col = D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f);
+
 	const char* apFileName[TYPE_MAX] =
 	{
 		"data\\TEXTURE\\tutorial00.jpg",
@@ -80,6 +83,8 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	}
 
 	CObject2D::Init(m_apFileName[m_type], pos, m_rot, fWidth, fHeight);
+	
+	m_pBack = CObject2D::Create(NULL, pos, m_rot, fWidth * 1.05f, fHeight * 1.05f, 7);
 
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
@@ -151,7 +156,6 @@ void CTutorial::Update(void)
 			}
 			m_bClear = false;
 		}
-
 		break;
 
 	default:
@@ -159,9 +163,15 @@ void CTutorial::Update(void)
 	}
 
 	CObject2D::SetPos(m_pos);
+	m_pBack->SetPos(m_pos);
+	
+	m_nCntTime++;
+	BackBlink();
 
 	if (m_bUse == false)
 	{
+		CObject2D::SetUse(false);
+		m_pBack->SetUse(false);
 		Uninit();
 	}
 }
@@ -175,13 +185,22 @@ void CTutorial::Draw(void)
 		CObject2D::Draw();
 	}
 }
-
-void CTutorial::Move(void)
+//==============
+// 背景点滅
+//==============
+void CTutorial::BackBlink(void)
 {
+	// 点滅する速さ
+	const float Speed = 0.02f;
 
+	m_col.a = 1.0f * fabsf(sinf(Speed * m_nCntTime));
 
+	// 色を設定
+	m_pBack->SetColor(m_col);
 }
-
+//==================
+// クリアチェック
+//==================
 void CTutorial::CheckClear(void)
 {
 	//マウス取得
