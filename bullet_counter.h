@@ -11,7 +11,7 @@
 #include "number.h"
 #include "object.h"
 
-#define BULLET_COUNT_SIZE (25)
+#define BULLET_COUNT_SIZE (30)
 
 //オブジェクト2Dクラス
 class CBullerCounter :public CObject

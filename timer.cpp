@@ -41,7 +41,7 @@ CTimer* CTimer::Create(D3DXVECTOR3 pos)
 HRESULT CTimer::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
 	//èâä˙âª
-	m_pNumber = CNumber::Create("data\\TEXTURE\\number001.png", pos, fWidth, fHeight);
+	m_pNumber = CNumber::Create("data\\TEXTURE\\number002.png", pos, fWidth, fHeight);
 	
 	SetObjType(TYPE_TIME);
 
