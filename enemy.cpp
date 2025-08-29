@@ -640,12 +640,12 @@ void CEnemy::ItemSet()
 {
 	int nItem;
 	srand((unsigned int)time(NULL));
-	nItem = rand() % 2 + 1;
+	nItem = rand() % 3 + 1;
 
 	if (nItem == 1)
-	{//５０％でアイテム生成
+	{// 1/3 でアイテム生成
 		int itemType = rand() % 100 + 1;
-		if (itemType <= 30)
+		if (itemType <= 35)
 		{
 			CItem::Create(m_pos, m_rot, CItem::TYPE_LIFE);
 		}

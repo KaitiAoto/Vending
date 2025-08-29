@@ -18,7 +18,7 @@ class CClick:public CObject2D
 {
 public:
 	//メンバ関数
-	CClick(int nPriority = 9);
+	CClick(int nPriority = 10);
 	~CClick();
 
 	static CClick* Create(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
@@ -39,5 +39,5 @@ private:
 	bool m_bUse;		// 有効か無効か
 	int m_nCntTime;		// カウンター
 };
-//until
+
 #endif

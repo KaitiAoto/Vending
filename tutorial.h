@@ -38,7 +38,7 @@ public:
 
 
 	//ƒƒ“ƒoŠÖ”
-	CTutorial(int nPriority = 8);
+	CTutorial(int nPriority = 9);
 	~CTutorial();
 
 	static CTutorial* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);

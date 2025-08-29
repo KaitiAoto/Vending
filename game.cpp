@@ -47,55 +47,55 @@ CGame::~CGame()
 void CGame::Init(void)
 {
 	//当たり判定生成
-	if (m_pColl == NULL)
+	if (m_pColl == nullptr)
 	{
 		m_pColl = new CCollision;
 	}
 
 	//相性生成
-	if (m_pMatchup == NULL)
+	if (m_pMatchup == nullptr)
 	{
 		m_pMatchup = new CMatchUp;
 	}
 
 
 	//タイマー生成
-	if (m_pTimer == NULL)
+	if (m_pTimer == nullptr)
 	{
 		m_pTimer = CTimerMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (TIMER_SIZE * 4.5), 40.0f, 0.0f));
 	}
 
 	const float ScoreX = 950.0f;
 	//スコア生成
-	if (m_pBreakCnt == NULL)
+	if (m_pBreakCnt == nullptr)
 	{
 		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(ScoreX, 90.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 2);
 		CObject2D::Create("data\\TEXTURE\\conveni_icon00.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 90.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 7);
 	}
 	//スコア生成
-	if (m_pTotalScore == NULL)
+	if (m_pTotalScore == nullptr)
 	{
 		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(ScoreX, 40.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f), 6);
 		CObject2D::Create("data\\TEXTURE\\icon_star.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 40.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 7);
 	}
 
 	//弾数カウント生成
-	if (m_pBulletCount == NULL)
+	if (m_pBulletCount == nullptr)
 	{
 		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.25f, 0.0f));
 	}
 
-	if (m_pHpGauge == NULL)
+	if (m_pHpGauge == nullptr)
 	{
 		m_pHpGauge = CHpGauge::Create(D3DXVECTOR3(50.0f, 40.0f, 0.0f), PLAYER_LIFE, GAUGE_Y, D3DCOLOR_RGBA(1, 255, 1, 255));
 	}
 
-	if (m_pReset == NULL)
+	if (m_pReset == nullptr)
 	{
 		m_pReset = CResetGauge::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (BULLET_COUNT_SIZE * 5), SCREEN_HEIGHT / 1.25f - 50.0f, 0.0f), 0, GAUGE_Y, D3DCOLOR_RGBA(255, 255, 1, 255));
 	}
 
-	if (m_pBuff == NULL)
+	if (m_pBuff == nullptr)
 	{
 		m_pBuff = new CBuff;
 	}
@@ -103,7 +103,7 @@ void CGame::Init(void)
 	m_pMap = CMap::Create(D3DXVECTOR3(1150.0f, 600.0f, 0.0f), 200.0f, 200.0f);
 
 
-	if (m_pStage == NULL)
+	if (m_pStage == nullptr)
 	{
 		m_pStage = new CLoadStage;
 
@@ -148,7 +148,7 @@ void CGame::Init(void)
 //=============
 void CGame::Uninit(void)
 {
-	if (m_pStage != NULL)
+	if (m_pStage != nullptr)
 	{
 		m_pStage->Unload();
 		delete m_pStage;
@@ -156,9 +156,9 @@ void CGame::Uninit(void)
 	}
 
 	//
-	if (m_pHpGauge != NULL)
+	if (m_pHpGauge != nullptr)
 	{
-		m_pHpGauge = NULL;
+		m_pHpGauge = nullptr;
 	}
 
 	////スコア破棄
@@ -168,66 +168,70 @@ void CGame::Uninit(void)
 	//}
 
 	//スコア破棄
-	if (m_pBreakCnt != NULL)
+	if (m_pBreakCnt != nullptr)
 	{
 		//スコア終了処理
 		m_pBreakCnt->Uninit();
 
 		delete m_pBreakCnt;
-		m_pBreakCnt = NULL;
+		m_pBreakCnt = nullptr;
 	}
 	//スコア破棄
-	if (m_pTotalScore != NULL)
+	if (m_pTotalScore != nullptr)
 	{
 		//スコア終了処理
 		m_pTotalScore->Uninit();
 
 		delete m_pTotalScore;
-		m_pTotalScore = NULL;
+		m_pTotalScore = nullptr;
 	}
 
 	//タイマー破棄
-	if (m_pTimer != NULL)
+	if (m_pTimer != nullptr)
 	{
 		//タイマー終了処理
 		m_pTimer->Uninit();
 
 		delete m_pTimer;
-		m_pTimer = NULL;
+		m_pTimer = nullptr;
 	}
 
 	//弾数カウンター破棄
-	if (m_pBulletCount != NULL)
+	if (m_pBulletCount != nullptr)
 	{
 		//弾数カウンター終了処理
 		m_pBulletCount->Uninit();
 
 		delete m_pBulletCount;
-		m_pBulletCount = NULL;
+		m_pBulletCount = nullptr;
 	}
 
 
 	//当たり判定
-	if (m_pColl != NULL)
+	if (m_pColl != nullptr)
 	{
 		delete m_pColl;
 		m_pColl = nullptr;
 	}
 
 	//相性マネージャー
-	if (m_pMatchup != NULL)
+	if (m_pMatchup != nullptr)
 	{
 		delete m_pMatchup;
 		m_pMatchup = nullptr;
 	}
 
+	if (m_pReset != nullptr)
+	{
+		m_pReset = nullptr;
+	}
+
 	//
-	if (m_pBuff != NULL)
+	if (m_pBuff != nullptr)
 	{
 		delete m_pBuff;
 		m_pBuff = nullptr;
 	}
-
 
 	if (m_pPause != nullptr)
 	{

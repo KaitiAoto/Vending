@@ -79,6 +79,14 @@ void CScreenFlash::Draw(void)
 {
 	if (m_bUse == true)
 	{
-		CObject2D::Draw();
+		if (CManager::GetPause() != true)
+		{
+			CObject2D::SetUse(true);
+			CObject2D::Draw();
+		}
+		else
+		{
+			CObject2D::SetUse(false);
+		}
 	}
 }

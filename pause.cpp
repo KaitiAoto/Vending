@@ -123,6 +123,7 @@ void CPause::Update(void)
 		if (m_pPauseMana != nullptr)
 		{
 			m_pPauseMana->Update();
+			m_pClick->Update();
 		}
 	}
 	m_pClick->SetUse(CManager::GetPause());

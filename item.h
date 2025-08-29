@@ -14,7 +14,7 @@
 
 #define ITEM_LIFE (1200)
 #define ITEM_HEAL (PLAYER_LIFE / 4)
-#define ITEM_BULLET (5)
+#define ITEM_BULLET (10)
 //オブジェクト2Dクラス
 class CItem:public CObject
 {

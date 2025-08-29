@@ -16,7 +16,7 @@ class CPauseSelect:public CObject2D
 public:
 
 	//ƒƒ“ƒoŠÖ”
-	CPauseSelect(int nPriority = 9);
+	CPauseSelect(int nPriority = 10);
 	~CPauseSelect();
 	HRESULT Init(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 	void Uninit(void);

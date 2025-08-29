@@ -54,7 +54,7 @@ HRESULT CPauseMana::Init(D3DXVECTOR3 pos)
 	//’l‚ð‘ã“ü
 	m_pos = pos;
 
-	m_pBack = CObject2D::Create("data\\TEXTURE\\gauge00.jpeg", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCREEN_WIDTH, SCREEN_HEIGHT, 8);
+	m_pBack = CObject2D::Create("data\\TEXTURE\\gauge00.jpeg", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCREEN_WIDTH, SCREEN_HEIGHT, 10);
 	m_pBack->SetColor(D3DXCOLOR(0.1f, 0.1f, 0.1f, 0.0f));
 
 	m_pSelect[SELECT_CONTNUE] = CPauseSelect::Create("data\\TEXTURE\\contnue00.png", D3DXVECTOR3(m_pos.x, m_pos.y + (P_SELECT_Y * SELECT_CONTNUE), m_pos.z), P_SELECT_X, P_SELECT_Y);

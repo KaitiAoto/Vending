@@ -17,7 +17,7 @@
 
 #define ENEMY_BASE_LIFE (120)
 #define ENEMY_SPAN (180)
-#define ENEMYBASE_RESPAWN (3000)
+#define ENEMYBASE_RESPAWN (2400)
 
 //オブジェクト2Dクラス
 class CEnemyBase:public CObject
