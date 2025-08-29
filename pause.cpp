@@ -135,7 +135,7 @@ void CPause::Draw(void)
 {
 	if (CManager::GetPause() == true)
 	{
-
+		
 	}
 }
 

@@ -689,7 +689,7 @@ bool CPlayer::Collision(void)
 			pColl->OverlapOnAxis(
 				moveVec, contactNormal,
 				axes0, m_size,
-				axes0, m_size, // ‰¼‚Ìƒf[ƒ^
+				axes0, m_size,
 				penetration
 			);
 			if (penetration > 0.001f)

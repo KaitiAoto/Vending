@@ -86,6 +86,8 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	
 	m_pBack = CObject2D::Create(NULL, pos, m_rot, fWidth * 1.05f, fHeight * 1.05f, 7);
 
+	m_pSkip = CObject2D::Create("data\\TEXTURE\\skip00.png", D3DXVECTOR3(pos.x, pos.y - fHeight / 1.75f, pos.z), m_rot, fWidth * 1.25f, fHeight / 6, 7);
+
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
 	m_nIdxTex = pTex->Register(m_apFileName[m_type]);
@@ -111,6 +113,18 @@ void CTutorial::Update(void)
 	const float fSpeed = 8.0f;
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
+
+	//キー取得
+	CInputKey* pInputKey = CManager::GetInputKey();
+	//パッド
+	CInputPad* pInputPad = CManager::GetInputPad();
+
+	if (pInputKey->GetTrigger(DIK_R) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_X) == true)
+	{
+		m_state = STATE_SLIDEOUT;
+		m_type = TYPE_MATCHUP;
+		m_bClear = true;
+	}
 
 	switch (m_state)
 	{
@@ -157,7 +171,6 @@ void CTutorial::Update(void)
 			m_bClear = false;
 		}
 		break;
-
 	default:
 		break;
 	}
@@ -172,6 +185,7 @@ void CTutorial::Update(void)
 	{
 		CObject2D::SetUse(false);
 		m_pBack->SetUse(false);
+		m_pSkip->SetUse(false);
 		Uninit();
 	}
 }

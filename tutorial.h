@@ -80,6 +80,7 @@ private:
 	STATE m_state;
 
 	CObject2D* m_pBack;
+	CObject2D* m_pSkip;
 
 	D3DXCOLOR m_col;
 	int m_nCntTime;
