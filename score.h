@@ -28,7 +28,7 @@ public:
 	static CScore* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	static int GetPriority(void) { return m_nPriority; }
 	CNumber* GetNumber(void) { return m_pNumber; }
-
+	void SetColor(D3DXCOLOR col);
 private:
 	//ƒƒ“ƒo•Ï”
 	static int m_nPriority;

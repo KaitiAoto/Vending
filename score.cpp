@@ -36,6 +36,10 @@ CScore* CScore::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	return pScore;
 }
+void CScore::SetColor(D3DXCOLOR col)
+{
+	m_pNumber->SetColor(col);
+}
 //===============
 // ‰Šú‰»ˆ—
 //===============

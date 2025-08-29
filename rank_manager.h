@@ -21,12 +21,12 @@ public:
 	//ÉÅÉìÉoä÷êî
 	CRankMana();
 	~CRankMana();
-	HRESULT Init(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore);
+	HRESULT Init(D3DXVECTOR3 pos, const char* pTxtName, D3DXCOLOR col, int MaxScore);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	static CRankMana* Create(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore);
+	static CRankMana* Create(D3DXVECTOR3 pos, const char* pTxtName, D3DXCOLOR col, int MaxScore);
 
 	void Reset(void);
 

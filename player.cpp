@@ -533,8 +533,7 @@ void CPlayer::Action(void)
 	}
 	if (pInputKey->GetTrigger(DIK_8) == true)
 	{
-		pScore1->AddScore(1);
-		
+		pScore1->AddScore(1);	
 	}
 	CDebugProc* pDegub = CManager::GetDebug();
 	pDegub->Print("”j‰ó”F%d", pScore->GetScore());

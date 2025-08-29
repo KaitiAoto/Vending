@@ -8,10 +8,14 @@
 #include "renderer.h"
 #include "manager.h"
 #include "object.h"
+#include "debugproc.h"
 //静的メンバ変数
 int CTimerMana::m_nTimer = 0;
-CTimer* CTimerMana::m_pTimer[MAX_TIMER] = {};
+CTimer* CTimerMana::m_pSecond[TIME_DIGIT] = {};
+CTimer* CTimerMana::m_pMinute[TIME_DIGIT] = {};
 int CTimerMana::m_nCntTime = 0;
+int CTimerMana::m_nDrawSecond = 0;
+int CTimerMana::m_nDrawMinute = 0;
 
 //==================
 // コンストラクタ
@@ -33,9 +37,18 @@ CTimerMana* CTimerMana::Create(D3DXVECTOR3 pos)
 {
 	CTimerMana* pTimerMane = new CTimerMana;
 
-	for (int nCnt = 0; nCnt < MAX_TIMER; nCnt++)
+	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
 	{
-		m_pTimer[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
+		m_pMinute[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
+	}
+
+	CObject2D::Create("data\\TEXTURE\\colon00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, pos.y, 0.0f), { 0.0f,0.0f,0.0f }, TIMER_SIZE * 1.5f, TIMER_SIZE * 1.5f);
+
+	pos.x += (2.5 * TIMER_SIZE * 2.5f);
+
+	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
+	{
+		m_pSecond[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
 	}
 
 	pTimerMane->Init();
@@ -57,13 +70,7 @@ HRESULT CTimerMana::Init(void)
 //============
 void CTimerMana::Uninit(void)
 {
-	//for (int nCnt = 0; nCnt < MAX_TIMER; nCnt++)
-	//{
-	//	if (m_pTimer[nCnt] != nullptr)
-	//	{
-	//		m_pTimer[nCnt]->Uninit();
-	//	}
-	//}
+
 }
 //============
 // 更新処理
@@ -79,10 +86,12 @@ void CTimerMana::Update(void)
 	if (m_nTimer <= 0)
 	{
 		m_nTimer = 0;
-		//CTimerMana::AddTime(60);
-
 		CGame::SetMode(CGame::MODE_FIN);
 	}
+
+	CDebugProc* pDegub = CManager::GetDebug();
+	pDegub->Print("分：秒＝%d,%d", m_nDrawMinute, m_nDrawSecond);
+
 }
 //============
 // 描画処理
@@ -97,21 +106,56 @@ void CTimerMana::AddTime(int nAdd)
 {
 	m_nTimer += nAdd;
 
-	int aPosTexU[MAX_TIMER]; //桁数分
 	if (m_nTimer <= 0)
 	{
 		m_nTimer = 0;
 	}
 
+	m_nDrawMinute = m_nTimer / 60;
+	m_nDrawSecond = m_nTimer % 60;
+
+	Second();
+	Minute();
+}
+//==============================
+// 秒単位のテクスチャ切り替え
+//==============================
+void CTimerMana::Second(void)
+{
+	int aPosTexU[TIME_DIGIT]; //桁数分
+
 	int nData = TIMERDATA * 10;
 	int nData2 = TIMERDATA;
-	for (int nCnt = 0; nCnt < MAX_TIMER; nCnt++)
+	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
 	{
-		if (m_pTimer[nCnt] != nullptr)
+		if (m_pSecond[nCnt] != nullptr)
 		{
-			CNumber* pNumber = m_pTimer[nCnt]->GetNumber();
+			CNumber* pNumber = m_pSecond[nCnt]->GetNumber();
 
-			aPosTexU[nCnt] = m_nTimer % nData / nData2;
+			aPosTexU[nCnt] = m_nDrawSecond % nData / nData2;
+			nData /= 10;
+			nData2 /= 10;
+
+			pNumber->SetTex((aPosTexU[nCnt] * 0.1f), (aPosTexU[nCnt] * 0.1f) + 0.1f, 0.0f, 1.0f);
+		}
+	}
+}
+//==============================
+// 分単位のテクスチャ切り替え
+//==============================
+void CTimerMana::Minute(void)
+{
+	int aPosTexU[TIME_DIGIT]; //桁数分
+
+	int nData = TIMERDATA * 10;
+	int nData2 = TIMERDATA;
+	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
+	{
+		if (m_pMinute[nCnt] != nullptr)
+		{
+			CNumber* pNumber = m_pMinute[nCnt]->GetNumber();
+
+			aPosTexU[nCnt] = m_nDrawMinute % nData / nData2;
 			nData /= 10;
 			nData2 /= 10;
 

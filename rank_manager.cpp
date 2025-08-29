@@ -33,14 +33,17 @@ CRankMana::~CRankMana()
 //===========
 // 生成処理
 //===========
-CRankMana* CRankMana::Create(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore)
+CRankMana* CRankMana::Create(D3DXVECTOR3 pos, const char* pTxtName, D3DXCOLOR col, int MaxScore)
 {
 	CRankMana* pScoreMana = new CRankMana;
 
-	pScoreMana->Init(pos, pTxtName, MaxScore);
+	pScoreMana->Init(pos, pTxtName, col, MaxScore);
 
 	return pScoreMana;
 }
+//
+//
+//
 void CRankMana::Reset(void)
 {
 	FILE* pFile;
@@ -66,7 +69,7 @@ void CRankMana::Reset(void)
 //===============
 // 初期化処理
 //===============
-HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore)
+HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName, D3DXCOLOR col, int MaxScore)
 {
 	strcpy(m_pTxtName, pTxtName);
 
@@ -89,7 +92,7 @@ HRESULT CRankMana::Init(D3DXVECTOR3 pos, const char* pTxtName, int MaxScore)
 	//初期化
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 	{
-		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize, MaxScore);
+		m_pScore[nCnt] = CScoreMana::Create(D3DXVECTOR3(0.0f, pos.y + (nCnt * fSize * RANK_Y), 0.0f), fSize, fSize, col, MaxScore);
 		m_pScore[nCnt]->Set(m_nScore[nCnt]);
 
 		CObject2D::Create(apFileName[nCnt], D3DXVECTOR3(pos.x - (fSize * 4.0f), pos.y + (nCnt * fSize * RANK_Y), 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fSize * 2.0f, fSize * 2.0f, 7);
@@ -127,7 +130,7 @@ void CRankMana::Update(void)
 	{
 		for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
 		{
-			m_pScore[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pScore[nCnt]->SetAlpha(1.0f);
 		}
 	}
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
@@ -190,14 +193,14 @@ void CRankMana::Blink(void)
 	{//ダメージ色にする
 		if (m_pScore[m_nRankIn] != NULL)
 		{
-			m_pScore[m_nRankIn]->SetColor(BlinkCol);
+			m_pScore[m_nRankIn]->SetAlpha(0.0f);
 		}
 	}
 	else
 	{//通常色に戻す
 		if (m_pScore[m_nRankIn] != NULL)
 		{
-			m_pScore[m_nRankIn]->SetColor(BaseCol);
+			m_pScore[m_nRankIn]->SetAlpha(1.0f);
 		}
 	}
 	if (m_BlinkTime >= nBlinkTime)

@@ -32,8 +32,8 @@ void CRanking::Init(void)
 {
 	m_nCntStay = RANK_STAY;
 
-	m_pBreakRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.35f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\BreakRank.txt", 2);
-	m_pTotalRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 4.5f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\TotalRank.txt", 6);
+	m_pBreakRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 1.35f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\BreakRank.txt", D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 2);
+	m_pTotalRank = CRankMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 4.5f, SCREEN_HEIGHT / 3.5f, 0.0f), "data\\TEXT\\TotalRank.txt", D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f), 6);
 
 	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 1.35f, SCREEN_HEIGHT / 5.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 400.0f, 80.0f, 7);
 	CObject2D::Create("data\\TEXTURE\\result02.png", D3DXVECTOR3(SCREEN_WIDTH / 3.0f, SCREEN_HEIGHT / 5.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 400.0f, 80.0f, 7);

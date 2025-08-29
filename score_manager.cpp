@@ -26,13 +26,15 @@ CScoreMana::~CScoreMana()
 //===========
 // ê∂ê¨èàóù
 //===========
-CScoreMana* CScoreMana::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, int MaxScore)
+CScoreMana* CScoreMana::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int MaxScore)
 {
 	CScoreMana* pScoreMana = new CScoreMana;
 
 	for (int nCnt = 0; nCnt < MaxScore; nCnt++)
 	{
 		pScoreMana->m_pScore[nCnt] = CScore::Create(D3DXVECTOR3(pos.x + (nCnt * fWidth * 2.5f), pos.y, 0.0f), fWidth, fHeight);
+		pScoreMana->m_pScore[nCnt]->SetColor(col);
+		pScoreMana->m_col = col;
 	}
 	pScoreMana->m_fWidth = fWidth;
 
@@ -118,11 +120,13 @@ void CScoreMana::SetPos(D3DXVECTOR3 pos)
 //============
 // êFê›íË
 //============
-void CScoreMana::SetColor(D3DXCOLOR col)
+void CScoreMana::SetAlpha(float fAlpha)
 {
+	m_col.a = fAlpha;
+
 	for (int nCnt = 0; nCnt < m_MaxScore; nCnt++)
 	{
-		m_pScore[nCnt]->GetNumber()->SetColor(col);
+		m_pScore[nCnt]->GetNumber()->SetColor((m_col));
 	}
 }
 //===================

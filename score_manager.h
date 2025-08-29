@@ -26,13 +26,13 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, int MaxScore);
+	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int MaxScore);
 	void AddScore(int nAdd);
 	void Set(int nScore) { m_nScore = nScore; ChangeTex();};
 
 	int GetScore(void) { return m_nScore; }
 	void SetPos(D3DXVECTOR3 pos);
-	void SetColor(D3DXCOLOR col);
+	void SetAlpha(float fAlpha);
 private:
 	void ChangeTex(void);
 	//ÉÅÉìÉoïœêî
@@ -46,6 +46,8 @@ private:
 
 	int m_MaxScore;
 	int m_ScoreData;
+
+	D3DXCOLOR m_col;
 };
 
 #endif
