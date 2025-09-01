@@ -220,6 +220,7 @@
     <ClCompile Include="screen_flash.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
+    <ClCompile Include="sold_out.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="stage.cpp" />
     <ClCompile Include="start.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="screen_flash.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />
+    <ClInclude Include="sold_out.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="stage.h" />
     <ClInclude Include="start.h" />

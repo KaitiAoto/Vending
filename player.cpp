@@ -23,6 +23,8 @@
 #include "particle.h"
 #include "collision.h"
 #include "vender.h"
+#include "sold_out.h"
+
 //Ã“Iƒƒ“ƒo•Ï”
 bool CPlayer::m_bUse = true;
 //==================
@@ -499,6 +501,11 @@ void CPlayer::Action(void)
 		}
 		else
 		{
+			if (CSoldOut::GetUse() == false)
+			{
+				CSoldOut::Create();
+			}
+
 			pSound->PlaySound(CSound::SOUND_LABEL_MISS);
 		}
 	}
