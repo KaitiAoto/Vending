@@ -11,11 +11,11 @@
 #include "object.h"
 #include "enemy.h"
 
-//オブジェクトクラス
+// 当たり判定クラス
 class CCollision
 {
 public:
-	//メンバ関数
+	// メンバ関数
 	CCollision();
 	~CCollision();
 

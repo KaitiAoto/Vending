@@ -26,11 +26,8 @@ CEnemyBase::CEnemyBase(int nPriority):CObject(nPriority)
 
 	m_nLife = 0;
 
-	m_type = TYPE_A;
 
 	m_bUse = true;
-
-	m_nPriority = nPriority;
 
 	m_nCntSpan = 0;
 	m_nRespawn = 0;

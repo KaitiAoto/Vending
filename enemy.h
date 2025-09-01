@@ -13,15 +13,16 @@
 #include "gauge_enemy.h"
 #include "enemy_group.h"
 
+// マクロ定義
 #define ENEMY_LIFE (30)
 #define ENEMY_ACTIONSTATE (300)
 #define ENEMY_SPEED (1.35f)
 
-//敵クラス
+// 敵クラス
 class CEnemy :public CObject
 {
 public:
-	//種類
+	// 種類
 	typedef enum
 	{
 		TYPE_LIGHTER = 0,
@@ -35,7 +36,7 @@ public:
 		TYPE_RANGE,
 		TYPE_MAX
 	}TYPE;
-	//状態
+	// 状態
 	typedef enum
 	{
 		STATE_NONE = 0,
@@ -47,7 +48,7 @@ public:
 		STATE_MAX
 	}STATE;
 
-	//メンバ関数
+	// メンバ関数
 	CEnemy(int nPriority = PRIORITY_ENEMY);
 	~CEnemy();
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, TYPE type);
@@ -58,13 +59,16 @@ public:
 	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type);
 	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type, CEnemyGroup* Group);
 
+	// 設定
 	void SetType(TYPE type) { m_type = type; };
-	TYPE GetType(void) { return m_type; }
+	void SetMove(D3DXVECTOR3 move) { m_move = move; }
 
+	// 取得
+	TYPE GetType(void) { return m_type; }
 	D3DXVECTOR3 GetSize(void) { return m_size; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
+	
 	void Hit(const int nDamage);
-	void SetMove(D3DXVECTOR3 move) { m_move = move; }
 	void MovePos(D3DXVECTOR3 move) { m_pos += move; }
 
 private:
@@ -79,31 +83,26 @@ private:
 	const char* SetModelName(void);
 	void ItemSet();
 
-	//メンバ変数
-	D3DXVECTOR3 m_pos;					//位置(オフセット)
-	D3DXVECTOR3 m_posOld;				//前回の位置
-	D3DXVECTOR3 m_posHalf;				//
-	D3DXVECTOR3 m_rot;					//向き
-	D3DXVECTOR3 m_move;					//移動量
-	D3DXMATRIX m_mtxWorld;				//ワールドマトリックス
-	D3DXVECTOR3 m_rotDest;				//目標の向き
-	D3DXVECTOR3 m_size;					//サイズ
+	// メンバ変数
+	D3DXVECTOR3 m_pos;			// 位置
+	D3DXVECTOR3 m_posOld;		// 前回の位置
+	D3DXVECTOR3 m_posHalf;		// 半分の高さの位置
+	D3DXVECTOR3 m_rot;			// 向き
+	D3DXVECTOR3 m_move;			// 移動量
+	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
+	D3DXVECTOR3 m_rotDest;		// 目標の向き
+	D3DXVECTOR3 m_size;			// サイズ
 
-	CModel* m_pModel;	//モデルへのポインタ
-
-	int m_nLife;			//寿命
-	TYPE m_type;			//種類
-	bool m_bUse;			//使用しているか
-	int m_nCntState;					//状態カウンター
-	int m_nPriority;
-	STATE m_State;						//状態
-
-	int m_nStayCounter;        //滞在状態のカウント
-	float m_fRandomAngle;      //ランダム方向の角度
-
-	CEnemyGauge* m_pGauge;
-
-	CEnemyGroup* m_pMyGroup;
+	CModel* m_pModel;			// モデルへのポインタ
+	int m_nLife;				// 寿命
+	int m_nCntState;			// 状態カウンター
+	int m_nStayCounter;			// 滞在状態のカウント
+	bool m_bUse;				// 使用しているか
+	float m_fRandomAngle;		// ランダム方向の角度
+	TYPE m_type;				// 種類
+	STATE m_State;				// 
+	CEnemyGauge* m_pGauge;		// ゲージへのポインタ
+	CEnemyGroup* m_pMyGroup;	// グループへのポインタ
 };
 
 #endif

@@ -9,15 +9,15 @@
 
 #include "main.h"
 
-
+// マクロ定義
 #define NUM_KEY_MAX (256)
 
-//入力クラス
+// 入力クラス
 class CInput
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CInput();
 	virtual ~CInput() = 0;
 	virtual HRESULT Init(HINSTANCE hInstance);
@@ -25,15 +25,15 @@ public:
 	virtual void Update(void) = 0;
 
 protected:
-	static LPDIRECTINPUT8 m_pInput;
+	static LPDIRECTINPUT8 m_pInput; // 入力
 };
 
-//キー入力クラス
+// キー入力クラス
 class CInputKey :public CInput
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CInputKey();
 	~CInputKey();
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd);
@@ -45,18 +45,18 @@ public:
 	bool GetRepeat(int nKey);
 
 private:
-	//メンバ変数
-	BYTE m_aKeyState[NUM_KEY_MAX];
-	BYTE m_aOldState[NUM_KEY_MAX];
+	// メンバ変数
+	BYTE m_aKeyState[NUM_KEY_MAX];	// キーの状態
+	BYTE m_aOldState[NUM_KEY_MAX];	// 前の状態
 
-	LPDIRECTINPUTDEVICE8 m_pDevice;
+	LPDIRECTINPUTDEVICE8 m_pDevice;	// デバイス
 };
 
-//パッドクラス
+// パッドクラス
 class CInputPad :public CInput
 {
 public:
-	//キーの種類
+	// キーの種類
 	typedef enum
 	{
 		JOYKEY_UP = 0,
@@ -78,7 +78,7 @@ public:
 		JOYKEY_MAX
 	}JOYKEY;
 
-	//メンバ関数
+	// メンバ関数
 	CInputPad();
 	~CInputPad();
 	HRESULT Init(HINSTANCE hInstance);
@@ -94,19 +94,19 @@ public:
 	bool GetStickTriggerUp();
 	bool GetStickTriggerDown();
 private:
-	//メンバ変数
-	XINPUT_STATE m_joyKeyState;
-	XINPUT_STATE m_joyKeyStateTrigger;//ジョイパッドのトリガー
+	// メンバ変数
+	XINPUT_STATE m_joyKeyState;			// ジョイパッドの状態
+	XINPUT_STATE m_joyKeyStateTrigger;	// ジョイパッドのトリガー
 
-	SHORT m_prevLY;
+	SHORT m_prevLY;						// 左スティックのＹ
 };
 
-//マウスクラス
+// マウスクラス
 class CInputMouse :public CInput
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CInputMouse();
 	~CInputMouse();
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd);
@@ -128,16 +128,15 @@ public:
 
 private:
 
-	BYTE m_aButtonState[8];
-	BYTE m_aOldButtonState[8];
-
-	int m_relX;
-	int m_relY;
-	int m_mouseX;
-	int m_mouseY;
-	int m_wheel;  // ホイールの1フレーム変化量
-	//メンバ変数
-	LPDIRECTINPUTDEVICE8 m_pDevice;
+	// メンバ変数
+	BYTE m_aButtonState[8];				// 現在のボタン状態
+	BYTE m_aOldButtonState[8];			// 前フレームのボタン状態
+	int m_relX;							// 移動量（X軸）
+	int m_relY;							// 移動量（Y軸）
+	int m_mouseX;						// カーソルの絶対位置（X座標）
+	int m_mouseY;						// カーソルの絶対位置（Y座標）
+	int m_wheel;						// ホイールの1フレーム変化量
+	LPDIRECTINPUTDEVICE8 m_pDevice;		// デバイス
 };
 
 #endif

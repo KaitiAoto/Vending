@@ -61,7 +61,6 @@ HRESULT CBuffIcon::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	m_bUse = true;
 	m_bClear = false;
-	m_nTime = 0;
 
 	const char* apFileName[CBuff::TYPE_MAX] =
 	{

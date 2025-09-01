@@ -32,10 +32,6 @@ CBullet::CBullet(int nPriority):CObject(nPriority)
 	m_user = USER_PLAYER;
 
 	m_bUse = true;
-
-	m_nPriority = nPriority;
-
-	m_nAttack = 0;
 }
 //================
 // デストラクタ
@@ -70,7 +66,6 @@ HRESULT CBullet::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, USER user)
 	m_rot = rot;
 	m_bUse = true;
 	m_user = user;
-	m_nAttack = 1;
 
 	//モデル生成
 	const char* pFilename = "data\\MODEL\\can00.x";

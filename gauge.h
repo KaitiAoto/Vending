@@ -10,15 +10,16 @@
 #include"main.h"
 #include "object.h"
 
+// マクロ定義
 #define GAUGE_X (20)
 #define GAUGE_Y (20)
 
-//オブジェクト2Dクラス
+// ゲージクラス
 class CGauge
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CGauge();
 	~CGauge();
 	HRESULT Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
@@ -28,19 +29,20 @@ public:
 
 	static CGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
 
+	// 設定
 	void SetBase(float base) { m_Base = base; }
 	void SetRate(float rate) { m_rate = rate; }
 	void SetColor(D3DXCOLOR col) { m_col = col; }
 	void Set();
 private:
-	//メンバ変数
-	int m_nIdxTex;
-	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
-	D3DXVECTOR3 m_pos;
-	D3DXCOLOR m_col;
-	float m_Base;
-	float m_fHeight;
-	float m_rate;
+	// メンバ変数
+	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// バッファ
+	D3DXVECTOR3 m_pos;					// 位置
+	D3DXCOLOR m_col;					// 色
+	float m_Base;						// 基準
+	float m_fHeight;					// 高さ
+	float m_rate;						// レート
+	int m_nIdxTex;						// テクスチャのインデックス番号
 
 };
 #endif

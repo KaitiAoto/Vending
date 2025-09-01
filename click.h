@@ -1,6 +1,6 @@
 //==============================
 //
-// 補充処理[restock.h]
+// 決定キーUI[click.h]
 // Author:kaiti
 //
 //==============================
@@ -10,10 +10,11 @@
 #include "main.h"
 #include "object2D.h"
 
+// マクロ定義
 #define CLICK_SIZE_X (250)
 #define CLICK_SIZE_Y (50)
 
-//オブジェクト2Dクラス
+// 決定キーUIクラス
 class CClick:public CObject2D
 {
 public:
@@ -34,7 +35,7 @@ public:
 private:
 	void Blink(void);
 	//メンバ変数
-	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_pos;	// 位置
 	D3DXCOLOR m_col;	// 色
 	bool m_bUse;		// 有効か無効か
 	int m_nCntTime;		// カウンター

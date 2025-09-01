@@ -1,6 +1,6 @@
 //==============================
 //
-// 補充処理[restock.h]
+// バフアイコン[buff_icon.h]
 // Author:kaiti
 //
 //==============================
@@ -10,11 +10,11 @@
 #include "main.h"
 #include "object2D.h"
 #include "buff.h"
-
+// マクロ定義
 #define BUFF_X (200)
 #define BUFF_Y (50)
 
-//オブジェクト2Dクラス
+// バフアイコンクラス
 class CBuffIcon:public CObject2D
 {
 public:
@@ -43,28 +43,23 @@ public:
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	bool GetUse(void){return m_bUse;}
 	//設定処理
-
 	void SetUse(bool bUse) { m_bUse = bUse; }
+
 private:
 	void Move(void);
 
 	//メンバ変数
-	D3DXVECTOR3 m_pos;	//位置
-	D3DXVECTOR3 m_posStay;	//位置
-	D3DXVECTOR3 m_posOut;	//位置
+	D3DXVECTOR3 m_pos;		// 位置
+	D3DXVECTOR3 m_posStay;	// 待機位置
+	D3DXVECTOR3 m_posOut;	// 画面外位置
+	D3DXVECTOR3 m_rot;		// 角度
 
-	D3DXVECTOR3 m_rot;	//角度
-
-	bool m_bUse;
-	bool m_bClear;
-	int m_nIdxTex;
-
-	CBuff::TYPE m_type;
-	const char* m_apFileName[CBuff::TYPE_MAX];
-
-	int m_nTime;
-
-	STATE m_state;
+	bool m_bUse;			// 使用しているか
+	bool m_bClear;			// クリアしているか
+	int m_nIdxTex;			// テクスチャのインデックス番号
+	CBuff::TYPE m_type;		// 種類
+	STATE m_state;			// 状態
+	const char* m_apFileName[CBuff::TYPE_MAX];// テクスチャ名
 };
 
 #endif

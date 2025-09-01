@@ -122,12 +122,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 
 #ifdef _DEBUG
 
+#endif
 				if (pManager->GetInputKey()->GetTrigger(DIK_F4))
 				{
 					bCursor = !bCursor;
 					ShowCursor(bCursor);
 				}
-#endif
+
 				if (bCursor == false)
 				{
 					// ゲーム画面の中央にカーソルをセットする例

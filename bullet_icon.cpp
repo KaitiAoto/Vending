@@ -17,7 +17,6 @@
 CBulletIcon::CBulletIcon(int nPriority):CObject2D(nPriority)
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_nIdxTex = 0;
 	m_bUse = false;
 }
 //================
@@ -142,6 +141,6 @@ void CBulletIcon::ChangeIcon(CBullet::TYPE type)
 	}
 
 
-	m_nIdxTex = pTex->Register(pTexName);
-	CObject2D::SetIdxTex(m_nIdxTex);
+	int nIdxTex = pTex->Register(pTexName);
+	CObject2D::SetIdxTex(nIdxTex);
 }

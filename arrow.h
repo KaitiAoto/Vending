@@ -1,6 +1,6 @@
 //===================
 //
-// タイマー[timer.h]
+// 矢印[arrow.h]
 // Author:kaiti
 //
 //===================
@@ -10,6 +10,7 @@
 #include "main.h"
 #include "object3D.h"
 
+// 矢印クラス
 class CArrow :public CObject3D
 {
 public:
@@ -30,10 +31,10 @@ public:
 	void SetUse(bool bUse) { m_bUse = bUse; }
 private:
 	//メンバ変数
-	D3DXVECTOR3 m_pos;
-	D3DXVECTOR3 m_rot;
-	D3DXVECTOR3 m_TargetPos;
-	bool m_bUse;
+	D3DXVECTOR3 m_pos;		// 位置
+	D3DXVECTOR3 m_rot;		// 向き
+	D3DXVECTOR3 m_TargetPos;// 目標の位置
+	bool m_bUse;			// 使用しているか
 };
 
 #endif

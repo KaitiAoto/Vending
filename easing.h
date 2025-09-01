@@ -7,9 +7,11 @@
 #ifndef _EASING_H_
 #define _EASING_H_
 
+// イージングクラス
 class CEasing
 {
 public:
+	// メンバ関数
 	~CEasing();
 	
 	static float OutBounce(float fX);

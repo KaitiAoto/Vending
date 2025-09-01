@@ -1,9 +1,9 @@
-////===================
+//=====================================
 //
-// 弾数カウンター[timer.h]
+// 弾数カウンター[bullet_counter.h]
 // Author:kaiti
 //
-//===================
+//=====================================
 #ifndef _BULLET_COUNTER_H_
 #define _BULLET_COUNTER_H_
 
@@ -13,12 +13,12 @@
 
 #define BULLET_COUNT_SIZE (30)
 
-//オブジェクト2Dクラス
+// 弾数カウンタークラス
 class CBullerCounter :public CObject
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CBullerCounter(int nPriority = 7);
 	~CBullerCounter();
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);
@@ -27,12 +27,10 @@ public:
 	void Draw(void);
 
 	static CBullerCounter* Create(D3DXVECTOR3 pos);
-	static int GetPriority(void) { return m_nPriority; }
 	CNumber* GetNumber(void) { return m_pNumber; }
 private:
-	//メンバ変数
-	static int m_nPriority;
-	CNumber* m_pNumber;
+	// メンバ変数
+	CNumber* m_pNumber; // 数字へのポインタ
 };
 
 #endif

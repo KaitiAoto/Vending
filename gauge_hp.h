@@ -1,6 +1,6 @@
 //==============================
 //
-//  HPゲージ処理[Gauge_hp.h]
+//  HPゲージ処理[gauge_hp.h]
 //  Author:kaiti
 //
 //==============================
@@ -10,12 +10,11 @@
 #include"main.h"
 #include "gauge.h"
 
-//オブジェクト2Dクラス
+// HPゲージクラス
 class CHpGauge :CObject
 {
 public:
-
-	//メンバ関数
+	// メンバ関数
 	CHpGauge(int nPriority = 7);
 	~CHpGauge();
 	HRESULT Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
@@ -26,13 +25,13 @@ public:
 	static CHpGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
 
 private:
-	//メンバ変数
-	D3DXVECTOR3 m_pos;
-	D3DXCOLOR m_col;
-	float m_Base;
-	float m_fHeight;
-	float m_rate;
+	// メンバ変数
+	D3DXVECTOR3 m_pos;	// 位置
+	D3DXCOLOR m_col;	// 色
+	float m_Base;		// 基準
+	float m_fHeight;	// 高さ
+	float m_rate;		// レート
 
-	CGauge* m_pGauge;
+	CGauge* m_pGauge;	// ゲージへのポインタ
 };
 #endif

@@ -1,6 +1,6 @@
 //================================
 //
-// タイトル処理[title.h]
+// フェード[fade.h]
 // Author:kaiti
 //
 //================================
@@ -12,16 +12,14 @@
 #include "object.h"
 #include "object2D.h"
 
-////マクロ定義
-//#define GRAVITY (0.2f)
-
+// 前方宣言
 class CScene;
 
-//マネージャークラス
+// フェードクラス
 class CFade
 {
 public:
-	//フェードの状態
+	// 状態
 	typedef enum
 	{
 		FADE_NONE = 0,
@@ -30,7 +28,7 @@ public:
 		FADE_MAX,
 	}FADE;
 
-	//メンバ関数
+	// メンバ関数
 	CFade();
 	~CFade();
 	void Init(CScene::MODE modeNext);
@@ -40,17 +38,18 @@ public:
 
 	static CFade* Create(CScene::MODE modeNext);
 
+	// 取得
 	FADE GetFade(void) { return m_fade; }
 
+	// 設定
 	void Set(CScene::MODE modeNext);
 	void SetColor(D3DXCOLOR col);
 private:
-	FADE m_fade;
-	D3DXCOLOR m_col;
-	CScene::MODE m_modeNext;
-
-	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; //頂点情報
-
+	// メンバ変数
+	FADE m_fade;						// 状態
+	D3DXCOLOR m_col;					// 色
+	CScene::MODE m_modeNext;			// 次のシーン
+	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点情報
 };
 
 #endif

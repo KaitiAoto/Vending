@@ -52,16 +52,17 @@
 #include "screen_flash.h"
 #include "enemy_group.h"
 
-////マクロ定義
+// マクロ定義
 #define GAME_TIME (180)
-//#define GRAVITY (0.2f)
 
+// 前方宣言
 class CScene;
 
-//マネージャークラス
+// ゲームクラス
 class CGame:public CScene
 {
 public:
+	// モード
 	typedef enum
 	{
 		MODE_NONE=0,
@@ -73,7 +74,7 @@ public:
 		MODE_MAX
 	}MODE;
 
-	//メンバ関数
+	// メンバ関数
 	CGame();
 	~CGame();
 	void Init(void);
@@ -82,7 +83,7 @@ public:
 	void Draw(void);
 
 	static void SetPlayer(CPlayer* player) { m_pPlayer = player; }
-	//静的メンバ関数
+	// 静的メンバ関数
 	static CPlayer* GetPlayer(void) { return m_pPlayer; }
 	static CTimerMana* GetTime(void) { return m_pTimer; }
 	static CObject3D* GetObj3D(void) { return m_pObj3D; }
@@ -104,27 +105,26 @@ public:
 	static MODE GetMode(void) { return m_mode; }
 private:
 
-	//静的メンバ変数
-	static CPlayer* m_pPlayer;					//パッドへのポインタ
-	static CTimerMana* m_pTimer;				//タイマーへのポインタ
-	static CObject3D* m_pObj3D;					//3Dオブジェクトへのポインタ
-	static CScoreMana* m_pBreakCnt;				//スコアへのポインタ
-	static CScoreMana* m_pTotalScore;			//スコアへのポインタ
-	static CBulletCntMana* m_pBulletCount;		//弾数カウンターへのポインタ
-	static CCollision* m_pColl;					//当たり判定へのポインタ
-	static CMatchUp* m_pMatchup;				//タイプ相性へのポインタ
-	static CHpGauge* m_pHpGauge;
-	static CLoadStage* m_pStage;
-	static CStart* m_pStart;
-	static CResetGauge* m_pReset;
-	static CMap* m_pMap;
-	static CBuff* m_pBuff;
-	static CScreenFlash* m_pScreenFlash;
-	static CTutorial* m_pTutprial;	
+	// 静的メンバ変数
+	static CPlayer* m_pPlayer;					// プレイヤーへのポインタ
+	static CTimerMana* m_pTimer;				// タイマーへのポインタ
+	static CObject3D* m_pObj3D;					// 3Dオブジェクトへのポインタ
+	static CScoreMana* m_pBreakCnt;				// 破壊スコアへのポインタ
+	static CScoreMana* m_pTotalScore;			// トータルスコアへのポインタ
+	static CBulletCntMana* m_pBulletCount;		// 弾数カウンターへのポインタ
+	static CCollision* m_pColl;					// 当たり判定へのポインタ
+	static CMatchUp* m_pMatchup;				// タイプ相性へのポインタ
+	static CHpGauge* m_pHpGauge;				// HPゲージへのポインタ
+	static CLoadStage* m_pStage;				// ステージ読み込みへのポインタ
+	static CStart* m_pStart;					// スタートへのポインタ
+	static CResetGauge* m_pReset;				// リセットゲージへのポインタ
+	static CMap* m_pMap;						// マップへのポインタ
+	static CBuff* m_pBuff;						// バフへのポインタ
+	static CScreenFlash* m_pScreenFlash;		// 画面点滅へのポインタ
+	static CTutorial* m_pTutprial;				// チュートリアルへのポインタ
+	static CPause* m_pPause;					// ポーズへのポインタ
 
-	static CPause* m_pPause;
-
-	static MODE m_mode;
+	static MODE m_mode;							// ゲームモード
 
 };
 

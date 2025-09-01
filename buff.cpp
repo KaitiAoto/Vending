@@ -1,16 +1,30 @@
+//===================
+//
+// バフ[buff.cpp]
+// Author:kaiti
+//
+//===================
 #include "buff.h"
 #include "game.h"
 #include "buff_icon.h"
 
+//==================
+// コンストラクタ
+//==================
 CBuff::CBuff()
 {
+    // 値をクリア
     m_type = TYPE_NONE;
 }
-
+//================
+// デストラクタ
+//================
 CBuff::~CBuff()
 {
 }
-
+//============
+// 更新処理
+//============
 void CBuff::Update(float deltaTime)
 {
     if (!m_bActive) return;
@@ -28,7 +42,9 @@ void CBuff::Update(float deltaTime)
         }
     }
 }
-
+//======================
+// スピードアップ処理
+//======================
 void CBuff::AddSpeed(float fSpeed, float fDuration)
 {
     if (m_bActive && m_type == TYPE_SPEED)

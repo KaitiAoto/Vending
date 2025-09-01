@@ -9,13 +9,15 @@
 
 #include "main.h"
 
+// マクロ定義
 #define MAX_DEBUGLINE (20)
-//デバッグクラス
+
+// デバッグクラス
 class CDebugProc
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CDebugProc();
 	~CDebugProc();
 
@@ -24,11 +26,11 @@ public:
 	static void Print(const char* fmt, ...);
 	static void Draw(void);
 private:
-	//メンバ変数
-	static LPD3DXFONT m_pFont;
-	static char m_aStr[MAX_WORD];
-	static int m_LineCount;
-	static bool m_bUse;
+	// メンバ変数
+	static LPD3DXFONT m_pFont;		// フォント
+	static char m_aStr[MAX_WORD];	// 文字数
+	static int m_LineCount;			// 列カウント
+	static bool m_bUse;				// 使用しているか
 };
 
 #endif

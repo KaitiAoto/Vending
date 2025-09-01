@@ -1,21 +1,21 @@
-//==============================
+//============================================
 //
-//  ゲージ処理[Gauge.h]
+//  ビルボードゲージ処理[gauge_billboard.h]
 //  Author:kaiti
 //
-//==============================
+//============================================
 #ifndef _GAUGE_BILLBOARD_H_
 #define _GAUGE_BILLBOARD_H_
 
 #include"main.h"
 #include "object.h"
 
-//クラス
+// ビルボードゲージクラス
 class CGaugeBillboard
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CGaugeBillboard();
 	~CGaugeBillboard();
 	HRESULT Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
@@ -32,15 +32,15 @@ public:
 	void SetColor(D3DXCOLOR col) { m_col = col; }
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 private:
-	//メンバ変数
+	// メンバ変数
 	int m_nIdxTex;
-	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
-	D3DXVECTOR3 m_pos;
-	D3DXMATRIX m_mtxWorld;//ワールドマトリックス
-	D3DXCOLOR m_col;
-	float m_Base;
-	float m_fHeight;
-	float m_fWidth;
-	float m_rate;
+	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// バッファ
+	D3DXVECTOR3 m_pos;					// 位置
+	D3DXMATRIX m_mtxWorld;				// ワールドマトリックス
+	D3DXCOLOR m_col;					// 色
+	float m_Base;						// 基準
+	float m_fHeight;					// 高さ
+	float m_fWidth;						// 横幅
+	float m_rate;						// レート
 };
 #endif

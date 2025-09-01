@@ -34,7 +34,6 @@ CEnemy::CEnemy(int nPriority) :CObject(nPriority)
 
 	m_bUse = true;
 	
-	m_nPriority = nPriority;
 	
 	m_State = STATE_NONE;
 	m_nCntState = 0;

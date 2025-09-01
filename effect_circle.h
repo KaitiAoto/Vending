@@ -1,9 +1,9 @@
-//==============================
+//=================================
 //
-// パーティクル[particle.h]
+// 円エフェクト[effect_circle.h]
 // Author:kaiti
 //
-//==============================
+//=================================
 #ifndef _EFFECT_CIRCLE_H_
 #define _EFFECT_CIRCLE_H_
 
@@ -11,8 +11,7 @@
 #include "object.h"
 #include "meshcircle.h"
 
-
-//オブジェクト2Dクラス
+// 円エフェクトクラス
 class CEffectCircle:public CObject
 {
 public:
@@ -43,22 +42,18 @@ public:
 private:
 
 	void UpDown(void);
+	
 	//メンバ変数
-
-	D3DXVECTOR3 m_pos;	//位置
-	D3DXVECTOR3 m_posOff;	//位置
-	D3DXVECTOR3 m_rot;	//角度
-	D3DXCOLOR m_col;
-	float m_fRadius;
-	int m_nLife;
-
-	bool m_bUse;
-
-	TYPE m_type;
-
-	CMeshCircle* m_pCircle;
-
-	bool m_bUp;
+	D3DXVECTOR3 m_pos;		// 位置
+	D3DXVECTOR3 m_posOff;	// 初期位置
+	D3DXVECTOR3 m_rot;		// 角度
+	D3DXCOLOR m_col;		// 色
+	float m_fRadius;		// 半径
+	int m_nLife;			// 寿命
+	bool m_bUse;			// 使用しているか
+	bool m_bUp;				// 上がるか下がるか
+	TYPE m_type;			// 種類
+	CMeshCircle* m_pCircle;	// 円メッシュへのポインタ
 };
 
 #endif

@@ -1,16 +1,17 @@
 //==============================
 //
-// 補充処理[restock.h]
+// バフ[buff.h]
 // Author:kaiti
 //
 //==============================
 #ifndef _BUFF_H_
 #define _BUFF_H_
 
-
+// バフクラス
 class CBuff
 {
 public:
+	// 種類
 	enum TYPE
 	{
 		TYPE_NONE,
@@ -18,6 +19,7 @@ public:
 		TYPE_MAX
 	};
 
+	// メンバ関数
 	CBuff();
 	~CBuff();
 	void Update(float deltaTime);
@@ -26,11 +28,11 @@ public:
 
 	TYPE GetType(void) { return m_type; }
 private:
-
-	float m_fSpeed;
-	float m_fDuration;
-	bool m_bActive;
-	TYPE m_type;
+	//メンバ変数
+	float m_fSpeed;		// スピード
+	float m_fDuration;	// 効果時間
+	bool m_bActive;		// バフがかかっているか
+	TYPE m_type;		// 種類
 };
 
 #endif

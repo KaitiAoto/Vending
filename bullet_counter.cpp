@@ -8,8 +8,6 @@
 #include "renderer.h"
 #include "manager.h"
 #include "timer_manager.h"
-//静的メンバ変数
-int CBullerCounter::m_nPriority = 0;
 
 //==================
 // コンストラクタ

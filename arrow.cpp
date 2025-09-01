@@ -1,6 +1,6 @@
 //===================
 //
-// タイマー[timer.h]
+// 矢印[arrow.cpp]
 // Author:kaiti
 //
 //===================
@@ -12,6 +12,7 @@
 //==================
 CArrow::CArrow(int nPriority) :CObject3D(nPriority)
 {
+	// 値をクリア
 	m_bUse = true;
 	m_pos = { 0.0f,0.0f,0.0f };
 	m_rot = { 0.0f,0.0f,0.0f };
@@ -28,28 +29,35 @@ CArrow::~CArrow()
 //===========
 CArrow* CArrow::Create(D3DXVECTOR3 pos)
 {
-	CArrow* pObject2D;
-	pObject2D = new CArrow;
-	//初期化
-	pObject2D->Init(pos);
-	return pObject2D;
+	CArrow* pArrow;
+	// 生成
+	pArrow = new CArrow;
+	// 初期化
+	if (FAILED(pArrow->Init(pos)))
+	{// NULLチェック
+		delete pArrow;
+		return nullptr;
+	}
+	return pArrow;
 }
 //===============
 // 初期化処理
 //===============
 HRESULT CArrow::Init(D3DXVECTOR3 pos)
 {
+	// メンバ変数を初期化
 	m_bUse = true;
 	m_pos = pos;
-
 	m_TargetPos = CGame::GetStart()->GetPos();
 
-	const float fWidth = 25.0f;
-	const float fHeight = 25.0f;
 
+	const float fWidth = 25.0f;		//横の長さ
+	const float fHeight = 25.0f;	//縦の長さ
+
+	// 3Dオブジェクトの初期化
 	CObject3D::Init("data\\TEXTURE\\arrow00.png", pos, { 0.0f, 0.0f, 0.0f }, fWidth, fHeight, CObject3D::TYPE_SHADOW);
 
-	//オブジェクトの種類設定
+	// オブジェクトの種類設定
 	SetObjType(TYPE_UI);
 
 	return S_OK;
@@ -59,6 +67,7 @@ HRESULT CArrow::Init(D3DXVECTOR3 pos)
 //============
 void CArrow::Uninit(void)
 {
+	// 3Dオブジェクトの終了処理
 	CObject3D::Uninit();
 }
 //============
@@ -69,32 +78,34 @@ void CArrow::Update(void)
 	//--------------
 	// 向き
 	//--------------
-	//方向ベクトル
+	// 方向ベクトル
 	D3DXVECTOR3 toTarget = m_TargetPos - m_pos;
-	//正規化
+	// 正規化
 	D3DXVec3Normalize(&toTarget, &toTarget);
-
 	float angle = atan2f(toTarget.x, toTarget.z);
-	m_rot.y = angle - D3DX_PI / 2;
+	m_rot.y = angle - D3DX_PI / 2;	// 値を代入
 
+	//向きを設定
 	CObject3D::SetRot(m_rot);
 
 	//---------------
 	// 位置
 	//---------------
+	// プレイヤー取得
 	CPlayer* pPlayer = CGame::GetPlayer();
-	m_pos = pPlayer->GetPos();
-
+	m_pos = pPlayer->GetPos();// プレイヤーの位置を代入
+	// 位置を設定
 	CObject3D::SetPos({ m_pos.x, m_pos.y + (pPlayer->GetSize().y * 2), m_pos.z });
 
-
+	// ゲームのモードがPLAYなら
 	if (CGame::GetMode() == CGame::MODE_PLAY)
 	{
-		m_bUse = false;
+		m_bUse = false;// 使わなくする
 	}
-
+	// 使われていなければ
 	if (m_bUse == false)
 	{
+		// 終了処理
 		Uninit();
 	}
 }
@@ -103,8 +114,9 @@ void CArrow::Update(void)
 //============
 void CArrow::Draw(void)
 {
+	// 使っていたら
 	if (m_bUse == true)
 	{
-		CObject3D::Draw();
+		CObject3D::Draw(); // 3Dオブジェクトの描画
 	}
 }
