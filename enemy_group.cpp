@@ -115,8 +115,8 @@ void CEnemyGroup::CreateEnemy(void)
 	std::mt19937 mt((unsigned int)seed);
 	std::uniform_int_distribution<int> distType(0, CEnemy::TYPE_MAX - 1);
 
-	const int Max = 3;
-	const int Min = 2;
+	const int Max = 2;
+	const int Min = 1;
 	std::uniform_int_distribution<int> distCount(Min, Max);
 
 	int nCntEnemy = distCount(mt);
