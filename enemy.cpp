@@ -39,6 +39,7 @@ CEnemy::CEnemy(int nPriority) :CObject(nPriority)
 	m_State = STATE_NONE;
 	m_nCntState = 0;
 
+	m_pMyGroup = nullptr;
 }
 //================
 // デストラクタ
@@ -60,6 +61,28 @@ CEnemy* CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, TYPE type)
 	{
 		delete pBullet;
 		return nullptr;
+	}
+	else
+	{
+		pBullet->m_pMyGroup = nullptr;
+	}
+
+	return pBullet;
+}
+CEnemy* CEnemy::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type, CEnemyGroup* Group)
+{
+	CEnemy* pBullet = new CEnemy;
+	if (!pBullet)
+		return nullptr;
+
+	if (FAILED(pBullet->Init(pos, rot, type)))
+	{
+		delete pBullet;
+		return nullptr;
+	}
+	else
+	{
+		pBullet->m_pMyGroup = Group;
 	}
 
 	return pBullet;
@@ -174,6 +197,11 @@ void CEnemy::Update(void)
 
 			m_bUse = false;
 			m_pGauge->SetDraw(false);
+
+			if (m_pMyGroup != nullptr)
+			{
+				m_pMyGroup->SubMyEnemy();
+			}
 		}
 	}
 	else if (m_bUse == false)
@@ -692,7 +720,6 @@ const char* CEnemy::SetModelName(void)
 	case TYPE_RANGE:
 		pFilename = "data\\MODEL\\microwave00.x";
 		break;
-
 
 	default:
 		break;

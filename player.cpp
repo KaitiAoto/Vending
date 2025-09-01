@@ -493,7 +493,7 @@ void CPlayer::Action(void)
 					{
 						if (pTutorial->GetType() == CTutorial::TYPE_BULLET)
 						{
-								CGame::GetTutorial()->SetClear(true);
+							CGame::GetTutorial()->SetClear(true);
 						}
 					}
 				}

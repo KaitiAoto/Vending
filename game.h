@@ -50,6 +50,7 @@
 #include "startUI.h"
 #include "buff.h"
 #include "screen_flash.h"
+#include "enemy_group.h"
 
 ////ƒ}ƒNƒ’è‹`
 #define GAME_TIME (180)

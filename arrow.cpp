@@ -66,6 +66,9 @@ void CArrow::Uninit(void)
 //============
 void CArrow::Update(void)
 {
+	//--------------
+	// 向き
+	//--------------
 	//方向ベクトル
 	D3DXVECTOR3 toTarget = m_TargetPos - m_pos;
 	//正規化
@@ -76,11 +79,14 @@ void CArrow::Update(void)
 
 	CObject3D::SetRot(m_rot);
 
-
+	//---------------
+	// 位置
+	//---------------
 	CPlayer* pPlayer = CGame::GetPlayer();
 	m_pos = pPlayer->GetPos();
 
 	CObject3D::SetPos({ m_pos.x, m_pos.y + (pPlayer->GetSize().y * 2), m_pos.z });
+
 
 	if (CGame::GetMode() == CGame::MODE_PLAY)
 	{

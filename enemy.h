@@ -11,6 +11,7 @@
 #include "object.h"
 #include "model.h"
 #include "gauge_enemy.h"
+#include "enemy_group.h"
 
 #define ENEMY_LIFE (30)
 #define ENEMY_ACTIONSTATE (300)
@@ -55,6 +56,7 @@ public:
 	void Draw(void);
 
 	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type);
+	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type, CEnemyGroup* Group);
 
 	void SetType(TYPE type) { m_type = type; };
 	TYPE GetType(void) { return m_type; }
@@ -100,6 +102,8 @@ private:
 	float m_fRandomAngle;      //ƒ‰ƒ“ƒ_ƒ€•ûŒü‚ÌŠp“x
 
 	CEnemyGauge* m_pGauge;
+
+	CEnemyGroup* m_pMyGroup;
 };
 
 #endif

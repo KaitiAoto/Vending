@@ -118,14 +118,16 @@ void CGame::Init(void)
 
 	m_pStart = CStart::Create("data\\MODEL\\barricade00.x", D3DXVECTOR3(-870.0f, 0.0f, -880.0f), D3DXVECTOR3(0.0f, -D3DX_PI / 2, 0.0f));
 	
+	CEnemyGroup::Create(D3DXVECTOR3(-170.0f, 0.0f, -550.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(-170.0f, 0.0f, 550.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(560.0f, 0.0f, -190.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(70.0f, 0.0f, -50.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(800.0f, 0.0f, 700.0f));
 
-
-	//CItem::Create(D3DXVECTOR3(-700.0f, 0.0f, -880.0f), D3DXVECTOR3(0.0f, -D3DX_PI / 2, 0.0f), CItem::TYPE_LIFE);
 
 	CObject3D::Create("data\\TEXTURE\\field00.jpeg", D3DXVECTOR3(0.0f, -0.1f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, CObject3D::TYPE_FIELD);
 	CMeshCylinder::Create("data\\TEXTURE\\city00.png", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 2900, 200, D3DXCOLOR(1.0, 1.0, 1.0, 1.0), CMeshCylinder::TYPE_IN);
 	CMeshSphere::Create("data\\TEXTURE\\sky001.jpg", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, D3DXCOLOR(1.0, 1.0, 1.0, 1.0), CMeshSphere::TYPE_HALF_TOP);
-	//CMeshSphere::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, D3DXCOLOR(0.0, 0.0, 0.5, 1.0), CMeshSphere::TYPE_HALF_BOTTOM);
 
 	if (m_pPause == nullptr)
 	{

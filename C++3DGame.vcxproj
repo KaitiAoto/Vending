@@ -170,6 +170,7 @@
     <ClCompile Include="effect_circle.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemy_base.cpp" />
+    <ClCompile Include="enemy_group.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gauge.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="effect_circle.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemy_base.h" />
+    <ClInclude Include="enemy_group.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gauge.h" />
