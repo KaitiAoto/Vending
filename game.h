@@ -119,7 +119,7 @@ private:
 	static CMap* m_pMap;
 	static CBuff* m_pBuff;
 	static CScreenFlash* m_pScreenFlash;
-	static CTutorial* m_pTutprial;
+	static CTutorial* m_pTutprial;	
 
 	static CPause* m_pPause;
 

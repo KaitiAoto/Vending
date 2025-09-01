@@ -10,6 +10,7 @@
 #include "texture.h"
 #include "debugproc.h"
 #include "input.h"
+#include "arrow.h"
 
 //==================
 // コンストラクタ
@@ -182,6 +183,10 @@ void CTutorial::Update(void)
 
 	if (m_bUse == false)
 	{
+		CPlayer* pPlayer = CGame::GetPlayer();
+		D3DXVECTOR3 pos = pPlayer->GetPos();
+		CArrow::Create({ pos.x,pos.y + pPlayer->GetSize().y,pos.z });
+		
 		CObject2D::SetUse(false);
 		m_pBack->SetUse(false);
 		m_pSkip->SetUse(false);

@@ -101,7 +101,7 @@ void CStart::Update(void)
 		bool bColl = pColl->ToStart(m_pos, TYPE_START);
 
 		if (bColl == true)
-		{
+		{	
 			m_bDraw = true;
 			m_pos.x -= 40.0f;
 			SetObjType(TYPE_STAGE);

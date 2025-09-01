@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arrow.cpp" />
     <ClCompile Include="buff.cpp" />
     <ClCompile Include="buff_icon.cpp" />
     <ClCompile Include="bullet.cpp" />
@@ -236,6 +237,7 @@
     <ClCompile Include="wall_invisible.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arrow.h" />
     <ClInclude Include="buff.h" />
     <ClInclude Include="buff_icon.h" />
     <ClInclude Include="bullet.h" />

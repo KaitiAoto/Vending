@@ -38,13 +38,15 @@ public:
 	void SetIdxTex(const int nIdxTex) { m_nIdxTex = nIdxTex; }
 	float GetHeight(D3DXVECTOR3 pos);
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
 	void SetColor(D3DXCOLOR col);
+	
 private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;
 
-	D3DXVECTOR3 m_pos;//位置
-	D3DXVECTOR3 m_rot;//向き
-	D3DXMATRIX m_mtxWorld;//ワールドマトリックス
+	D3DXVECTOR3 m_pos;		//位置
+	D3DXVECTOR3 m_rot;		//向き
+	D3DXMATRIX m_mtxWorld;	//ワールドマトリックス
 
 	int m_nIdxTex;
 };
