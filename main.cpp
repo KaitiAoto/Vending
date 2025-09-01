@@ -142,6 +142,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 					SetCursorPos(pt.x, pt.y);
 				}
 
+				if (pManager->GetInputKey()->GetTrigger(DIK_F10))
+				{
+					ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+				}
+
 				//マネージャー描画処理
 				pManager->Draw();
 				pManager->GetDebug()->Print("FPS：%d", nCntFPS);
