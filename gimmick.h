@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _GIMMICK_H_
 #define _GIMMICK_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
 #include "model.h"
@@ -36,8 +39,6 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CGimmick* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type);
-
 	// 設定
 	void SetType(TYPE type) { m_type = type; };
 	static TYPE SetType(const char* pFileName);
@@ -48,6 +49,10 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
+
+	// 静的メンバ関数
+	static CGimmick* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type);
+
 private:
 	void Move(void);
 

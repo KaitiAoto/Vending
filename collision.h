@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _COLLISION_H_
 #define _COLLISION_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
 #include "enemy.h"

@@ -4,18 +4,21 @@
 // Author:kaiti
 //
 //=================================
+
+// 二重インクルード防止
 #ifndef _PAUSE_SELECT_H_
 #define _PAUSE_SELECT_H_
 
+// インクルード
 #include "main.h"
 #include "object2D.h"
 
-//オブジェクト2Dクラス
+// ポーズ選択クラス
 class CPauseSelect:public CObject2D
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CPauseSelect(int nPriority = 10);
 	~CPauseSelect();
 	HRESULT Init(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
@@ -23,6 +26,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	// 静的メンバ関数
 	static CPauseSelect* Create(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 private:
 	//メンバ変数

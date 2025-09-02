@@ -4,12 +4,16 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _BULLET_ICON_H_
 #define _BULLET_ICON_H_
 
+// インクルード
 #include "main.h"
 #include "object2D.h"
 #include "bullet.h"
+
 // マクロ定義
 #define BULLETICON_SIZE (80)
 
@@ -22,7 +26,6 @@ public:
 	CBulletIcon(int nPriority = 7);
 	~CBulletIcon();
 
-	static CBulletIcon* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	void Uninit(void);
 	void Update(void);
@@ -34,6 +37,10 @@ public:
 	bool GetUse(void){return m_bUse;}
 	// 設定処理
 	void SetUse(bool bUse) { m_bUse = bUse; }
+
+	// 静的メンバ関数
+	static CBulletIcon* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+
 private:
 	
 	// メンバ変数

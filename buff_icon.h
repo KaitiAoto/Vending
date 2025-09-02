@@ -4,12 +4,16 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _BUFF_ICON_H_
 #define _BUFF_ICON_H_
 
+// インクルード
 #include "main.h"
 #include "object2D.h"
 #include "buff.h"
+
 // マクロ定義
 #define BUFF_X (200)
 #define BUFF_Y (50)
@@ -18,7 +22,7 @@
 class CBuffIcon:public CObject2D
 {
 public:
-	//状態
+	// 状態
 	typedef enum
 	{
 		STATE_STAY = 0,
@@ -28,22 +32,24 @@ public:
 	}STATE;
 
 
-	//メンバ関数
+	// メンバ関数
 	CBuffIcon(int nPriority = 7);
 	~CBuffIcon();
 
-	static CBuffIcon* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	//取得処理
+	// 取得処理
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	bool GetUse(void){return m_bUse;}
-	//設定処理
+	// 設定処理
 	void SetUse(bool bUse) { m_bUse = bUse; }
+
+	// 静的メンバ関数
+	static CBuffIcon* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
 	void Move(void);

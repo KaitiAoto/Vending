@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //================================
+
+// 二重インクルード防止
 #ifndef _GAME_H_
 #define _GAME_H_
 
+// インクルード
 #include "main.h"
 #include "scene.h"
 #include "object.h"
@@ -82,8 +85,12 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static void SetPlayer(CPlayer* player) { m_pPlayer = player; }
 	// 静的メンバ関数
+	// 設定
+	static void SetPlayer(CPlayer* player) { m_pPlayer = player; }
+	static void SetMode(MODE mode) { m_mode = mode; }
+
+	// 取得
 	static CPlayer* GetPlayer(void) { return m_pPlayer; }
 	static CTimerMana* GetTime(void) { return m_pTimer; }
 	static CObject3D* GetObj3D(void) { return m_pObj3D; }
@@ -98,11 +105,10 @@ public:
 	static CBuff* GetBuff(void) { return m_pBuff; }
 	static CScreenFlash* GetFlash(void) { return m_pScreenFlash; }
 	static CTutorial* GetTutorial(void) { return m_pTutprial; }
-
 	static CPause* GetPause(void) { return m_pPause; }
 
-	static void SetMode(MODE mode) { m_mode = mode; }
 	static MODE GetMode(void) { return m_mode; }
+
 private:
 
 	// 静的メンバ変数

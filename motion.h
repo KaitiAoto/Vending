@@ -4,19 +4,23 @@
 //  Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _MOTION_H_
 #define _MOTION_H_
 
+// インクルード
 #include "main.h"
 #include "model.h"
 
+// マクロ定義
 #define MAX_KEY (300)//キーの最大数
 
-//クラス
+// モーションクラス
 class CMotion
 {
 public:
-	//モーションの種類
+	// 種類
 	typedef enum
 	{
 		TYPE_NEUTRAL = 0,
@@ -28,67 +32,69 @@ public:
 		TYPE_MAX,
 	}TYPE;
 
-	//キーの構造体
+	// キーの構造体
 	typedef struct
 	{
-		float fPosX;
-		float fPosY;
-		float fPosZ;
+		float fPosX;	// X位置
+		float fPosY;	// Y位置
+		float fPosZ;	// Z位置
 
-		float fRotX;
-		float fRotY;
-		float fRotZ;
+		float fRotX;	// X向き
+		float fRotY;	// Y向き
+		float fRotZ;	// Z向き
 	}KEY;
 
-	//キー情報の構造体
+	// キー情報の構造体
 	typedef struct
 	{
-		int nFrame;
-		KEY aKey[MAX_PARTS];
+		int nFrame;				// フレーム数
+		KEY aKey[MAX_PARTS];	//キーの構造体
 	}KEY_INFO;
 
-	//モーション情報の構造体
+	// 構造体
 	typedef struct
 	{
-		bool bLoop;
-		int nNumKey;
-		KEY_INFO aKeyInfo[MAX_KEY];
+		bool bLoop;					// ループするか
+		int nNumKey;				// 最大キー数
+		KEY_INFO aKeyInfo[MAX_KEY];	// キー情報の構造体
 	}MOTION_INFO;
 
-	//メンバ関数
+	// メンバ関数
 	CMotion();
-	//仮想関数
+	// 仮想関数
 	~CMotion();
-
-	void StartBlend(TYPE from, TYPE to, int nBlendFrame);
-
 	void Update(const int nMaxPart, CModel** pModel);
-
-	static CMotion* Load(const char* pFilename);
-
+	void StartBlend(TYPE from, TYPE to, int nBlendFrame);
 	D3DXVECTOR3 LerpVec3(const D3DXVECTOR3& a, const D3DXVECTOR3& b, float t);
 	D3DXVECTOR3 LerpKey(TYPE type, int part, int keyA, int keyB, float t, bool isPos);
 
+	// 設定
 	void SetType(TYPE type) { m_type = type; }
-	TYPE GetType(void) { return m_type; }
-private:
-	MOTION_INFO m_aMotionInfo[TYPE_MAX];//モーション情報
-	int m_nNumMotion;					//モーションの総数
-	TYPE m_type;						//モーションの種類
-	bool m_bLoop;						//ループするかどうか
-	int m_nKey;							//現在のキーNo
-	int m_nCntMotion;					//モーションのカウンター
 
+	// 取得
+	TYPE GetType(void) { return m_type; }
+
+	// 静的メンバ関数
+	static CMotion* Load(const char* pFilename);
+
+private:
+	// メンバ変数
+	MOTION_INFO m_aMotionInfo[TYPE_MAX];// 情報
+	TYPE m_type;						// 種類
+	bool m_bLoop;						// ループするかどうか
+	int m_nNumMotion;					// 総数
+	int m_nKey;							// 現在のキーNo
+	int m_nCntMotion;					// モーションのカウンター
+	// モーションブレンド
 	bool m_bBlend;						// ブレンド中か
 	float m_fBlendRate;					// ブレンド進行 (0.0～1.0)
-	int m_nBlendFrame;					// ブレンドにかけるフレーム数
 	TYPE m_typeFrom;					// 元のモーション
 	TYPE m_typeTo;						// 移行先モーション
-
-	int m_nKeyFrom;
-	int m_nKeyTo;
-	int m_nCntFrom;
-	int m_nCntTo;
+	int m_nBlendFrame;					// ブレンドにかけるフレーム数
+	int m_nKeyFrom;						// 元のキー
+	int m_nKeyTo;						// 移行先のきー
+	int m_nCntFrom;						// 元のカウント
+	int m_nCntTo;						// 移行先のカウント
 };
 
 #endif 

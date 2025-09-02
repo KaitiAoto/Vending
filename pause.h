@@ -1,23 +1,26 @@
 //================================
 //
-// リザルト処理[result.h]
+// ポーズ[pause.h]
 // Author:kaiti
 //
 //================================
+
+// 二重インクルード防止
 #ifndef _PAUSE_H_
 #define _PAUSE_H_
 
+// インクルード
 #include "main.h"
 #include "scene.h"
 #include "object2D.h"
 #include "pause_manager.h"
 #include "click.h"
 
-//クラス
+// ポーズクラス
 class CPause
 {
 public:
-	//メンバ関数
+	// メンバ関数
 	CPause();
 	~CPause();
 
@@ -25,13 +28,17 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	
+	// 静的メンバ関数
 	static CPause* Create();
 
 private:
-	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; //頂点情報
+	// メンバ変数
+	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点情報
 
-	static CPauseMana* m_pPauseMana;
-	static CClick* m_pClick;
+	// 静的メンバ変数
+	static CPauseMana* m_pPauseMana;	// ポーズマネージャーへのポインタ
+	static CClick* m_pClick;			// 決定キーＵＩへのポインタ
 };
 
 #endif

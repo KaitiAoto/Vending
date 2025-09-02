@@ -4,9 +4,12 @@
 //  Author:kaiti
 //
 //============================================
+
+// 二重インクルード防止
 #ifndef _GAUGE_BILLBOARD_H_
 #define _GAUGE_BILLBOARD_H_
 
+// インクルード
 #include"main.h"
 #include "object.h"
 
@@ -23,14 +26,16 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CGaugeBillboard* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
-
+	// 設定
 	void Set();
-
 	void SetBase(float base) { m_Base = base; }
 	void SetRate(float rate) { m_rate = rate; }
 	void SetColor(D3DXCOLOR col) { m_col = col; }
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+
+	// 静的メンバ関数
+	static CGaugeBillboard* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
+
 private:
 	// メンバ変数
 	int m_nIdxTex;

@@ -4,9 +4,12 @@
 //  Author:kaiti
 //
 //======================================
+
+// 二重インクルード防止
 #ifndef _GAUGE_RESET_H_
 #define _GAUGE_RESET_H_
 
+// インクルード
 #include "main.h"
 #include "gauge.h"
 #include "object2D.h"
@@ -24,6 +27,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	// 静的メンバ関数
 	static CResetGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
 
 private:

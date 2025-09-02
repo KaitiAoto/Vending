@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //=================================
+
+// 二重インクルード防止
 #ifndef _EFFECT_CIRCLE_H_
 #define _EFFECT_CIRCLE_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
 #include "meshcircle.h"
@@ -26,7 +29,6 @@ public:
 	CEffectCircle(int nPriority = 4);
 	~CEffectCircle();
 
-	static CEffectCircle* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius, D3DXCOLOR col, CMeshCircle::TYPE circle, TYPE type);
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius, D3DXCOLOR col, CMeshCircle::TYPE circle, TYPE type);
 	void Uninit(void);
 	void Update(void);
@@ -38,6 +40,8 @@ public:
 
 	//設定処理
 
+	// 静的メンバ関数
+	static CEffectCircle* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius, D3DXCOLOR col, CMeshCircle::TYPE circle, TYPE type);
 
 private:
 

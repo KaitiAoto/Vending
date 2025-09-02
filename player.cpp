@@ -39,18 +39,12 @@ CPlayer::CPlayer(int nPriority):CObject(nPriority)
 	m_size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
-	m_fLength = 0;
-	m_fAngle = atan2f(PLAYER_SIZE, PLAYER_SIZE);
-
 	m_type = TYPE_A;
 	m_Bullet = CBullet::TYPE_CAN;
 
 	m_bUse = true;
 	m_State = STATE_NONE;
 	m_nCntState = 0;
-	m_nPriority = nPriority;
-	//m_bJump = false;
-	//m_bLanding = false;
 
 	m_nLife = 0;
 	m_fSpeed = 0;
@@ -67,7 +61,7 @@ CPlayer::CPlayer(int nPriority):CObject(nPriority)
 
 	m_pShadow = NULL;
 
-	m_nCnStackt = 0;
+	m_nCntStackt = 0;
 
 	m_BaseColor = { 1.0f,1.0f,1.0f,1.0f };
 	m_DamageColor = { 1.0f, 1.0f, 1.0f,0.0f };
@@ -726,18 +720,18 @@ void CPlayer::CheckStack(bool bColl, bool bMove)
 {
 	if (bColl == true && bMove == false /*&& m_bLanding == false*/)
 	{
-		m_nCnStackt++;
+		m_nCntStackt++;
 
 		// 一定フレーム以上スタックしていたら救出
-		if (m_nCnStackt >= 180)
+		if (m_nCntStackt >= 180)
 		{
 			RecoverFromStuck();
-			m_nCnStackt = 0;
+			m_nCntStackt = 0;
 		}
 	}
 	else
 	{
-		m_nCnStackt = 0;
+		m_nCntStackt = 0;
 	}
 }
 //======================

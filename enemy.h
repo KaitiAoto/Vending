@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _ENEMY_H_
 #define _ENEMY_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
 #include "model.h"
@@ -51,13 +54,13 @@ public:
 	// メンバ関数
 	CEnemy(int nPriority = PRIORITY_ENEMY);
 	~CEnemy();
+
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, TYPE type);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
-	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type);
-	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type, CEnemyGroup* Group);
+	void Hit(const int nDamage);
+	void MovePos(D3DXVECTOR3 move) { m_pos += move; }
 
 	// 設定
 	void SetType(TYPE type) { m_type = type; };
@@ -68,8 +71,10 @@ public:
 	D3DXVECTOR3 GetSize(void) { return m_size; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	
-	void Hit(const int nDamage);
-	void MovePos(D3DXVECTOR3 move) { m_pos += move; }
+
+	// 静的メンバ関数
+	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type);
+	static CEnemy* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type, CEnemyGroup* Group);
 
 private:
 	void Move(void);

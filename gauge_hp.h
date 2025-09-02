@@ -4,9 +4,12 @@
 //  Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _GAUGE_HP_H_
 #define _GAUGE_HP_H_
 
+// インクルード
 #include"main.h"
 #include "gauge.h"
 
@@ -22,6 +25,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
+	// 静的メンバ関数
 	static CHpGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
 
 private:

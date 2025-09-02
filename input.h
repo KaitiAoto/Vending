@@ -4,9 +4,12 @@
 //  Author:kaiti
 //
 //==========================
+
+// 二重インクルード防止
 #ifndef _INPUT_H_
 #define _INPUT_H_
 
+// インクルード
 #include "main.h"
 
 // マクロ定義
@@ -25,6 +28,7 @@ public:
 	virtual void Update(void) = 0;
 
 protected:
+	// 静的メンバ変数
 	static LPDIRECTINPUT8 m_pInput; // 入力
 };
 
@@ -39,6 +43,8 @@ public:
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd);
 	void Uninit(void);
 	void Update(void);
+
+	// 取得
 	bool GetPress(int nKey);
 	bool GetTrigger(int nKey);
 	bool GetRelease(int nKey);
@@ -84,15 +90,16 @@ public:
 	HRESULT Init(HINSTANCE hInstance);
 	void Uninit(void);
 	void Update(void);
+
+	// 取得
 	bool GetPress(JOYKEY nKey);
 	bool GetTrigger(JOYKEY nKey);
 	bool GetJoyStick();
+	bool GetStickTriggerUp();
+	bool GetStickTriggerDown();
 	XINPUT_STATE* GetJoyStickAngle(void);
 	float GetRightStickX();
 	float GetRightStickY();
-
-	bool GetStickTriggerUp();
-	bool GetStickTriggerDown();
 private:
 	// メンバ変数
 	XINPUT_STATE m_joyKeyState;			// ジョイパッドの状態
@@ -112,19 +119,18 @@ public:
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd);
 	void Uninit(void);
 	void Update(void);
+	void ResetWheel(void) { m_wheel = 0; };
+
+	// 取得
 	bool GetPress(int nKey);
 	bool GetTrigger(int nKey);
 	bool GetRelease(int nKey);
 	bool GetRepeat(int nKey);
-
 	int GetRelX(void);
 	int GetRelY(void);
-
 	int GetX(void);
 	int GetY(void);
-
 	int GetWheel(void);
-	void ResetWheel(void) { m_wheel = 0; };
 
 private:
 

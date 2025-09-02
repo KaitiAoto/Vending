@@ -4,9 +4,12 @@
 //  Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _GAUGE_H_
 #define _GAUGE_H_
 
+// インクルード
 #include"main.h"
 #include "object.h"
 
@@ -27,13 +30,15 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
-
 	// 設定
 	void SetBase(float base) { m_Base = base; }
 	void SetRate(float rate) { m_rate = rate; }
 	void SetColor(D3DXCOLOR col) { m_col = col; }
 	void Set();
+
+	// 静的メンバ関数
+	static CGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
+
 private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// バッファ

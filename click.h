@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _CLICK_H_
 #define _CLICK_H_
 
+// インクルード
 #include "main.h"
 #include "object2D.h"
 
@@ -22,7 +25,6 @@ public:
 	CClick(int nPriority = 10);
 	~CClick();
 
-	static CClick* Create(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 	HRESULT Init(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 	void Uninit(void);
 	void Update(void);
@@ -32,6 +34,10 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	//設定処理
 	void SetUse(bool bUse) { m_bUse = bUse; }
+
+	// 静的メンバ関数
+	static CClick* Create(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
+
 private:
 	void Blink(void);
 	//メンバ変数

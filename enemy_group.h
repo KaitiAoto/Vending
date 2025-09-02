@@ -4,11 +4,15 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _ENEMY_GROUP_H_
 #define _ENEMY_GROUP_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
+
 // マクロ定義
 #define ENEMYGROUP_RESPAWN (2400)
 
@@ -23,9 +27,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SubMyEnemy(void) { m_MyEnemy--; }
 
-	static CEnemyGroup* Create(const D3DXVECTOR3 pos);
-	
 	// 設定
 	void SetRespawn(bool bUse) { m_bRespawn = bUse; }
 
@@ -33,7 +36,9 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	bool GetUse(void) { return m_bUse; }
 
-	void SubMyEnemy(void) { m_MyEnemy--; }
+	// 静的メンバ関数
+	static CEnemyGroup* Create(const D3DXVECTOR3 pos);
+
 private:
 	void CreateEnemy(void);
 

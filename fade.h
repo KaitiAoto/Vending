@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //================================
+
+// 二重インクルード防止
 #ifndef _FADE_H_
 #define _FADE_H_
 
+// インクルード
 #include "main.h"
 #include "scene.h"
 #include "object.h"
@@ -36,14 +39,16 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	static CFade* Create(CScene::MODE modeNext);
-
 	// 取得
 	FADE GetFade(void) { return m_fade; }
 
 	// 設定
 	void Set(CScene::MODE modeNext);
 	void SetColor(D3DXCOLOR col);
+
+	// 静的メンバ関数
+	static CFade* Create(CScene::MODE modeNext);
+
 private:
 	// メンバ変数
 	FADE m_fade;						// 状態

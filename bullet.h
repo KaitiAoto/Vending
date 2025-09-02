@@ -4,13 +4,17 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _BULET_H_
 #define _BULET_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
 #include "model.h"
 #include "effect.h"
+
 // マクロ定義
 #define BULET_SIZE (30)
 #define BULLET_LIFE (200)
@@ -46,12 +50,11 @@ public:
 	// メンバ関数
 	CBullet(int nPriority = PRIORITY_BULLET);
 	~CBullet();
+
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, USER user);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
-	static CBullet* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, USER user);
 
 	// 取得
 	int GetUser(void) { return m_user; }
@@ -64,6 +67,9 @@ public:
 	// 設定
 	void SetUser(USER user) { m_user = user; };
 	void SetUse(bool bUse) { m_bUse = bUse; }
+	
+	// 静的メンバ関数
+	static CBullet* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, USER user);
 
 private:
 	void Move(void);

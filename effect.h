@@ -4,9 +4,12 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _EFFECT_H_
 #define _EFFECT_H_
 
+// インクルード
 #include "main.h"
 #include "object.h"
 
@@ -21,11 +24,13 @@ public:
 	//メンバ関数
 	CEffect(int nPriority = 6);
 	~CEffect();
+
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 move, D3DXCOLOR col, int nLife, float fRadius);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
+	// 静的メンバ関数
 	static CEffect* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 move, D3DXCOLOR col, int nLife, float fRadius);
 	static CEffect* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 move, D3DXCOLOR col, int nLife, float fRadius, int nPriority);
 

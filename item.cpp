@@ -150,16 +150,16 @@ void CItem::Move(void)
 	const float fAdd = 0.05f;
 	const float fHeight = 0.25f;
 
-	// •‚—VŽžŠÔ‚ð‰ÁŽZi–ˆƒtƒŒ[ƒ€j
-	m_fFloatTime += fAdd; // ’l‚ð’²®‚·‚ê‚Î—h‚ê‚Ì‘¬‚³‚à’²®‰Â”\
+	// •‚—VŽžŠÔ‚ð‰ÁŽZ
+	m_fFloatTime += fAdd;
 
-	// •‚—ViYŽ²ˆÊ’u‚ðƒTƒCƒ“”g‚Åã‰ºj
-	m_pos.y += sinf(m_fFloatTime) * fHeight; // —h‚ê‚é•‚Í0.05f’ö“x
+	// •‚—V
+	m_pos.y += sinf(m_fFloatTime) * fHeight;
 
-	// ‰ñ“]iYŽ²‚ð‚­‚é‚­‚éj
-	m_rot.y += fAdd; // ‰ñ“]‘¬“xA–ˆƒtƒŒ[ƒ€YŽ²‚ð‰ñ‚·
+	// ‰ñ“]
+	m_rot.y += fAdd;
 
-	//Šp“x‚Ì³‹K‰»
+	// Šp“x‚Ì³‹K‰»
 	if (m_rot.y >= D3DX_PI)
 	{
 		m_rot.y -= D3DX_PI * 2.0f;

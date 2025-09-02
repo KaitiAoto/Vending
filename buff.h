@@ -4,6 +4,8 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _BUFF_H_
 #define _BUFF_H_
 
@@ -22,10 +24,11 @@ public:
 	// メンバ関数
 	CBuff();
 	~CBuff();
-	void Update(float deltaTime);
 
+	void Update(float deltaTime);
 	void AddSpeed(float fSpeed, float fDuration);
 
+	// 取得
 	TYPE GetType(void) { return m_type; }
 private:
 	//メンバ変数

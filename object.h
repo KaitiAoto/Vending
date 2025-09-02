@@ -4,13 +4,15 @@
 // Author:kaiti
 //
 //==============================
+
+// 二重インクルード防止
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
+// インクルード
 #include "main.h"
 
-
-//#define MAX_OBJECT (512)
+// マクロ定義
 #define NUM_PRIORITY (11)
 
 #define PRIORITY_PLAYER (6)
@@ -23,13 +25,12 @@
 #define PRIORITY_ITEM (5)
 #define PRIORITY_START (4)
 
-
-//オブジェクトクラス
+// オブジェクトクラス
 class CObject
 {
 public:
 
-	//種類
+	// 種類
 	typedef enum
 	{
 		TYPE_NONE = 0,
@@ -46,7 +47,6 @@ public:
 		TYPE_START,
 		TYPE_EFFECT,
 		TYPE_ITEM,
-
 		TYPE_NUMBER,
 		TYPE_SCORE,
 		TYPE_TIME,
@@ -57,27 +57,28 @@ public:
 		TYPE_MAX
 	}TYPE;
 
-	//メンバ関数
-	//CObject();
+	// メンバ関数
 	CObject(int nPriority = 3);
-	//仮想関数
+	// 仮想関数
 	virtual ~CObject();
 
-	//純粋仮想関数
+	// 純粋仮想関数
 	virtual void Uninit(void) = 0;
 	virtual void Update(void) = 0;
 	virtual void Draw(void) = 0;
 
+	// 設定
+	void SetObjType(TYPE type) { m_Objtype = type; }
+	// 取得
+	TYPE GetObjType(void) { return m_Objtype; }
+	int GetPrio(void) { return m_nPriority; }
+	CObject* GetNext(void) { return m_pNext; }
+
+	// 静的メンバ関数
 	static void ReleaseAll(void);
 	static void UpdateAll(void);
 	static void DrawAll(void);
-
-	void SetObjType(TYPE type) { m_Objtype = type; }
-	TYPE GetObjType(void) { return m_Objtype; }
-	int GetPrio(void) { return m_nPriority; }
-
 	static CObject* GetTop(int nPrio) { return m_apTop[nPrio];}
-	CObject* GetNext(void) { return m_pNext; }
 
 protected:
 	void Release(void);
@@ -85,18 +86,17 @@ protected:
 private:
 	static void DeathCheck(void);
 
-	//
-	static CObject* m_apTop[NUM_PRIORITY];	//先頭オブジェクトへのポインタ
-	static CObject* m_apCur[NUM_PRIORITY];	//最後尾オブジェクトへのポインタ
-	CObject* m_pPrev;						//前のオブジェクトへのポインタ
-	CObject* m_pNext;						//次のオブジェクトへのポインタ
+	// メンバ変数
+	CObject* m_pPrev;						// 前のオブジェクトへのポインタ
+	CObject* m_pNext;						// 次のオブジェクトへのポインタ
+	TYPE m_Objtype;							// 種類
+	int m_nPriority;						// 描画順
+	bool m_bDeath;							// 死亡フラグ
 
-	static int m_nNumAll;					//最大数
-	//int m_nId;							//自身のID
-	TYPE m_Objtype;							//種類
-	int m_nPriority;
-
-	bool m_bDeath;//死亡フラグ
+	// 静的メンバ変数
+	static CObject* m_apTop[NUM_PRIORITY];	// 先頭オブジェクトへのポインタ
+	static CObject* m_apCur[NUM_PRIORITY];	// 最後尾オブジェクトへのポインタ
+	static int m_nNumAll;					// 最大数
 
 };
 
