@@ -408,7 +408,6 @@ void CPlayer::Move(void)
 			m_rotDest.y = rotY + D3DX_PI;
 		}
 
-
 		const float sensitivity = 0.05f; // 感度調整用
 		float rx = pInputPad->GetRightStickX(); // 横
 		// デッドゾーン処理

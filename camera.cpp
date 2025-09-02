@@ -122,29 +122,29 @@ void CCamera::Update(void)
 
 
 	//マウスの左右移動で視点旋回
-	//if (pInputMouse != nullptr)
-	//{
-	//	int mouseMoveX = pInputMouse->GetRelX();
+	if (pInputMouse != nullptr)
+	{
+		int mouseMoveX = pInputMouse->GetRelX();
 
-	//	const float sensitivity = 0.0003f; // 感度調整用
+		const float sensitivity = 0.0003f; // 感度調整用
 
-	//	m_rot.y += mouseMoveX * sensitivity;
+		m_rot.y += mouseMoveX * sensitivity;
 
-	//	int mouseMoveY = pInputMouse->GetRelY();
+		int mouseMoveY = pInputMouse->GetRelY();
 
-	//	const float sensitivityY = 0.05f; // 感度調整用
+		const float sensitivityY = 0.05f; // 感度調整用
 
-	//	m_posV.y += mouseMoveY * sensitivityY;
+		m_posV.y += mouseMoveY * sensitivityY;
 
-	//	if (m_posV.y <= 40.0f)
-	//	{
-	//		m_posV.y = 40.0f;
-	//	}
-	//	else if (m_posV.y >= 700.0f)
-	//	{
-	//		m_posV.y = 700.0f;
-	//	}
-	//}
+		if (m_posV.y <= 40.0f)
+		{
+			m_posV.y = 40.0f;
+		}
+		else if (m_posV.y >= 700.0f)
+		{
+			m_posV.y = 700.0f;
+		}
+	}
 
 	if (pInputPad != nullptr)
 	{

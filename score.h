@@ -1,15 +1,19 @@
-//===================
+//========================
 //
 // スコア[score.h]
 // Author:kaiti
 //
-//===================
-#ifndef SCORE_H_
-#define SCORE_H_
+//========================
 
+// 二重インクルード防止
+#ifndef _SCORE_H_
+#define _SCORE_H_
+
+// インクルード
 #include "main.h"
 #include "number.h"
 
+// マクロ定義
 #define SCORE_SIZE (20)
 
 //オブジェクト2Dクラス
