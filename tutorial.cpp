@@ -74,9 +74,9 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 		"data\\TEXTURE\\tutorial03.jpg",
 		"data\\TEXTURE\\tutorial04.jpg",
 
-		"data\\TEXTURE\\tutorial05.jpg",
-		"data\\TEXTURE\\tutorial05.jpg",
-		"data\\TEXTURE\\tutorial05.jpg",
+		"data\\TEXTURE\\tutorial06.jpg",
+		"data\\TEXTURE\\tutorial07.jpg",
+		"data\\TEXTURE\\tutorial08.jpg",
 		
 		"data\\TEXTURE\\tutorial05.jpg",
 	};
