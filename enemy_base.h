@@ -20,7 +20,7 @@
 
 // マクロ定義
 #define ENEMY_BASE_LIFE (120)
-#define ENEMY_SPAN (240)
+#define ENEMY_SPAN (300)
 #define ENEMYBASE_RESPAWN (2400)
 
 // 敵拠点クラス

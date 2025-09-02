@@ -57,7 +57,7 @@ public:
 	void Draw(void);
 
 	void AddContents(int nAdd) { m_nCntContents += nAdd; if (m_nCntContents >= 99) { m_nCntContents = 99; } }
-	void ClearContents(void) { m_nCntContents = 0; }
+	void ClearContents(void);
 	void Heal(int nHeal) { m_nLife += nHeal; if (m_nLife >= PLAYER_LIFE) { m_nLife = PLAYER_LIFE; } }
 	void AddSpeed(float fAddSpeed) { m_fSpeed += fAddSpeed; }
 	void Hit(const int nDamage);

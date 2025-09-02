@@ -63,11 +63,12 @@ public:
 	D3DXVECTOR3 GetSize(void) { return m_size; }
 	TYPE GetType(void) { return m_type; }
 	bool GetUse(void) { return m_bUse; }
-
+	bool GetSkill(void) { return m_bSkill; }
 	// 設定
 	void SetUser(USER user) { m_user = user; };
 	void SetUse(bool bUse) { m_bUse = bUse; }
-	
+	void SetSkill(bool bSkill) { m_bSkill = bSkill; }
+
 	// 静的メンバ関数
 	static CBullet* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, USER user);
 
@@ -90,6 +91,7 @@ private:
 	TYPE m_type;						// 種類
 	USER m_user;						// ユーザー
 	bool m_bUse;						// 使用しているか
+	bool m_bSkill;						// スキルかどうか
 };
 
 #endif

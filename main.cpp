@@ -77,8 +77,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 	timeBeginPeriod(1);
 	dwCurrentTime = 0;
 	dwExecLastTime = timeGetTime();
+
+#ifndef _DEBUG
+	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+#endif
+
+#ifdef _DEBUG
 	//ウインドウの表示
 	ShowWindow(hWnd, nCmdShow);
+#endif
+
 	UpdateWindow(hWnd);
 
 	DWORD dwFrameCount; //フレームカウント
@@ -120,9 +128,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 				//マネージャー更新処理
 				pManager->Update();
 
-#ifdef _DEBUG
-
-#endif
 				if (pManager->GetInputKey()->GetTrigger(DIK_F4))
 				{
 					bCursor = !bCursor;
@@ -142,11 +147,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 					// カーソル位置をセット
 					SetCursorPos(pt.x, pt.y);
 				}
-
+#ifdef _DEBUG
 				if (pManager->GetInputKey()->GetTrigger(DIK_F10))
 				{
 					ShowWindow(hWnd, SW_SHOWMAXIMIZED);
 				}
+#endif
 
 				//マネージャー描画処理
 				pManager->Draw();

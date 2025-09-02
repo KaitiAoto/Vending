@@ -12,7 +12,7 @@
 #include "object.h"
 #include "score_manager.h"
 
-////マクロ定義
+//マクロ定義
 #define RESULT_STAY (90)
 
 class CScene;

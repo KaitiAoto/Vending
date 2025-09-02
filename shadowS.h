@@ -17,7 +17,7 @@ class CShadowS:public CObjectX
 public:
 
 	//ÉÅÉìÉoä÷êî
-	CShadowS(int nPriority = 4);
+	CShadowS(int nPriority = 5);
 	~CShadowS();
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius);
 

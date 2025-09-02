@@ -71,9 +71,13 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	{
 		"data\\TEXTURE\\tutorial00.jpg",
 		"data\\TEXTURE\\tutorial01.jpg",
-		//"data\\TEXTURE\\tutorial02.jpg",
 		"data\\TEXTURE\\tutorial03.jpg",
 		"data\\TEXTURE\\tutorial04.jpg",
+
+		"data\\TEXTURE\\tutorial05.jpg",
+		"data\\TEXTURE\\tutorial05.jpg",
+		"data\\TEXTURE\\tutorial05.jpg",
+		
 		"data\\TEXTURE\\tutorial05.jpg",
 	};
 
@@ -259,6 +263,24 @@ void CTutorial::CheckClear(void)
 
 		break;
 	}
+	case TYPE_HOLD:
+		//時間経過でクリア
+		m_nTime++;
+		if (m_nTime >= 180)
+		{
+			m_bClear = true;
+			m_nTime = 0;
+		}
+		break;
+	case TYPE_RADIAL:
+		//時間経過でクリア
+		m_nTime++;
+		if (m_nTime >= 180)
+		{
+			m_bClear = true;
+			m_nTime = 0;
+		}
+		break;
 	case TYPE_MATCHUP:
 		//時間経過でクリア
 		m_nTime++;

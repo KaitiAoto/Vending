@@ -181,8 +181,6 @@ void CPlayer::Update(void)
 		//移動
 		Move();
 
-
-		//CEffect::Create(m_pos, m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 255), 60, EFFECT_SIZE);
 		if (m_nLife <= 0)
 		{
 			m_bUse = false;
@@ -266,6 +264,40 @@ void CPlayer::Draw(void)
 	{
 		m_pShadowS->Set(m_pos, m_rot);
 		m_pShadowS->Draw();
+	}
+}
+//===================
+// 中身を空にする
+//===================
+void CPlayer::ClearContents(void)
+{
+	// 中身を１０以上なら
+	if (m_nCntContents >= 10)
+	{
+		// 範囲攻撃(10方向に10発撃つ)
+		float rot = D3DX_PI / 5;
+		for (int nCnt = 0; nCnt < 10; nCnt++)
+		{
+			CBullet* pBullet = nullptr;
+			pBullet = CBullet::Create(m_pos, { m_rot.x,m_rot.y + (rot * nCnt),m_rot.z }, CBullet::USER_PLAYER);
+			pBullet->SetSkill(true);
+		}
+	}
+
+	// 中身を０に
+	m_nCntContents = 0;
+
+	//チュートリアルクリア判定
+	if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+	{
+		CTutorial* pTutorial = CGame::GetTutorial();
+		if (pTutorial != nullptr)
+		{
+			if (pTutorial->GetType() == CTutorial::TYPE_CONTENTS)
+			{
+				CGame::GetTutorial()->SetClear(true);
+			}
+		}
 	}
 }
 //===========
@@ -352,7 +384,6 @@ void CPlayer::Move(void)
 			m_rotDest.y = CameraRot.y;
 		}
 	}
-
 
 	if (pInputPad != nullptr)
 	{

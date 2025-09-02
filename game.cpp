@@ -102,7 +102,6 @@ void CGame::Init(void)
 
 	m_pMap = CMap::Create(D3DXVECTOR3(1150.0f, 600.0f, 0.0f), 200.0f, 200.0f);
 
-
 	if (m_pStage == nullptr)
 	{
 		m_pStage = new CLoadStage;
@@ -122,7 +121,6 @@ void CGame::Init(void)
 	CEnemyGroup::Create(D3DXVECTOR3(-170.0f, 0.0f, 550.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(560.0f, 0.0f, -190.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(70.0f, 0.0f, -50.0f));
-	CEnemyGroup::Create(D3DXVECTOR3(800.0f, 0.0f, 700.0f));
 
 
 	CObject3D::Create("data\\TEXTURE\\field00.jpeg", D3DXVECTOR3(0.0f, -0.1f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, CObject3D::TYPE_FIELD);

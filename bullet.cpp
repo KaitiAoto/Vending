@@ -32,6 +32,7 @@ CBullet::CBullet(int nPriority):CObject(nPriority)
 	m_user = USER_PLAYER;
 
 	m_bUse = true;
+	m_bSkill = false;
 }
 //================
 // デストラクタ
@@ -65,6 +66,7 @@ HRESULT CBullet::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, USER user)
 	m_pos = pos;
 	m_rot = rot;
 	m_bUse = true;
+	m_bSkill = false;
 	m_user = user;
 
 	//モデル生成
@@ -217,8 +219,11 @@ bool CBullet::Collision(void)
 
 	if (m_user == USER_PLAYER)
 	{
-		//敵サイドとの判定
-		bCollEnemy = pColl->ToEnemy(m_pos, m_rot, m_size, TYPE_BULLET, contactNormal);
+		//敵との判定
+		if (m_bSkill != true)
+		{
+			bCollEnemy = pColl->ToEnemy(m_pos, m_rot, m_size, TYPE_BULLET, contactNormal);
+		}
 		//自販機との判定
 		bCollVender = pColl->ToVender(m_pos, m_rot, m_size, TYPE_BULLET, contactNormal);
 		//

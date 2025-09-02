@@ -619,11 +619,11 @@ void CEnemy::Hit(const int nDamage)
 			{
 				if (nDamage > 0)
 				{
-					m_pModel->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
-					CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 1, 255, 255), 5, 3, CParticle::TYPE_NONE);
+					m_pModel->SetColor(D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f));
+					CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 255, 1, 255), 5, 5, CParticle::TYPE_NONE);
 					pSound->PlaySound(CSound::SOUND_LABEL_DAMAGE);
 
-					pTotalScore->AddScore(100);
+					pTotalScore->AddScore(200);
 				}
 			}
 		}
@@ -674,14 +674,13 @@ void CEnemy::ItemSet()
 		int itemType = rand() % 100 + 1;
 		if (itemType <= 35)
 		{
-			CItem::Create(m_pos, m_rot, CItem::TYPE_LIFE);
+			CItem::Create({ m_pos.x,0.0f,m_pos.z }, m_rot, CItem::TYPE_LIFE);
 		}
 		else
 		{
-			CItem::Create(m_pos, m_rot, CItem::TYPE_BULLET);
+			CItem::Create({ m_pos.x,0.0f,m_pos.z }, m_rot, CItem::TYPE_BULLET);
 		}
 	}
-
 }
 //===========================
 // タイプごとのモデル名設定
