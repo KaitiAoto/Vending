@@ -15,8 +15,8 @@
 #include "buff.h"
 
 // マクロ定義
-#define BUFF_X (200)
-#define BUFF_Y (50)
+#define BUFF_X (300)
+#define BUFF_Y (100)
 
 // バフアイコンクラス
 class CBuffIcon:public CObject2D

@@ -57,7 +57,7 @@ HRESULT CEnemyGroup::Init(const D3DXVECTOR3 pos)
 
 	CreateEnemy();
 #ifdef _DEBUG
-	CMeshCylinder::Create(nullptr, D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), { 0.0f,0.0f,0.0f }, 20.0f, 100, D3DXCOLOR(1.0, 1.0, 0.0, 0.75), CMeshCylinder::TYPE_BOTHSIDES);
+	//CMeshCylinder::Create(nullptr, D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), { 0.0f,0.0f,0.0f }, 20.0f, 100, D3DXCOLOR(1.0, 1.0, 0.0, 0.75), CMeshCylinder::TYPE_BOTHSIDES);
 #endif // DEBUG
 
 

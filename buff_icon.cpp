@@ -117,7 +117,7 @@ void CBuffIcon::Update(void)
 		if (m_bUse == true)
 		{
 			m_pos.x += fSpeed;
-			if (m_pos.x == m_posStay.x)
+			if (m_pos.x >= m_posStay.x)
 			{
 				m_state = STATE_STAY;
 				m_pos = m_posStay;
@@ -126,7 +126,7 @@ void CBuffIcon::Update(void)
 		break;
 	case STATE_SLIDEOUT:
 		m_pos.x -= fSpeed;
-		if (m_pos.x == m_posOut.x)
+		if (m_pos.x <= m_posOut.x)
 		{
 			m_pos = m_posOut;
 			m_bClear = false;

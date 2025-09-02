@@ -616,7 +616,7 @@ void CPlayer::State(STATE state)
 		}
 		break;
 	case STATE_HIT:
-		m_nCntState = 90;
+		m_nCntState = 60;
 		break;
 	case STATE_DEAD:
 		m_bUse = false;
@@ -718,7 +718,7 @@ bool CPlayer::Collision(void)
 //========================
 void CPlayer::CheckStack(bool bColl, bool bMove)
 {
-	if (bColl == true && bMove == false /*&& m_bLanding == false*/)
+	if (bColl == true && bMove == false)
 	{
 		m_nCntStackt++;
 

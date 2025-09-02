@@ -195,6 +195,7 @@ bool CInputKey::GetRepeat(int nKey)
 	return Trigger;
 }
 
+
 //===================================
 // 
 // コントローラー
@@ -309,12 +310,13 @@ bool CInputPad::GetStickTriggerDown()
 	SHORT cur = m_joyKeyState.Gamepad.sThumbLY;
 	return (cur < -DEADZONE && m_prevLY >= -DEADZONE);
 }
+
+
 //==========================================
 // 
 // マウス
 // 
 //==========================================
-
 //==================
 // コンストラクタ
 //==================
