@@ -4,13 +4,16 @@
 // Author : 
 //
 //=============================================================================
+
+// 二重インクルード防止
 #ifndef _SOUND_H_
 #define _SOUND_H_
 
+// インクルード
 #include "main.h"
 #include "xaudio2.h"
 
-
+// サウンドクラス
 class CSound
 {
 public:
@@ -19,11 +22,11 @@ public:
 	//*****************************************************************************
 	typedef enum
 	{
-		//BGM
+		// BGM
 		SOUND_LABEL_TITLE = 0,
 		SOUND_LABEL_GAME,
 		SOUND_LABEL_RESULT,
-		//SE
+		// SE
 		SOUND_LABEL_BREAK,
 		SOUND_LABEL_CAR,
 		SOUND_LABEL_CRITICAL,
@@ -75,12 +78,12 @@ private:
 	// サウンドの情報
 	SOUNDINFO m_aSoundInfo[SOUND_LABEL_MAX] =
 	{
-		//BGM
+		// BGM
 		{"data/SOUND/BGM/title00.wav", -1},
 		{"data/SOUND/BGM/game00.wav", -1},
 		{"data/SOUND/BGM/result00.wav", -1},
 
-		//SE
+		// SE
 		{"data/SOUND/SE/break00.wav", 0},
 		{"data/SOUND/SE/car00.wav", 0},
 		{"data/SOUND/SE/critical00.wav", 0},

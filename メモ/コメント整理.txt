@@ -1,5 +1,5 @@
 h
-score_managerから
+一応完了
 
 cpp
 arrowから

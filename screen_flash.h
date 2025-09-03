@@ -1,39 +1,45 @@
-//==============================
+//=====================================
 //
-// 補充処理[restock.h]
+// 画面フラッシュ[screen_flash.h]
 // Author:kaiti
 //
-//==============================
+//=====================================
+
+// 二重インクルード防止
 #ifndef _SCREEN_FLASH_H_
 #define _SCREEN_FLASH_H_
 
+// インクルード
 #include "main.h"
 #include "object2D.h"
 
-//オブジェクト2Dクラス
+// 画面フラッシュクラス
 class CScreenFlash:public CObject2D
 {
 public:
 
-	//メンバ関数
+	// メンバ関数
 	CScreenFlash(int nPriority = 9);
 	~CScreenFlash();
 
-	static CScreenFlash* Create(void);
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
-	//取得処理
+	// 取得処理
 	
-	//設定処理
+	// 設定処理
 	void SetColor(D3DXCOLOR col) { m_col = col; m_bUse = true; }
+
+	// 静的メンバ関数
+	static CScreenFlash* Create(void);
+
 private:
 
-	//メンバ変数
-	bool m_bUse;
-	D3DXCOLOR m_col;
+	// メンバ変数
+	D3DXCOLOR m_col;	// 色
+	bool m_bUse;		// 使用しているか
 };
 
 #endif

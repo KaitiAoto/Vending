@@ -25,8 +25,6 @@ CVender::CVender(int nPriority):CObject(nPriority)
 	m_bUse = true;
 	m_bUseRestock = true;
 
-	m_nPriority = nPriority;
-
 	m_nRestock = 0;
 	m_nCntReuse = 0;
 
