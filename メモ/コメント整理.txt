@@ -1,5 +1,5 @@
 h
-rank_managerから
+score_managerから
 
 cpp
 arrowから
