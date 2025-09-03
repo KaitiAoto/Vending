@@ -272,18 +272,20 @@ void CPlayer::Draw(void)
 void CPlayer::ClearContents(void)
 {
 	// 中身を１０以上なら
+	int nContents = m_nCntContents;
+
 	if (m_nCntContents >= 10)
 	{
-		// 範囲攻撃(10方向に10発撃つ)
-		float rot = D3DX_PI / 5;
-		for (int nCnt = 0; nCnt < 10; nCnt++)
-		{
-			CBullet* pBullet = nullptr;
-			pBullet = CBullet::Create(m_pos, { m_rot.x,m_rot.y + (rot * nCnt),m_rot.z }, CBullet::USER_PLAYER);
-			pBullet->SetSkill(true);
-		}
+		nContents = 10;
 	}
-
+	float rot = D3DX_PI / (nContents / 2);
+	for (int nCnt = 0; nCnt < nContents; nCnt++)
+	{
+		CBullet* pBullet = nullptr;
+		pBullet = CBullet::Create(m_pos, { m_rot.x,m_rot.y + (rot * nCnt),m_rot.z }, CBullet::USER_PLAYER);
+		pBullet->SetSkill(true);
+	}
+	
 	// 中身を０に
 	m_nCntContents = 0;
 
@@ -388,7 +390,7 @@ void CPlayer::Move(void)
 	if (pInputPad != nullptr)
 	{
 		// スティック入力による移動
-		const float DEADZONE = 3000.0f;  // デッドゾーン
+		const float DEADZONE = 10000.0f;  // デッドゾーン
 		XINPUT_STATE* pJoyState = pInputPad->GetJoyStickAngle();
 		SHORT lx = pJoyState->Gamepad.sThumbLX;
 		SHORT ly = pJoyState->Gamepad.sThumbLY;
@@ -427,6 +429,20 @@ void CPlayer::Move(void)
 
 		m_rotDest.y += mouseMoveX * sensitivity;
 	}
+	if (pInputPad != nullptr)
+	{
+		const float sensitivity = 0.05f; // 感度調整用
+
+		float rx = pInputPad->GetRightStickX(); // 横
+
+		// デッドゾーン処理
+		const float deadZone = 0.2f;
+		if (fabsf(rx) > deadZone)
+		{
+			m_rotDest.y += rx * sensitivity;
+		}
+	}
+
 
 	//角度の正規化
 	if (m_rotDest.y - m_rot.y > D3DX_PI)
@@ -495,7 +511,7 @@ void CPlayer::Action(void)
 	CSound* pSound = CManager::GetSound();
 
 	//弾発射
-	if (pInputMouse->GetPress(0) == true || pInputPad->GetPress(CInputPad::JOYKEY_B) == true)
+	if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
 	{
 		if (m_nCntContents > 0)
 		{//中身あり

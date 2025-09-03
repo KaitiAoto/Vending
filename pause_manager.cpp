@@ -132,14 +132,14 @@ void CPauseMana::Select(void)
 	wheel =	pInputMouse->GetWheel();
 
 	//ã‰º‘I‘ð
-	if (pInputKey->GetTrigger(DIK_W) == true || pPad->GetStickTriggerUp() == true || wheel > 0)
+	if (pInputKey->GetTrigger(DIK_W) == true || pPad->GetStickTriggerUp() == true || wheel > 0 || pPad->GetTrigger(CInputPad::JOYKEY_UP) == true)
 	{
 		m_Select--;
 		if (m_Select < 0) m_Select = SELECT_MAX - 1;
 
 		pSound->PlaySound(CSound::SOUND_LABEL_SELECT);
 	}
-	else if (pInputKey->GetTrigger(DIK_S) == true || pPad->GetStickTriggerDown() == true || wheel < 0)
+	else if (pInputKey->GetTrigger(DIK_S) == true || pPad->GetStickTriggerDown() == true || wheel < 0 || pPad->GetTrigger(CInputPad::JOYKEY_DOWN) == true)
 	{
 		m_Select++;
 		if (m_Select >= SELECT_MAX) m_Select = SELECT_CONTNUE;

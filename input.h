@@ -97,6 +97,10 @@ public:
 	bool GetJoyStick();
 	bool GetStickTriggerUp();
 	bool GetStickTriggerDown();
+	bool GetR2Trigger(BYTE threshold);
+	bool GetL2Trigger(BYTE threshold);
+	bool GetR2Press(BYTE threshold);
+	bool GetL2Press(BYTE threshold);
 	XINPUT_STATE* GetJoyStickAngle(void);
 	float GetRightStickX();
 	float GetRightStickY();
@@ -104,8 +108,10 @@ private:
 	// メンバ変数
 	XINPUT_STATE m_joyKeyState;			// ジョイパッドの状態
 	XINPUT_STATE m_joyKeyStateTrigger;	// ジョイパッドのトリガー
-
 	SHORT m_prevLY;						// 左スティックのＹ
+	BYTE m_prevR2Trigger;				// R2のトリガー
+	BYTE m_prevL2Trigger;				// L2のトリガー
+
 };
 
 // マウスクラス

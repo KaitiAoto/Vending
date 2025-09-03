@@ -256,6 +256,10 @@ void CInputPad::Update(void)
 
 		m_prevLY = m_joyKeyState.Gamepad.sThumbLY;
 
+		// R/L2トリガーの前回値を保存
+		m_prevR2Trigger = m_joyKeyState.Gamepad.bRightTrigger;
+		m_prevL2Trigger = m_joyKeyState.Gamepad.bLeftTrigger;
+
 		m_joyKeyState = joykeyState;
 	}
 }
@@ -309,6 +313,26 @@ bool CInputPad::GetStickTriggerDown()
 	const int DEADZONE = 10000;
 	SHORT cur = m_joyKeyState.Gamepad.sThumbLY;
 	return (cur < -DEADZONE && m_prevLY >= -DEADZONE);
+}
+
+bool CInputPad::GetR2Trigger(BYTE threshold)
+{
+	return (m_joyKeyState.Gamepad.bRightTrigger > threshold && m_prevR2Trigger <= threshold);
+}
+
+bool CInputPad::GetL2Trigger(BYTE threshold)
+{
+	return (m_joyKeyState.Gamepad.bLeftTrigger > threshold && m_prevL2Trigger <= threshold);
+}
+
+bool CInputPad::GetR2Press(BYTE threshold)
+{
+	return (m_joyKeyState.Gamepad.bRightTrigger > threshold);
+}
+
+bool CInputPad::GetL2Press(BYTE threshold)
+{
+	return (m_joyKeyState.Gamepad.bLeftTrigger > threshold);
 }
 
 
