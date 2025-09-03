@@ -52,7 +52,6 @@ public:
 	static CBuffIcon* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
-	void Move(void);
 
 	//ƒƒ“ƒo•Ï”
 	D3DXVECTOR3 m_pos;		// ˆÊ’u

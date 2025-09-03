@@ -1,9 +1,11 @@
-//===================
+//============================
 //
 // 矢印[arrow.cpp]
 // Author : Kaiti Aoto
 //
-//===================
+//============================
+
+// インクルード
 #include "arrow.h"
 #include "game.h"
 
@@ -24,21 +26,20 @@ CArrow::CArrow(int nPriority) :CObject3D(nPriority)
 CArrow::~CArrow()
 {
 }
-//===========
+//==============
 // 生成処理
-//===========
+//==============
 CArrow* CArrow::Create(D3DXVECTOR3 pos)
 {
-	CArrow* pArrow;
 	// 生成
-	pArrow = new CArrow;
+	CArrow* pArrow = new CArrow;
 	// 初期化
 	if (FAILED(pArrow->Init(pos)))
 	{// NULLチェック
 		delete pArrow;
 		return nullptr;
 	}
-	return pArrow;
+	return pArrow;	// ポインタを返す
 }
 //===============
 // 初期化処理
@@ -50,9 +51,8 @@ HRESULT CArrow::Init(D3DXVECTOR3 pos)
 	m_pos = pos;
 	m_TargetPos = CGame::GetStart()->GetPos();
 
-
-	const float fWidth = 25.0f;		//横の長さ
-	const float fHeight = 25.0f;	//縦の長さ
+	const float fWidth = 25.0f;		// 横の長さ
+	const float fHeight = 25.0f;	// 縦の長さ
 
 	// 3Dオブジェクトの初期化
 	CObject3D::Init("data\\TEXTURE\\arrow00.png", pos, { 0.0f, 0.0f, 0.0f }, fWidth, fHeight, CObject3D::TYPE_SHADOW);
