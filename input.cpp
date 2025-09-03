@@ -1,7 +1,7 @@
 //===========================
 //
 //  “ü—Íˆ—[input.cpp]
-//  Author:kaiti
+//  Author : Kaiti Aoto
 //
 //===========================
 #include "input.h"

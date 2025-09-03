@@ -1,7 +1,7 @@
 //==============================
 //
 // パーティクル[particle.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "effect_circle.h"

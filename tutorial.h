@@ -1,7 +1,7 @@
 //==============================
 //
 // チュートリアル[tutorial.h]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 
@@ -14,7 +14,7 @@
 #include "object2D.h"
 
 // マクロ定義
-#define TUTORIAL_SIZE (200)
+#define TUTORIAL_SIZE (250)
 
 // チュートリアルクラス
 class CTutorial:public CObject2D

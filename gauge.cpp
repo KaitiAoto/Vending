@@ -1,7 +1,7 @@
 //==============================
 //
 //  ƒQ[ƒWˆ—[Gauge.cpp]
-//  Author:kaiti
+//  Author : Kaiti Aoto
 //
 //==============================
 #include "gauge.h"

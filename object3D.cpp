@@ -1,7 +1,7 @@
 //=================================
 //
 // ƒ|ƒŠƒSƒ“•\¦ˆ—[object3D.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //=================================
 #include "object3D.h"

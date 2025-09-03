@@ -1,7 +1,7 @@
 //==============================
 //
 // オブジェクト2D[object2D.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "object2D.h"

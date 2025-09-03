@@ -1,7 +1,7 @@
 //==============================
 //
 // プレイヤー[player.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "player.h"
@@ -124,7 +124,7 @@ HRESULT CPlayer::Init(const char* pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 
 	m_nLife = PLAYER_LIFE;
 	m_fSpeed = PLAYER_SPEED;
-	m_nCntContents = MAX_RESTOCK / 10;
+	m_nCntContents = 3;
 	m_fShotTimer = 0.0f;
 
 	SetObjType(TYPE_PLAYER);//オブジェクトのタイプ

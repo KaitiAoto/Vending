@@ -1,7 +1,7 @@
 //================================
 //
 // ƒ^ƒCƒgƒ‹ˆ—[title.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //================================
 #include "title.h"

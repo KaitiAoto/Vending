@@ -1,7 +1,7 @@
 //==============================
 //
 // 補充処理[restock.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "tutorial.h"
@@ -56,7 +56,7 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_posStay = pos;
 	m_posOut = pos + D3DXVECTOR3(-fWidth, 0.0f, 0.0f);
 
-	m_pos = m_posOut;;
+	m_pos = m_posOut;
 
 	m_state = STATE_SLIDEIN;
 
@@ -89,7 +89,7 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	
 	m_pBack = CObject2D::Create(NULL, pos, m_rot, fWidth * 1.05f, fHeight * 1.05f, 7);
 
-	m_pSkip = CObject2D::Create("data\\TEXTURE\\skip00.png", D3DXVECTOR3(pos.x, pos.y - fHeight / 1.75f, pos.z), m_rot, fWidth * 1.25f, fHeight / 6, 7);
+	m_pSkip = CObject2D::Create("data\\TEXTURE\\skip00.png", D3DXVECTOR3(pos.x, pos.y + fHeight / 1.75f, pos.z), m_rot, fWidth * 1.25f, fHeight / 6, 7);
 
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
@@ -143,7 +143,7 @@ void CTutorial::Update(void)
 		if (m_bUse == true)
 		{
 			m_pos.x += fSpeed;
-			if (m_pos.x == m_posStay.x)
+			if (m_pos.x >= m_posStay.x)
 			{
 				m_state = STATE_STAY;
 				m_pos = m_posStay;
@@ -152,7 +152,7 @@ void CTutorial::Update(void)
 		break;
 	case STATE_SLIDEOUT:
 		m_pos.x -= fSpeed;
-		if (m_pos.x == m_posOut.x)
+		if (m_pos.x <= m_posOut.x)
 		{
 			m_pos = m_posOut;
 

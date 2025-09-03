@@ -1,7 +1,7 @@
 //==============================
 //
 // “G‹’“_[enemy_base.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "enemy_group.h"

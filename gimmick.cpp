@@ -1,7 +1,7 @@
 //==============================
 //
 // “G[enemy.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "gimmick.h"

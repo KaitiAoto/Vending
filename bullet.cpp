@@ -1,7 +1,7 @@
 //==============================
 //
 // ’e[bullet.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "bullet.h"

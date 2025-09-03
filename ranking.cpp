@@ -1,7 +1,7 @@
 //================================
 //
 // ƒŠƒUƒ‹ƒgˆ—[result.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //================================
 #include "ranking.h"

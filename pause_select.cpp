@@ -1,7 +1,7 @@
 //=================================
 //
 // ポーズ選択[pause_select.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //=================================
 #include "pause_select.h"

@@ -1,7 +1,7 @@
 //==============================
 //
 // •â[ˆ—[restock.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "restock.h"

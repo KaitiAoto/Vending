@@ -1,7 +1,7 @@
 //==============================
 //
 // ‰e[shadow.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "shadow.h"

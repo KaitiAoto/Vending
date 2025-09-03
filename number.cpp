@@ -1,7 +1,7 @@
 //=====================
 //
 // ”š[number.h]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //=====================
 #include "number.h"

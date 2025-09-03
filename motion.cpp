@@ -1,7 +1,7 @@
 //==============================
 //
 //  ƒ‚[ƒVƒ‡ƒ“ˆ—[motion.cpp]
-//  Author:kaiti
+//  Author : Kaiti Aoto
 //
 //==============================
 #include "motion.h"

@@ -1,7 +1,7 @@
 //==============================
 //
 // エフェクト[effect.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "effect.h"

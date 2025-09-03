@@ -1,7 +1,7 @@
 //==============================
 //
 // テクスチャ[texture.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "loadstage.h"

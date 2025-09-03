@@ -1,7 +1,7 @@
 //==============================
 //
 // ï‚è[èàóù[restock.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "buff_icon.h"

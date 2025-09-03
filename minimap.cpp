@@ -1,7 +1,7 @@
 //==============================
 //
 // ’e[bullet.h]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "minimap.h"

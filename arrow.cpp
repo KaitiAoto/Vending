@@ -1,7 +1,7 @@
 //===================
 //
 // –îˆó[arrow.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //===================
 #include "arrow.h"

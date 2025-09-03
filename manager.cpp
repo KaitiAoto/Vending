@@ -1,7 +1,7 @@
 //================================
 //
 // マネージャー処理[manager.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //================================
 #include "manager.h"

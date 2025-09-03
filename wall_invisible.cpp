@@ -1,7 +1,7 @@
 //==============================
 //
 // Œ©‚¦‚È‚¢•Ç[wall_invisible.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "wall_invisible.h"

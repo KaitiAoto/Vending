@@ -1,7 +1,7 @@
 //=============================
 //
 //　カメラ処理[camera.cpp]
-//　Author:kaiti
+//　Author : Kaiti Aoto
 //
 //=============================
 #include "camera.h"

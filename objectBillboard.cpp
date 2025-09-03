@@ -1,7 +1,7 @@
 //=====================================
 //
 // ビルボード表示処理[billboard.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //=====================================
 #include "objectBillboard.h"

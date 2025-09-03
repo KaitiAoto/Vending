@@ -1,7 +1,7 @@
 //=====================
 //
 // C++[main.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //=====================
 #include "main.h"

@@ -1,7 +1,7 @@
 //==============================
 //
 // ƒŒƒ“ƒ_ƒŠƒ“ƒO[renderer.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "renderer.h"

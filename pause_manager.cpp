@@ -1,7 +1,7 @@
 //===================================
 //
 // タイトル選択[title_select.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //====================================
 #include "pause_manager.h"

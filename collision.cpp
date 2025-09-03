@@ -1,7 +1,7 @@
 //==============================
 //
 // “–‚½‚è”»’è[collision.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "collision.h"

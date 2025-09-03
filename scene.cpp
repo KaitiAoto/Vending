@@ -1,7 +1,7 @@
 //================================
 //
 // ƒV[ƒ“ˆ—[scene.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //================================
 #include "scene.h"

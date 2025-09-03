@@ -1,7 +1,7 @@
 //==============================
 //
 // オブジェクト[object.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "object.h"

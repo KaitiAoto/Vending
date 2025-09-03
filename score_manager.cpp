@@ -1,7 +1,7 @@
 //========================================
 //
 // スコアマネージャー[score_manager.h]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //========================================
 #include "score_manager.h"

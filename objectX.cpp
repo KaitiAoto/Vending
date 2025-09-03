@@ -1,7 +1,7 @@
 //================================
 //
 // ƒ‚ƒfƒ‹•\¦ˆ—[objectX.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //================================
 #include "objectX.h"

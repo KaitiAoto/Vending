@@ -1,7 +1,7 @@
 //==============================================
 //
 // ƒƒbƒVƒ…‰~’Œ•\¦ˆ—[MeshCylinder.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================================
 #include "meshcylinder.h"

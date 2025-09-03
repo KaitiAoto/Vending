@@ -1,7 +1,7 @@
 //===========================================
 //
 // タイマーマネージャー[timer_manager.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //===========================================
 #include "timer_manager.h"

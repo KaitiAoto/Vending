@@ -1,7 +1,7 @@
 //==============================
 //
 // ‘Š«[matchup.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "matchup.h"

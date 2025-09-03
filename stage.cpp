@@ -1,7 +1,7 @@
 //==============================
 //
 // Ž©”Ì‹@[vender.cpp]
-// Author:kaiti
+// Author : Kaiti Aoto
 //
 //==============================
 #include "stage.h"

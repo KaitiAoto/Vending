@@ -1,7 +1,7 @@
 //==============================
 //
 //  イージング処理[easing.cpp]
-//  Author:kaiti
+//  Author : Kaiti Aoto
 //
 //==============================
 #include "easing.h"
