@@ -177,7 +177,7 @@ void CPlayer::Update(void)
 	{
 		//行動
 		Action();
-
+		
 		//移動
 		Move();
 
@@ -229,7 +229,6 @@ void CPlayer::Draw(void)
 	{
 		pDegub->Print("ダメージヒット");
 	}
-
 
 	//デバイスの取得
 	CRenderer* pRenderer = CManager::GetRenderer();

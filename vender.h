@@ -20,7 +20,7 @@
 class CRestock;
 
 // マクロ定義
-#define MAX_RESTOCK (50)
+#define MAX_RESTOCK (25)
 #define NUM_REUSETIME (600)
 
 // 自販機クラス
