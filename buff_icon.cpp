@@ -1,6 +1,6 @@
 //==============================
 //
-// バフアイコン[buff_icon.h]
+// バフアイコン[buff_icon.cpp]
 // Author : Kaiti Aoto
 //
 //==============================
@@ -57,6 +57,7 @@ HRESULT CBuffIcon::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_posOut = pos + D3DXVECTOR3(-fWidth, 0.0f, 0.0f);
 	m_pos = m_posOut;
 
+	// メンバ変数を初期化
 	m_state = STATE_SLIDEIN;	// 状態をスライドインに
 	m_bUse = true;				// 使用する状態に
 	m_bClear = false;			// クリアしていない状態に
@@ -67,8 +68,9 @@ HRESULT CBuffIcon::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 		"data\\TEXTURE\\speedUP00.png",
 	};
 
+	// テクスチャ名を登録
 	for (int nCnt = 0; nCnt < CBuff::TYPE_MAX; nCnt++)
-	{// テクスチャ名を登録
+	{	
 		m_apFileName[nCnt] = apFileName[nCnt];
 	}
 
@@ -76,9 +78,9 @@ HRESULT CBuffIcon::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	CObject2D::Init(m_apFileName[m_type], pos, m_rot, fWidth, fHeight);
 
 	//テクスチャ割り当て
-	CTexture* pTex = CManager::GetTex();
-	m_nIdxTex = pTex->Register(m_apFileName[m_type]);
-	CObject2D::SetIdxTex(m_nIdxTex);
+	CTexture* pTex = CManager::GetTex();				// テクスチャのポインタ取得
+	m_nIdxTex = pTex->Register(m_apFileName[m_type]);	// テクスチャ割り当て
+	CObject2D::SetIdxTex(m_nIdxTex);					// オブジェクト2Dのインデックス番号を設定
 
 	//オブジェクトの種類設定
 	SetObjType(TYPE_UI);
@@ -108,25 +110,29 @@ void CBuffIcon::Update(void)
 	{
 		CBuff::TYPE type = CGame::GetBuff()->GetType();	// 現在のバフの種類を取得
 
+		// 何もバフがかかっていなければ
 		if (type == CBuff::TYPE_NONE)
-		{// 何もバフがかかっていなければ
+		{
 			m_bClear = true;	// すり足ている状態にする
 		}
+		// クリアしていれば
 		if (m_bClear == true)
-		{// クリアしていれば
+		{
 			m_state = STATE_SLIDEOUT;	// 状態をスライドアウトに
 		}
 		break;
 	}
 	// スライドイン
 	case STATE_SLIDEIN:
+		// 使用していれば
 		if (m_bUse == true)
-		{// 使用していれば
+		{
 			// 移動
 			m_pos.x += fSpeed;
 			
+			// 現在の位置が待機位置以上なら
 			if (m_pos.x >= m_posStay.x)
-			{// 現在の位置が待機位置以上なら
+			{
 				m_state = STATE_STAY;	// 状態を待機に
 				m_pos = m_posStay;		// 現在の位置を待機位置に
 			}
@@ -134,13 +140,15 @@ void CBuffIcon::Update(void)
 		break;
 	// スライドアウト
 	case STATE_SLIDEOUT:
+		// 使用していれば
 		if (m_bUse == true)
-		{// 使用していれば
+		{
 			// 移動
 			m_pos.x -= fSpeed;
 			
+			// 現在の位置が画面外位置以下なら
 			if (m_pos.x <= m_posOut.x)
-			{// 現在の位置が画面外位置以下なら
+			{
 				m_pos = m_posOut;	// 現在の位置を画面外位置に
 				m_bClear = false;	// クリアしていない状態に
 				m_bUse = false;		// 使用していない状態に
@@ -154,8 +162,9 @@ void CBuffIcon::Update(void)
 	// オブジェクト2Dの位置を設定
 	CObject2D::SetPos(m_pos);
 
+	// 使用していなければ
 	if (m_bUse == false)
-	{// 使用していなければ
+	{
 		// 終了処理
 		Uninit();
 	}
@@ -165,8 +174,9 @@ void CBuffIcon::Update(void)
 //============
 void CBuffIcon::Draw(void)
 {
+	// 使用して入れば
 	if (m_bUse == true)
-	{// 使用して入れば
+	{
 		// オブジェクト2Dの描画
 		CObject2D::Draw();
 	}

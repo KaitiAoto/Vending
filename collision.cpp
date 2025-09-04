@@ -4,10 +4,13 @@
 // Author : Kaiti Aoto
 //
 //==============================
+
+// インクルード
 #include "collision.h"
 #include "game.h"
 #include "manager.h"
 #include "renderer.h"
+
 //==================
 // コンストラクタ
 //==================
@@ -21,11 +24,12 @@ CCollision::~CCollision()
 {
 }
 
-//========================================================================
+//=============================================================================
 // 
-// 判定をとる相手の種類を調べる処理(どんなオブジェクトとの判定をとるか)
+// 判定をとる相手の種類を調べる処理(どういうオブジェクトとの判定をとるか)
 // 
-//========================================================================
+//=============================================================================
+
 //=========================
 // 敵サイドとの当たり判定
 //=========================
@@ -44,7 +48,6 @@ bool CCollision::ToEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, COb
 			//オブジェクトが敵なら
 			bColl = EnemyBase(pObj, pos, rot, size, mytype, outNormal);
 			break;
-
 		default:
 			break;
 		}
@@ -80,9 +83,6 @@ bool CCollision::ToPlayer(D3DXVECTOR3 pos, D3DXVECTOR3 size, CEnemy* pEnemy)
 				break;
 			case CObject::TYPE_BULLET:
 				bColl = PlayerBullet(pObj, pos, size, pEnemy);
-				break;
-			case CObject::TYPE_GIMMICK:
-
 				break;
 			default:
 				break;
@@ -130,6 +130,9 @@ bool CCollision::ToVender(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, CO
 	return bColl;
 }
 
+//=================================
+// ステージとの当たり判定
+//=================================
 bool CCollision::ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3DXVECTOR3& outNormal)
 {
 	bool bColl = false;
@@ -268,11 +271,11 @@ bool CCollision::EnemyBullet(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	return bColl;
 }
 
-//===================================================
+//=============================================================
 // 
-// 種類別の判定に関する処理(何との判定をとるか)
+// 種類別の判定に関する処理(オブジェクトごとの当たり判定)
 // 
-//===================================================
+//=============================================================
 //=======================
 // 敵拠点との当たり判定
 //=======================

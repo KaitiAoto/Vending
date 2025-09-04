@@ -683,7 +683,7 @@ bool CPlayer::Collision(void)
 	const int maxIterations = 3;
 	D3DXVECTOR3 moveVec = m_pos - m_posOld;
 
-	// 自分のOBB軸を生成（1回で済む）
+	// 自分のOBB軸を生成
 	D3DXVECTOR3 axes0[3];
 	{
 		D3DXMATRIX rotMtx;
@@ -719,7 +719,9 @@ bool CPlayer::Collision(void)
 		}
 
 		if (!anyHit)
+		{
 			break;
+		}
 
 		// 全衝突法線に対して順番に押し戻し＋スライドを行う
 		for (const auto& contactNormalRaw : contactNormals)
@@ -751,7 +753,7 @@ bool CPlayer::Collision(void)
 		}
 	}
 
-	// ギミックは押し戻し不要
+
 	pColl->ToGimmick(m_pos, m_size, TYPE_PLAYER);
 
 	if (hit) pDebug->Print("HIT");

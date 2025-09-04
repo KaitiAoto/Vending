@@ -46,13 +46,15 @@ CArrow* CArrow::Create(D3DXVECTOR3 pos)
 //===============
 HRESULT CArrow::Init(D3DXVECTOR3 pos)
 {
-	// メンバ変数を初期化
-	m_bUse = true;
-	m_pos = pos;
-	m_TargetPos = CGame::GetStart()->GetPos();
-
 	const float fWidth = 25.0f;		// 横の長さ
 	const float fHeight = 25.0f;	// 縦の長さ
+
+	// 値を代入
+	m_pos = pos;
+
+	// メンバ変数を初期化
+	m_bUse = true;
+	m_TargetPos = CGame::GetStart()->GetPos();
 
 	// 3Dオブジェクトの初期化
 	CObject3D::Init("data\\TEXTURE\\arrow00.png", pos, { 0.0f, 0.0f, 0.0f }, fWidth, fHeight, CObject3D::TYPE_SHADOW);
@@ -100,7 +102,7 @@ void CArrow::Update(void)
 	// ゲームのモードがPLAYなら
 	if (CGame::GetMode() == CGame::MODE_PLAY)
 	{
-		m_bUse = false;// 使わなくする
+		m_bUse = false;	// 使わなくする
 	}
 	// 使われていなければ
 	if (m_bUse == false)

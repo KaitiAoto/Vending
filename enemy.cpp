@@ -568,7 +568,6 @@ bool CEnemy::Collision(void)
 void CEnemy::Hit(const int nDamage)
 {
 	CSound* pSound = CManager::GetSound();
-
 	CScoreMana* pTotalScore = CGame::GetTotalScore();
 
 	m_nLife -= nDamage;

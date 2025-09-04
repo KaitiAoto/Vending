@@ -29,18 +29,21 @@ CBuff::~CBuff()
 //============
 void CBuff::Update(float deltaTime)
 {
+    // バフがかかっていなければ
     if (m_bActive != true)
-    {// バフがかかっていなければ
+    {
         return; // 何もせず終了
     }
 
     // 効果時間を減らす
     m_fDuration -= deltaTime;
     
+    // 時間が0以下なら
     if (m_fDuration <= 0.0f)
-    {// 時間が0以下なら
+    {
+        // スピードバフなら
         if (m_type == TYPE_SPEED)
-        {// スピードバフなら
+        {
             
             CGame::GetPlayer()->AddSpeed(-m_fSpeed);    // 元の速度に戻す
             m_bActive = false;                          // バフがかかっていない状態にする
@@ -54,8 +57,9 @@ void CBuff::Update(float deltaTime)
 //======================
 void CBuff::AddSpeed(float fSpeed, float fDuration)
 {
+    // すでにスピードバフがかかっていたら
     if (m_bActive && m_type == TYPE_SPEED)
-    {// すでにスピードバフがかかっていたら
+    {
         m_fDuration = fDuration;    // 時間を最大にする
         return;                     // 何もせず終了
     }

@@ -27,19 +27,19 @@ public:
 	CBulletCntMana();
 	~CBulletCntMana();
 
-	HRESULT Init(void);
+	HRESULT Init(D3DXVECTOR3 pos);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
 	// 静的メンバ関数
 	static CBulletCntMana* Create(D3DXVECTOR3 pos);
-	static void SetBulletCount(void);
+	static void UpdateCounter(void);
 
 private:
 	//静的メンバ変数
 	static int m_nCount;								// カウント
-	static CBullerCounter* m_pTimer[MAX_BULLETCNT];		// カウンターへのポインタ
+	static CBullerCounter* m_pCounter[MAX_BULLETCNT];	// カウンターへのポインタ
 	static CBulletIcon* m_pIcon;						// 弾アイコンへのポインタ
 };
 
