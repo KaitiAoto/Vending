@@ -73,10 +73,10 @@ void CDebugProc::Print(const char* fmt, ...)
 	size_t currentLen = strlen(m_aStr);
 	size_t bufLen = strlen(buf);
 
-	if (currentLen + bufLen + 2 < MAX_WORD) // +2 は改行と終端のため
+	if (currentLen + bufLen + 2 < MAX_WORD)
 	{
 		strcat(m_aStr, buf);
-		strcat(m_aStr, "\n");  // 改行を入れることで複数行になる
+		strcat(m_aStr, "\n");
 	}
 }
 //============
