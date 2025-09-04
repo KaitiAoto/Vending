@@ -70,13 +70,13 @@ void CGame::Init(void)
 	if (m_pBreakCnt == nullptr)
 	{
 		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(ScoreX, 90.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 2);
-		CObject2D::Create("data\\TEXTURE\\conveni_icon00.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 90.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 7);
+		CObject2D::Create("data\\TEXTURE\\conveni_icon00.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 90.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 8);
 	}
 	//スコア生成
 	if (m_pTotalScore == nullptr)
 	{
 		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(ScoreX, 40.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f), 6);
-		CObject2D::Create("data\\TEXTURE\\icon_star.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 40.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 7);
+		CObject2D::Create("data\\TEXTURE\\icon_star.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 40.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 8);
 	}
 
 	//弾数カウント生成
@@ -285,15 +285,16 @@ void CGame::Update(void)
 			m_pBuff->Update(1.0f / 60.0f);
 		}
 
-		if (m_pBreakCnt != nullptr)
-		{
-			m_pBreakCnt->Update();
-		}
-		if (m_pTotalScore != nullptr)
-		{
-			m_pTotalScore->Update();
-		}
 	}
+	if (m_pBreakCnt != nullptr)
+	{
+		m_pBreakCnt->Update();
+	}
+	if (m_pTotalScore != nullptr)
+	{
+		m_pTotalScore->Update();
+	}
+
 	if (m_pBulletCount != nullptr)
 	{
 		//弾数カウント更新

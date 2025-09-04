@@ -18,7 +18,7 @@ class CHpGauge :CObject
 {
 public:
 	// ƒƒ“ƒoŠÖ”
-	CHpGauge(int nPriority = 7);
+	CHpGauge(int nPriority = 8);
 	~CHpGauge();
 	HRESULT Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col);
 	void Uninit(void);

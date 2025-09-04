@@ -42,7 +42,7 @@ CTimerMana* CTimerMana::Create(D3DXVECTOR3 pos)
 		m_pMinute[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
 	}
 
-	CObject2D::Create("data\\TEXTURE\\colon00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, pos.y, 0.0f), { 0.0f,0.0f,0.0f }, TIMER_SIZE * 1.5f, TIMER_SIZE * 1.5f, 7);
+	CObject2D::Create("data\\TEXTURE\\colon00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, pos.y, 0.0f), { 0.0f,0.0f,0.0f }, TIMER_SIZE * 1.5f, TIMER_SIZE * 1.5f, 8);
 
 	pos.x += (2.5 * TIMER_SIZE * 2.5f);
 

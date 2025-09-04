@@ -295,7 +295,7 @@ bool CCollision::EnemyBase(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DX
 		//ModelOn(pos, size, EnemyPos, Enemysize);
 		if (mytype == CObject::TYPE_BULLET)
 		{
-			pEnemyBase->Hit(BULLET_ATTACK);
+			pEnemyBase->Hit(CGame::GetPlayer()->GetMyBullet());
 		}
 	}
 

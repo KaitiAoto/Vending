@@ -53,7 +53,7 @@ HRESULT CBulletCntMana::Init(D3DXVECTOR3 pos)
 	m_pIcon = CBulletIcon::Create(D3DXVECTOR3(pos.x - (BULLET_COUNT_SIZE * 4.5f), pos.y, 0.0f), BULLETICON_SIZE, BULLETICON_SIZE);
 
 	// ×生成
-	CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (BULLET_COUNT_SIZE * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), BULLETICON_SIZE, BULLETICON_SIZE, 7);
+	CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (BULLET_COUNT_SIZE * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), BULLETICON_SIZE, BULLETICON_SIZE, 8);
 
 	// 桁数分カウンター生成
 	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)

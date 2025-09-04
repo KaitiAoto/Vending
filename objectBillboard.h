@@ -32,10 +32,12 @@ public:
 	// 設定
 	void SetSize(float fRadius);
 	void SetColor(D3DXCOLOR col);
-
+	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+	void Set();
 	// 静的メンバ関数
 	static CObjectBillboard* Create(const char* pTexName, D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight);
-
+	static CObjectBillboard* Create(const char* pTexName, D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight, int nPriority);
+	
 private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// バッファ

@@ -22,7 +22,7 @@ class CBullerCounter :public CObject
 public:
 
 	// ƒƒ“ƒoŠÖ”
-	CBullerCounter(int nPriority = 7);
+	CBullerCounter(int nPriority = 8);
 	~CBullerCounter();
 
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);

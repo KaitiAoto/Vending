@@ -43,6 +43,20 @@ CObjectBillboard* CObjectBillboard::Create(const char* pTexName, D3DXVECTOR3 pos
 
 	return pObject2D;
 }
+CObjectBillboard* CObjectBillboard::Create(const char* pTexName, D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight, int nPriority)
+{
+	CObjectBillboard* pObject2D;
+	pObject2D = new CObjectBillboard(nPriority);
+	//‰Šú‰»
+		//‰Šú‰»
+	if (FAILED(pObject2D->Init(pTexName, pos, rot, fWidth, fHeight)))
+	{
+		delete pObject2D;
+		return nullptr;
+	}
+
+	return pObject2D;
+}
 //==================
 // ‰Šú‰»ˆ—
 //==================

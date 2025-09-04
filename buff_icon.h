@@ -33,7 +33,7 @@ public:
 
 
 	// ƒƒ“ƒoŠÖ”
-	CBuffIcon(int nPriority = 7);
+	CBuffIcon(int nPriority = 8);
 	~CBuffIcon();
 
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);

@@ -53,7 +53,7 @@ HRESULT CHpGauge::Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col
 	m_fHeight = fHeight;
 	m_col = col;
 	m_pGauge = CGauge::Create(m_pos, m_Base, m_fHeight, m_col);
-	CObject2D::Create("data\\TEXTURE\\gaugeHP01.png", D3DXVECTOR3(m_pos.x + (m_Base * GAUGE_X / 2.2f) + 10.0f, m_pos.y, m_pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), (float)(m_Base * GAUGE_X) * 1.17f, (m_fHeight * 2) + 50.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\gaugeHP01.png", D3DXVECTOR3(m_pos.x + (m_Base * GAUGE_X / 2.2f) + 10.0f, m_pos.y, m_pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), (float)(m_Base * GAUGE_X) * 1.17f, (m_fHeight * 2) + 50.0f, 8);
 
 	//オブジェクトの種類設定
 	SetObjType(TYPE_GAUGE);

@@ -176,6 +176,7 @@
     <ClCompile Include="gauge.cpp" />
     <ClCompile Include="gauge_billboard.cpp" />
     <ClCompile Include="gauge_enemy.cpp" />
+    <ClCompile Include="gauge_enemybase.cpp" />
     <ClCompile Include="gauge_hp.cpp" />
     <ClCompile Include="gauge_reset.cpp" />
     <ClCompile Include="gimmick.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="gauge.h" />
     <ClInclude Include="gauge_billboard.h" />
     <ClInclude Include="gauge_enemy.h" />
+    <ClInclude Include="gauge_enemybase.h" />
     <ClInclude Include="gauge_hp.h" />
     <ClInclude Include="gauge_reset.h" />
     <ClInclude Include="gimmick.h" />

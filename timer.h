@@ -23,7 +23,7 @@ class CTimer:public CObject
 public:
 
 	// ƒƒ“ƒoŠÖ”
-	CTimer(int nPriority = 7);
+	CTimer(int nPriority = 8);
 	~CTimer();
 	
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);

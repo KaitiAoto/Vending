@@ -102,7 +102,7 @@ void CScoreMana::Draw(void)
 //==============
 void CScoreMana::AddScore(int nAdd)
 {
-	if (CGame::GetMode() == CGame::MODE_PLAY)
+	if (CGame::GetMode() != CGame::MODE_TUTORIAL)
 	{
 		m_nScore += nAdd;
 	}

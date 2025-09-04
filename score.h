@@ -22,7 +22,7 @@ class CScore:public CObject
 public:
 
 	//ƒƒ“ƒoŠÖ”
-	CScore(int nPriority = 7);
+	CScore(int nPriority = 8);
 	~CScore();
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);
 	void Uninit(void);

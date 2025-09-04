@@ -4,12 +4,17 @@
 // Author : Kaiti Aoto
 //
 //==============================
+
+//
 #include "enemy_base.h"
 #include "renderer.h"
 #include "manager.h"
 #include "score_manager.h"
 #include "debugproc.h"
 #include "particle.h"
+
+//静的メンバ変数
+int CEnemyBase::m_nNum = 0;
 
 //==================
 // コンストラクタ
@@ -26,13 +31,11 @@ CEnemyBase::CEnemyBase(int nPriority):CObject(nPriority)
 
 	m_nLife = 0;
 
-
 	m_bUse = true;
 
-	m_nCntSpan = 0;
-	m_nRespawn = 0;
+	//m_nCntSpan = 0;
 
-	m_bRespawn = false;
+	m_nNum++;
 }
 //================
 // デストラクタ
@@ -67,8 +70,8 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	m_rot = rot;
 	m_nLife = ENEMY_BASE_LIFE;
 	m_bUse = true;
-	m_nCntSpan = 0;
-	m_nRespawn = 0;
+	//m_nCntSpan = 0;
+	m_nDecreaseTime = 0;
 	//モデル生成
 	m_pModel = CModel::Create("data\\MODEL\\convenience_store00.x", m_pos, m_rot);
 	m_size = m_pModel->SetSize();
@@ -76,12 +79,25 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	//オブジェクトの種類設定
 	SetObjType(TYPE_ENEMY_BASE);
 	
-	float GeuseBase = m_nLife / 10.0f;
-	m_pGauge = CEnemyGauge::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
+		SetStock();
+
+		for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+		{
+			float GauseY = m_pos.y + (m_size.y / 1.2f);
+			D3DXVECTOR3 Pos = { m_pos.x, m_pos.y + GauseY + (nCnt * 20.0f), m_pos.z };
+
+			m_nStock[nCnt] = MAX_STOCK;
+			float GeuseBase = (float)m_nStock[nCnt] / 1.5f;
+			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), m_StockType[nCnt]);
+		}
+
 		m_pMapIcon = CMapEnemyBase::Create(m_pos, 25.0f, 25.0f);
+	
+		CScoreMana* pBreakScore = CGame::GetBreakCnt();
+		pBreakScore->AddScore(1);
 	}
 	return S_OK;
 }
@@ -102,6 +118,8 @@ void CEnemyBase::Uninit(void)
 		delete m_pBreakModel;
 		m_pBreakModel = NULL;
 	}
+	
+	m_nNum = 0;
 
 	CObject::Release();
 }
@@ -110,66 +128,66 @@ void CEnemyBase::Uninit(void)
 //============
 void CEnemyBase::Update(void)
 {
-	CScoreMana* pBreakScore = CGame::GetBreakCnt();
-	CScoreMana* pTotalScore = CGame::GetTotalScore();
-	CDebugProc* pDegub = CManager::GetDebug();
-
-	if (m_bUse == true)
+	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
-		float rate = (float)m_nLife / (float)ENEMY_BASE_LIFE;
-		rate = max(0.0f, min(rate, 1.0f));
-
-		m_pGauge->SetDraw(m_bRespawn);
-		m_pGauge->SetRate(rate);
-		
-		if (m_nLife <= 0)
+		if (CGame::GetMode() != CGame::MODE_TUTORIAL)
 		{
-			CGame::GetBuff()->AddSpeed(3.0f, 5.0f);
+			CScoreMana* pBreakScore = CGame::GetBreakCnt();
 
-			CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 30, 8.0f, CParticle::TYPE_NONE);
-
-			m_bUse = false;
-
-			pBreakScore->AddScore(1);
-			pTotalScore->AddScore(10000);
-
-			CSound* pSound = CManager::GetSound();
-			pSound->PlaySound(CSound::SOUND_LABEL_BREAK);
-		}
-		if (m_bRespawn == true)
-		{
-			pDegub->Print("スポーン");
-
-			//敵生成
-			m_nCntSpan--;
-			if (m_nCntSpan <= 0)
+			if (m_bUse == true)
 			{
-				m_nCntSpan = ENEMY_SPAN;
-				CreateEnemy();
+				m_nDecreaseTime++;
+				if (m_nDecreaseTime >= 60)
+				{
+					int nType;
+					srand((unsigned int)time(NULL));
+					nType = rand() % STOCK_TYPE;
+
+					m_nDecreaseTime = 0;
+					m_nStock[nType]--;
+					if (m_nStock[nType] <= 0)
+					{
+						m_nStock[nType] = 0;
+						m_nLife = 0;
+					}
+				}
+
+				for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+				{
+					float rate = (float)m_nStock[nCnt] / (float)MAX_STOCK;
+					rate = max(0.0f, min(rate, 1.0f));
+
+					m_pGauge[nCnt]->SetRate(rate);
+					m_pGauge[nCnt]->SetDraw(m_bRespawn);
+				}
+
+				if (m_nLife <= 0)
+				{
+					CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 30, 8.0f, CParticle::TYPE_NONE);
+
+					m_bUse = false;
+
+					pBreakScore->AddScore(-1);
+
+					CSound* pSound = CManager::GetSound();
+					pSound->PlaySound(CSound::SOUND_LABEL_BREAK);
+
+					m_nNum--;
+					if (m_nNum <= 0)
+					{
+						CGame::SetMode(CGame::MODE_FIN);
+					}
+				}
+			}
+			else if (m_bUse == false)
+			{//使っていないなら
+				CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, D3DCOLOR_RGBA(127, 127, 127, 255), 1, 15.0f, CParticle::TYPE_SMOKE);
 			}
 		}
-	}
-	else if (m_bUse == false)
-	{//使っていないなら
-		m_nRespawn++;
-
-		if (m_nRespawn <= ENEMYBASE_RESPAWN / 10)
+		if (m_pMapIcon != nullptr)
 		{
-			CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, D3DCOLOR_RGBA(127, 127, 127, 255), 1, 15.0f, CParticle::TYPE_SMOKE);
+			m_pMapIcon->SetUse(m_bUse);
 		}
-
-		if (m_nRespawn >= ENEMYBASE_RESPAWN)
-		{
-			m_nRespawn = 0;
-			m_nLife = ENEMY_BASE_LIFE;
-			m_bUse = true;
-		}
-		m_bRespawn = false;
-	}
-
-	if (m_pMapIcon != nullptr)
-	{
-		m_pMapIcon->SetUse(m_bUse);
 	}
 }
 //============
@@ -202,18 +220,20 @@ void CEnemyBase::Draw(void)
 //================
 // ダメージ処理
 //================
-void CEnemyBase::Hit(const int nDamage)
+void CEnemyBase::Hit(const CBullet::TYPE type)
 {
-	m_nLife -= nDamage;
-
-	//if (m_nLife > 0)
-	//{
-	//	State(STATE_HIT);
-	//}
-	//if (m_nLife == 0)
-	//{
-	//	State(STATE_DEAD);
-	//}
+	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+	{
+		if (type == m_StockType[nCnt])
+		{
+			m_nStock[nCnt]++;
+			if (m_nStock[nCnt] >= MAX_STOCK)
+			{
+				m_nStock[nCnt] = MAX_STOCK;
+			}
+			break;
+		}
+	}
 }
 //=============
 // 敵生成処理
@@ -228,11 +248,19 @@ void CEnemyBase::CreateEnemy(void)
 
 	int nType = dist(mt);
 	CEnemy::Create(m_pos, m_rot, (CEnemy::TYPE)nType);
-	//CEnemy::Create(m_pos, m_rot, CEnemy::TYPE_MAGNET);
+}
 
-	//int nType = 0;
-	//srand((unsigned int)time(NULL));
-	//nType = rand() % CEnemy::TYPE_MAX;
+void CEnemyBase::SetStock(void)
+{
+	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+	{
+		auto now = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+		size_t seed = static_cast<size_t>(now) ^ reinterpret_cast<size_t>(this);
 
-	//CEnemy::Create(m_pos, m_rot, (CEnemy::TYPE)nType);
+		std::mt19937 mt((unsigned int)seed);
+		std::uniform_int_distribution<int> dist(0, CBullet::TYPE_MAX - 1);
+
+		int nType = dist(mt);
+		m_StockType[nCnt] = (CBullet::TYPE)nType;
+	}
 }

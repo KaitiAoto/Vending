@@ -17,11 +17,14 @@
 #include "meshcylinder.h"
 #include "gauge_enemy.h"
 #include "map_enemybase.h"
+#include "gauge_enemybase.h"
 
 // マクロ定義
 #define ENEMY_BASE_LIFE (120)
 #define ENEMY_SPAN (300)
 #define ENEMYBASE_RESPAWN (2400)
+#define MAX_STOCK (10)
+#define STOCK_TYPE (3)
 
 // 敵拠点クラス
 class CEnemyBase:public CObject
@@ -35,7 +38,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void Hit(const int nDamage);	
+	void Hit(const CBullet::TYPE type);
 
 	// 設定
 	void SetRespawn(bool bUse) { m_bRespawn = bUse; }
@@ -48,25 +51,30 @@ public:
 
 	// 静的メンバ関数
 	static CEnemyBase* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
-
+	static int GetNum(void) { return m_nNum; }
 private:
 	void CreateEnemy(void);
+	void SetStock(void);
 
 	// メンバ変数
-	D3DXVECTOR3 m_pos;			// 位置
-	D3DXVECTOR3 m_rot;			// 向き
-	D3DXVECTOR3 m_size;			// サイズ
+	D3DXVECTOR3 m_pos;						// 位置
+	D3DXVECTOR3 m_rot;						// 向き
+	D3DXVECTOR3 m_size;						// サイズ
+	D3DXMATRIX m_mtxWorld;					// ワールドマトリックス
+	CModel* m_pModel;						// 通常時のモデルへのポインタ
+	CModel* m_pBreakModel;					// 破壊時のモデルへのポインタ
+	int m_nLife;							// 寿命
+	//int m_nCntSpan;							// 敵生成時間カウント
+	int m_nDecreaseTime;					// 在庫消費までの時間
+	int m_nStock[STOCK_TYPE];				// 在庫（種類分）
+	bool m_bUse;							// 使用しているか
+	bool m_bRespawn;
+	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];		// ゲージへのポインタ
+	CMapEnemyBase* m_pMapIcon;				// マップアイコンへのポインタ
+	CBullet::TYPE m_StockType[STOCK_TYPE];	// 在庫の種類
 
-	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
-	CModel* m_pModel;			// 通常時のモデルへのポインタ
-	CModel* m_pBreakModel;		// 破壊時のモデルへのポインタ
-	int m_nLife;				// 寿命
-	int m_nCntSpan;				// 敵生成時間カウント
-	int m_nRespawn;				// 復活までの時間
-	bool m_bUse;				// 使用しているか
-	bool m_bRespawn;			// 復活できるか
-	CEnemyGauge* m_pGauge;		// ゲージへのポインタ
-	CMapEnemyBase* m_pMapIcon;	// マップアイコンへのポインタ
+	// 静的メンバ変数
+	static int m_nNum;
 };
 
 #endif
