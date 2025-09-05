@@ -14,7 +14,6 @@
 #include "gauge_billboard.h"
 #include "objectBillboard.h"
 #include "bullet.h"
-#include "enemy_base.h"
 
 class CEnemyBase;
 
@@ -22,11 +21,19 @@ class CEnemyBase;
 class CEnemyBaseGauge :CObject
 {
 public:
+	// 種類
+	typedef enum
+	{
+		TYPE_DRINK = 0,
+		TYPE_FOOD,
+		TYPE_GENERAL,
+		TYPE_MAX
+	}TYPE;
 
 	// メンバ関数
 	CEnemyBaseGauge(int nPriority = 7);
 	~CEnemyBaseGauge();
-	HRESULT Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, CBullet::TYPE type);
+	HRESULT Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, TYPE type);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -36,9 +43,11 @@ public:
 	void SetDraw(bool bDraw) { m_bDraw = bDraw; }
 	void SetRate(float rate) { m_rate = rate; }
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+	//
+	TYPE GetType(void) { return m_type; }
 
 	// 静的メンバ関数
-	static CEnemyBaseGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, CBullet::TYPE type, CEnemyBase* pEnemyBase);
+	static CEnemyBaseGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, TYPE type, CEnemyBase* pEnemyBase);
 
 private:
 	// メンバ変数
@@ -51,5 +60,6 @@ private:
 	CObjectBillboard* m_pIcon;	// ビルボードへのポインタ
 	CEnemyBase* m_pEnemyBase;	// 敵拠点へのポインタ
 	bool m_bDraw;				// 描画するか
+	TYPE m_type;
 };
 #endif

@@ -23,7 +23,7 @@
 #define PLAYER_SIZE (100)
 #define PLAYER_LIFE (20)
 #define PLAYER_MODEL (1)
-#define PLAYER_SPEED (2.5f)
+#define PLAYER_SPEED (3.0f)
 #define PLAYER_JUMP (7.8f)
 
 // プレイヤークラス

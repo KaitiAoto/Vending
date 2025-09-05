@@ -2,7 +2,7 @@ SCRIPT
 
 NUM_MODEL 1
 
-MODEL_FILENAME data/MODEL/vending_machine00.x	
+MODEL_FILENAME data/MODEL/vending_player.x	
 
 CHARACTERSET
 	NUM_PARTS 1					

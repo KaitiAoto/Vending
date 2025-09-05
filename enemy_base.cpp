@@ -82,16 +82,14 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
-		SetStock();
-
 		for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 		{
-			float GauseY = m_pos.y + (m_size.y / 1.2f);
-			D3DXVECTOR3 Pos = { m_pos.x, m_pos.y + GauseY + (nCnt * 20.0f), m_pos.z };
+			float GauseY = m_pos.y + (m_size.y);
+			D3DXVECTOR3 Pos = { m_pos.x, m_pos.y + GauseY - (nCnt * 20.0f), m_pos.z };
 
 			m_nStock[nCnt] = MAX_STOCK;
 			float GeuseBase = (float)m_nStock[nCnt] / 1.5f;
-			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), m_StockType[nCnt], this);
+			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), (CEnemyBaseGauge::TYPE)nCnt, this);
 		}
 
 		m_pMapIcon = CMapEnemyBase::Create(m_pos, 25.0f, 25.0f);
@@ -226,7 +224,9 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 {
 	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 	{
-		if (type == m_StockType[nCnt])
+		CEnemyBaseGauge::TYPE HitType = SearchHitType(type);
+
+		if (HitType == m_pGauge[nCnt]->GetType())
 		{
 			m_nStock[nCnt]++;
 			if (m_nStock[nCnt] >= MAX_STOCK)
@@ -252,39 +252,42 @@ void CEnemyBase::CreateEnemy(void)
 	CEnemy::Create(m_pos, m_rot, (CEnemy::TYPE)nType);
 }
 
-void CEnemyBase::SetStock(void)
+CEnemyBaseGauge::TYPE CEnemyBase::SearchHitType(CBullet::TYPE type)
 {
-	int AlreadyType[STOCK_TYPE] = { -1,-1,-1 };
+	CEnemyBaseGauge::TYPE HitType = CEnemyBaseGauge::TYPE_DRINK;
 
-	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+	switch (type)
 	{
-		auto now = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-		size_t seed = static_cast<size_t>(now) ^ reinterpret_cast<size_t>(this);
-
-		std::mt19937 mt((unsigned int)seed);
-		std::uniform_int_distribution<int> dist(0, CBullet::TYPE_MAX - 1);
-
-		int nType;
-		bool duplicated;
-
-		do
-		{
-			nType = dist(mt);
-			duplicated = false;
-
-			// すでに出たものと重複していないか確認
-			for (int i = 0; i < nCnt; i++)
-			{
-				if (AlreadyType[i] == nType)
-				{
-					duplicated = true;
-					break;
-				}
-			}
-		} while (duplicated);
-
-		m_StockType[nCnt] = (CBullet::TYPE)nType;
-
-		AlreadyType[nCnt] = nType;
+		case CBullet::TYPE_CAN:
+			HitType = CEnemyBaseGauge::TYPE_DRINK;
+			break;
+		case CBullet::TYPE_CAPSULE:
+			HitType = CEnemyBaseGauge::TYPE_GENERAL;
+			break;
+		case CBullet::TYPE_ICE:
+			HitType = CEnemyBaseGauge::TYPE_FOOD;
+			break;
+		case CBullet::TYPE_PETBOTTLE:
+			HitType = CEnemyBaseGauge::TYPE_DRINK;
+			break;
+		case CBullet::TYPE_DUST:
+			HitType = CEnemyBaseGauge::TYPE_MAX;
+			break;
+		case CBullet::TYPE_SNACK:
+			HitType = CEnemyBaseGauge::TYPE_FOOD;
+			break;
+		case CBullet::TYPE_CIGARET:
+			HitType = CEnemyBaseGauge::TYPE_GENERAL;
+			break;
+		case CBullet::TYPE_CARD:
+			HitType = CEnemyBaseGauge::TYPE_GENERAL;
+			break;
+		case CBullet::TYPE_BOTTLE:
+			HitType = CEnemyBaseGauge::TYPE_DRINK;
+			break;
+		default:
+		break;
 	}
+
+	return HitType;
 }

@@ -19,8 +19,6 @@
 #include "map_enemybase.h"
 #include "gauge_enemybase.h"
 
-class CEnemyBaseGauge;
-
 // マクロ定義
 #define ENEMY_BASE_LIFE (120)
 #define ENEMY_SPAN (300)
@@ -57,7 +55,7 @@ public:
 	static int GetNum(void) { return m_nNum; }
 private:
 	void CreateEnemy(void);
-	void SetStock(void);
+	CEnemyBaseGauge::TYPE SearchHitType(CBullet::TYPE type);
 
 	// メンバ変数
 	D3DXVECTOR3 m_pos;						// 位置
@@ -72,9 +70,8 @@ private:
 	int m_nStock[STOCK_TYPE];				// 在庫（種類分）
 	bool m_bUse;							// 使用しているか
 	bool m_bRespawn;
-	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];		// ゲージへのポインタ
+	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];	// ゲージへのポインタ
 	CMapEnemyBase* m_pMapIcon;				// マップアイコンへのポインタ
-	CBullet::TYPE m_StockType[STOCK_TYPE];	// 在庫の種類
 
 	// 静的メンバ変数
 	static int m_nNum;
