@@ -54,6 +54,7 @@
 #include "buff.h"
 #include "screen_flash.h"
 #include "enemy_group.h"
+#include "sell.h"
 
 // É}ÉNÉçíËã`
 #define GAME_TIME (180)

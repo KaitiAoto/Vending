@@ -136,22 +136,6 @@ void CEnemyBase::Update(void)
 
 			if (m_bUse == true)
 			{
-				m_nDecreaseTime++;
-				if (m_nDecreaseTime >= nDecreaseTime)
-				{
-					int nType;
-					srand((unsigned int)time(NULL));
-					nType = rand() % STOCK_TYPE;
-
-					m_nDecreaseTime = 0;
-					m_nStock[nType]--;
-					if (m_nStock[nType] <= 0)
-					{
-						m_nStock[nType] = 0;
-						m_nLife = 0;
-					}
-				}
-
 				for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 				{
 					float rate = (float)m_nStock[nCnt] / (float)MAX_STOCK;
@@ -237,6 +221,23 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 		}
 	}
 }
+//
+//
+//
+void CEnemyBase::SoldOut(void)
+{
+	int nType;
+	nType = rand() % STOCK_TYPE;
+
+	m_nDecreaseTime = 0;
+	m_nStock[nType]--;
+	if (m_nStock[nType] <= 0)
+	{
+		m_nStock[nType] = 0;
+		m_nLife = 0;
+	}
+}
+
 //=============
 // “G¶¬ˆ—
 //=============
@@ -291,3 +292,4 @@ CEnemyBaseGauge::TYPE CEnemyBase::SearchHitType(CBullet::TYPE type)
 
 	return HitType;
 }
+

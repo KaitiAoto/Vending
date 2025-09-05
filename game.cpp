@@ -285,6 +285,7 @@ void CGame::Update(void)
 			m_pBuff->Update(1.0f / 60.0f);
 		}
 
+		CSell::Update();
 	}
 	if (m_pBreakCnt != nullptr)
 	{

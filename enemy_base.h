@@ -39,6 +39,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Hit(const CBullet::TYPE type);
+	void SoldOut(void);
 
 	// ê›íË
 	void SetRespawn(bool bUse) { m_bRespawn = bUse; }

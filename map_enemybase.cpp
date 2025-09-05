@@ -107,6 +107,13 @@ void CMapEnemyBase::Update(void)
 		// F‚ğİ’è
 		CObject2D::SetColor(m_col);
 	}
+	else
+	{
+		m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+		// F‚ğİ’è
+		CObject2D::SetColor(m_col);
+	}
 }
 //============
 // •`‰æˆ—

@@ -64,12 +64,15 @@ HRESULT CEnemyBaseGauge::Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCO
 	{
 	case TYPE_DRINK:
 		pTexName = "data\\TEXTURE\\stock00.png";
+		m_col = D3DXCOLOR(0.0f, 1.0f, 1.0f,1.0f);
 		break;
 	case TYPE_FOOD:
 		pTexName = "data\\TEXTURE\\stock01.png";
+		m_col = D3DXCOLOR(1.0f, 0.6f, 0.6f, 1.0f);
 		break;
 	case TYPE_GENERAL:
 		pTexName = "data\\TEXTURE\\stock02.png";
+		m_col = D3DXCOLOR(0.5f, 1.0f, 0.5f, 1.0f);
 		break;
 	default:
 		break;
@@ -102,23 +105,14 @@ void CEnemyBaseGauge::Update(void)
 {
 	if (m_rate > 0.7f)
 	{
-		// 明るい水色
-		m_col = D3DXCOLOR(0.0f, 1.0f, 0.0f,1.0f);
-
 		m_pEnemyBase->GetMapIcon()->SetBlink(false);
 	}
 	else if (m_rate > 0.4f)
 	{
-		// オレンジ
-		m_col = D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f);
-
 		m_pEnemyBase->GetMapIcon()->SetBlink(false);
 	}
 	else if (m_rate > 0.1f)
 	{
-		// ピンク寄りの赤
-		m_col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-
 		m_pEnemyBase->GetMapIcon()->SetBlink(true);
 	}
 

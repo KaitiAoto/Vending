@@ -221,6 +221,7 @@
     <ClCompile Include="score.cpp" />
     <ClCompile Include="score_manager.cpp" />
     <ClCompile Include="screen_flash.cpp" />
+    <ClCompile Include="sell.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="shadowS.cpp" />
     <ClCompile Include="sold_out.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="score.h" />
     <ClInclude Include="score_manager.h" />
     <ClInclude Include="screen_flash.h" />
+    <ClInclude Include="sell.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="shadowS.h" />
     <ClInclude Include="sold_out.h" />
