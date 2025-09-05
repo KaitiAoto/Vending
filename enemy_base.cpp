@@ -36,6 +36,8 @@ CEnemyBase::CEnemyBase(int nPriority):CObject(nPriority)
 	//m_nCntSpan = 0;
 
 	m_nNum++;
+
+	m_bBlinkIcon = false;
 }
 //================
 // デストラクタ
@@ -237,6 +239,25 @@ void CEnemyBase::SoldOut(void)
 		m_nLife = 0;
 	}
 }
+//
+//
+//
+void CEnemyBase::BlinkIcon(float fRate)
+{
+	if (fRate > 0.7f)
+	{
+		m_pMapIcon->SetBlink(false);
+	}
+	else if (fRate > 0.4f)
+	{
+		m_pMapIcon->SetBlink(false);
+	}
+	else if (fRate > 0.05f)
+	{
+		m_pMapIcon->SetBlink(true);
+	}
+
+}
 
 //=============
 // 敵生成処理
@@ -292,4 +313,3 @@ CEnemyBaseGauge::TYPE CEnemyBase::SearchHitType(CBullet::TYPE type)
 
 	return HitType;
 }
-

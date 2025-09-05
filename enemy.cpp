@@ -380,6 +380,8 @@ void CEnemy::Move_Charge(void)
 		{
 			// 突進中（そのまま速度維持）
 			chargeTimer--;
+
+			CEffect::Create(m_pos, m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f), 0, 10);
 		}
 		else
 		{
@@ -442,6 +444,8 @@ void CEnemy::Move_Jump(void)
 
 	case 1: // ジャンプ中
 		m_move.y -= GRAVITY;  // 重力加算
+
+		CEffect::Create(m_pos, m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f), 0, 15);
 
 		if (m_pos.y <= 0.0f)
 		{

@@ -40,6 +40,7 @@ public:
 	void Draw(void);
 	void Hit(const CBullet::TYPE type);
 	void SoldOut(void);
+	void BlinkIcon(float fRate);
 
 	// 設定
 	void SetRespawn(bool bUse) { m_bRespawn = bUse; }
@@ -71,6 +72,7 @@ private:
 	int m_nStock[STOCK_TYPE];				// 在庫（種類分）
 	bool m_bUse;							// 使用しているか
 	bool m_bRespawn;
+	bool m_bBlinkIcon;
 	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];	// ゲージへのポインタ
 	CMapEnemyBase* m_pMapIcon;				// マップアイコンへのポインタ
 

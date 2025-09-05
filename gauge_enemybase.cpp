@@ -103,18 +103,7 @@ void CEnemyBaseGauge::Uninit(void)
 //==========
 void CEnemyBaseGauge::Update(void)
 {
-	if (m_rate > 0.7f)
-	{
-		m_pEnemyBase->GetMapIcon()->SetBlink(false);
-	}
-	else if (m_rate > 0.4f)
-	{
-		m_pEnemyBase->GetMapIcon()->SetBlink(false);
-	}
-	else if (m_rate > 0.1f)
-	{
-		m_pEnemyBase->GetMapIcon()->SetBlink(true);
-	}
+	m_pEnemyBase->BlinkIcon(m_rate);
 
 	if (m_bDraw == true)
 	{

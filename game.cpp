@@ -117,10 +117,15 @@ void CGame::Init(void)
 
 	m_pStart = CStart::Create("data\\MODEL\\barricade00.x", D3DXVECTOR3(-870.0f, 0.0f, -880.0f), D3DXVECTOR3(0.0f, -D3DX_PI / 2, 0.0f));
 	
-	CEnemyGroup::Create(D3DXVECTOR3(-170.0f, 0.0f, -550.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(-150.0f, 0.0f, -550.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(-500.0f, 0.0f, 0.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(-170.0f, 0.0f, 550.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(-700.0f, 0.0f, 750.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(560.0f, 0.0f, -190.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(300.0f, 0.0f, -700.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(70.0f, 0.0f, -50.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(800.0f, 0.0f, 700.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(100.0f, 0.0f, 550.0f));
 
 
 	CObject3D::Create("data\\TEXTURE\\field00.jpeg", D3DXVECTOR3(0.0f, -0.1f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 3000, 3000, CObject3D::TYPE_FIELD);

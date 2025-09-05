@@ -27,6 +27,8 @@ CSell::~CSell()
 
 void CSell::Update(void)
 {
+	CScoreMana* pTotalScore = CGame::GetTotalScore();
+
 	const int nDecreaseTime = 30;
 
 	m_nCntSellTime++;
@@ -34,9 +36,7 @@ void CSell::Update(void)
 	if (m_nCntSellTime >= nDecreaseTime)
 	{
 		int nNumBase = CEnemyBase::GetNum();
-
 		int nTarget = rand() % nNumBase;
-
 		int nCntBase = 0;
 
 		CObject* pObj = CObject::GetTop(PRIORITY_ENEMYBASE);
@@ -51,6 +51,9 @@ void CSell::Update(void)
 					pBase->SoldOut();
 					break;
 				}
+
+				pTotalScore->AddScore(1);
+
 				nCntBase++;
 			}
 			pObj = pObjNext;
