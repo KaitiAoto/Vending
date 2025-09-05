@@ -19,6 +19,8 @@
 #include "map_enemybase.h"
 #include "gauge_enemybase.h"
 
+class CEnemyBaseGauge;
+
 // マクロ定義
 #define ENEMY_BASE_LIFE (120)
 #define ENEMY_SPAN (300)
@@ -48,6 +50,7 @@ public:
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	bool GetUse(void) { return m_bUse; }
+	CMapEnemyBase* GetMapIcon(void) { return m_pMapIcon; }
 
 	// 静的メンバ関数
 	static CEnemyBase* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);

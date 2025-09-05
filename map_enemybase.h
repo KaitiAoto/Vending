@@ -34,7 +34,7 @@ public:
 	// 設定処理
 	void SetIdxTex(const int nIdxTex) { m_nIdxTex = nIdxTex; }
 	void SetUse(bool bUse) { m_bUse = bUse; }
-
+	void SetBlink(bool bBlink) { m_bBlink = bBlink; }
 	// 静的メンバ変数
 	static CMapEnemyBase* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
@@ -42,8 +42,11 @@ private:
 	
 	// メンバ変数
 	D3DXVECTOR3 m_pos;	// 位置
+	D3DXCOLOR m_col;	// 色
 	int m_nIdxTex;		// テクスチャのインデックス番号
+	int m_nCntTime;		// カウンター
 	bool m_bUse;		// 使用しているか
+	bool m_bBlink;		// 点滅するかどうか
 };
 
 #endif

@@ -10,6 +10,8 @@
 #include "player.h"
 #include "texture.h"
 #include "object2D.h"
+#include "map_enemybase.h"
+
 //==================
 // コンストラクタ
 //==================
@@ -29,7 +31,7 @@ CEnemyBaseGauge::~CEnemyBaseGauge()
 //===========
 // 生成処理
 //===========
-CEnemyBaseGauge* CEnemyBaseGauge::Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, CBullet::TYPE type)
+CEnemyBaseGauge* CEnemyBaseGauge::Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, CBullet::TYPE type, CEnemyBase* pEnemyBase)
 {
 	CEnemyBaseGauge* pGause;
 	//
@@ -40,7 +42,7 @@ CEnemyBaseGauge* CEnemyBaseGauge::Create(D3DXVECTOR3 pos, float base, float fHei
 		delete pGause;
 		return nullptr;
 	}
-
+	pGause->m_pEnemyBase = pEnemyBase;
 	return pGause;
 }
 //=============
@@ -122,17 +124,23 @@ void CEnemyBaseGauge::Update(void)
 	{
 		// 明るい水色
 		m_col = D3DXCOLOR(0.0f, 1.0f, 0.0f,1.0f);
+
+		m_pEnemyBase->GetMapIcon()->SetBlink(false);
 	}
 	else if (m_rate > 0.4f)
 	{
 		// オレンジ
 		m_col = D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f);
 
+		m_pEnemyBase->GetMapIcon()->SetBlink(false);
+
 	}
 	else if (m_rate > 0.1f)
 	{
 		// ピンク寄りの赤
 		m_col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+
+		m_pEnemyBase->GetMapIcon()->SetBlink(true);
 	}
 
 	if (m_bDraw == true)
@@ -143,8 +151,10 @@ void CEnemyBaseGauge::Update(void)
 		m_pGauge->SetPos(m_pos);
 		m_pGauge->Set();
 
-		//m_pIcon->SetPos(m_pos);
+		m_pIcon->SetPos(m_pos);
 	}
+
+	m_pIcon->SetDraw(m_bDraw);
 }
 //===========
 // 描画処理

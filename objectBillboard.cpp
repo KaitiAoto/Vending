@@ -19,6 +19,7 @@ CObjectBillboard::CObjectBillboard(int nPriority):CObject(nPriority)
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_mtxWorld = {};
 	m_nIdxTex = 0;
+	m_bDraw = true;
 }
 //================
 // デストラクタ
@@ -68,6 +69,8 @@ HRESULT CObjectBillboard::Init(const char* pTexName, D3DXVECTOR3 pos, D3DXVECTOR
 
 	m_pos = pos;
 	m_rot = rot;
+	m_bDraw = true;
+
 
 	//頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4,
@@ -139,63 +142,65 @@ void CObjectBillboard::Update(void)
 //============
 void CObjectBillboard::Draw(void)
 {
-	//デバイスの取得
-	CRenderer* pRenderer = CManager::GetRenderer();
-	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
-	//テクスチャ取得
-	CTexture* pTex = CManager::GetTex();
+	if (m_bDraw == true)
+	{
+		//デバイスの取得
+		CRenderer* pRenderer = CManager::GetRenderer();
+		LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
+		//テクスチャ取得
+		CTexture* pTex = CManager::GetTex();
+		//計算用マトリックス
+		D3DXMATRIX mtxRot, mtxTrans;
 
-	//計算用マトリックス
-	D3DXMATRIX mtxRot, mtxTrans;
+		//ライトを無効にする
+		pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	//ライトを無効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+		pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
+		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
-	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
-	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+		//ワールドマトリックスの初期化
+		D3DXMatrixIdentity(&m_mtxWorld);
 
-	//ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
+		D3DXMATRIX mtxView;
+		//ビューマトリックス取得
+		pDevice->GetTransform(D3DTS_VIEW, &mtxView);
 
-	D3DXMATRIX mtxView;
-	//ビューマトリックス取得
-	pDevice->GetTransform(D3DTS_VIEW, &mtxView);
+		//カメラの逆行列を設定
+		m_mtxWorld._11 = mtxView._11;
+		m_mtxWorld._12 = mtxView._21;
+		m_mtxWorld._13 = mtxView._31;
+		m_mtxWorld._21 = mtxView._12;
+		m_mtxWorld._22 = mtxView._22;
+		m_mtxWorld._23 = mtxView._32;
+		m_mtxWorld._31 = mtxView._13;
+		m_mtxWorld._32 = mtxView._23;
+		m_mtxWorld._33 = mtxView._33;
 
-	//カメラの逆行列を設定
-	m_mtxWorld._11 = mtxView._11;
-	m_mtxWorld._12 = mtxView._21;
-	m_mtxWorld._13 = mtxView._31;
-	m_mtxWorld._21 = mtxView._12;
-	m_mtxWorld._22 = mtxView._22;
-	m_mtxWorld._23 = mtxView._32;
-	m_mtxWorld._31 = mtxView._13;
-	m_mtxWorld._32 = mtxView._23;
-	m_mtxWorld._33 = mtxView._33;
+		//位置を反映
+		D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+		D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
-	//位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+		//ワールドマトリックスの設定
+		pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
-	//ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
+		//頂点バッファをデータストリームに設定
+		pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
 
-	//頂点バッファをデータストリームに設定
-	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
+		//頂点フォーマットの設定
+		pDevice->SetFVF(FVF_VERTEX_3D);
 
-	//頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_3D);
+		//テクスチャの設定
+		pDevice->SetTexture(0, pTex->GetAddress(m_nIdxTex));
 
-	//テクスチャの設定
-	pDevice->SetTexture(0, pTex->GetAddress(m_nIdxTex));
+		//ポリゴンを描画
+		pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
-	//ポリゴンを描画
-	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+		pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+		pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
-	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
-	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-
-	//ライトを有効に戻す
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+		//ライトを有効に戻す
+		pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	}
 }
 //=============
 // 設定処理

@@ -91,7 +91,7 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 
 			m_nStock[nCnt] = MAX_STOCK;
 			float GeuseBase = (float)m_nStock[nCnt] / 1.5f;
-			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), m_StockType[nCnt]);
+			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), m_StockType[nCnt], this);
 		}
 
 		m_pMapIcon = CMapEnemyBase::Create(m_pos, 25.0f, 25.0f);
@@ -128,6 +128,8 @@ void CEnemyBase::Uninit(void)
 //============
 void CEnemyBase::Update(void)
 {
+	const int nDecreaseTime = 120;
+
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
 		if (CGame::GetMode() != CGame::MODE_TUTORIAL)
@@ -137,7 +139,7 @@ void CEnemyBase::Update(void)
 			if (m_bUse == true)
 			{
 				m_nDecreaseTime++;
-				if (m_nDecreaseTime >= 60)
+				if (m_nDecreaseTime >= nDecreaseTime)
 				{
 					int nType;
 					srand((unsigned int)time(NULL));
@@ -252,6 +254,8 @@ void CEnemyBase::CreateEnemy(void)
 
 void CEnemyBase::SetStock(void)
 {
+	int AlreadyType[STOCK_TYPE] = { -1,-1,-1 };
+
 	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 	{
 		auto now = std::chrono::high_resolution_clock::now().time_since_epoch().count();
@@ -260,7 +264,27 @@ void CEnemyBase::SetStock(void)
 		std::mt19937 mt((unsigned int)seed);
 		std::uniform_int_distribution<int> dist(0, CBullet::TYPE_MAX - 1);
 
-		int nType = dist(mt);
+		int nType;
+		bool duplicated;
+
+		do
+		{
+			nType = dist(mt);
+			duplicated = false;
+
+			// すでに出たものと重複していないか確認
+			for (int i = 0; i < nCnt; i++)
+			{
+				if (AlreadyType[i] == nType)
+				{
+					duplicated = true;
+					break;
+				}
+			}
+		} while (duplicated);
+
 		m_StockType[nCnt] = (CBullet::TYPE)nType;
+
+		AlreadyType[nCnt] = nType;
 	}
 }

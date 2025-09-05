@@ -34,6 +34,7 @@ public:
 	void SetColor(D3DXCOLOR col);
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 	void Set();
+	void SetDraw(bool bDraw) { m_bDraw = bDraw; }
 	// 静的メンバ関数
 	static CObjectBillboard* Create(const char* pTexName, D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight);
 	static CObjectBillboard* Create(const char* pTexName, D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight, int nPriority);
@@ -45,6 +46,7 @@ private:
 	D3DXVECTOR3 m_rot;					// 向き
 	D3DXMATRIX m_mtxWorld;				// ワールドマトリックス
 	int m_nIdxTex;						// テクスチャのインデックス番号
+	bool m_bDraw;						// 描画するか
 };
 
 #endif

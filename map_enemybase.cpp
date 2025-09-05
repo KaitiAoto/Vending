@@ -51,6 +51,8 @@ HRESULT CMapEnemyBase::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_pos = pos;
 	m_bUse = true;
 
+	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
 	CObject2D::Init("data\\TEXTURE\\conveni02.jpg", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
 
 	// ミニマップの情報
@@ -92,7 +94,19 @@ void CMapEnemyBase::Uninit(void)
 //============
 void CMapEnemyBase::Update(void)
 {
+	if (m_bBlink == true)
+	{
+		m_nCntTime++;
 
+		// 点滅する速さ
+		const float Speed = 0.025f;
+
+		m_col.g = 1.0f * fabsf(sinf(Speed * m_nCntTime));
+		m_col.b = 1.0f * fabsf(sinf(Speed * m_nCntTime));
+
+		// 色を設定
+		CObject2D::SetColor(m_col);
+	}
 }
 //============
 // 描画処理

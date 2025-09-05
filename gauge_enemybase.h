@@ -14,6 +14,9 @@
 #include "gauge_billboard.h"
 #include "objectBillboard.h"
 #include "bullet.h"
+#include "enemy_base.h"
+
+class CEnemyBase;
 
 // 敵HPゲージクラス
 class CEnemyBaseGauge :CObject
@@ -35,7 +38,7 @@ public:
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 
 	// 静的メンバ関数
-	static CEnemyBaseGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, CBullet::TYPE type);
+	static CEnemyBaseGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, CBullet::TYPE type, CEnemyBase* pEnemyBase);
 
 private:
 	// メンバ変数
@@ -46,6 +49,7 @@ private:
 	float m_rate;				// レート
 	CGaugeBillboard* m_pGauge;	// ビルボードゲージへのポインタ
 	CObjectBillboard* m_pIcon;	// ビルボードへのポインタ
+	CEnemyBase* m_pEnemyBase;	// 敵拠点へのポインタ
 	bool m_bDraw;				// 描画するか
 };
 #endif
