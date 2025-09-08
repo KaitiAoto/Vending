@@ -45,7 +45,7 @@ public:
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
 	//
 	TYPE GetType(void) { return m_type; }
-
+	float GetRate(void) { return m_rate; }
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CEnemyBaseGauge* Create(D3DXVECTOR3 pos, float base, float fHeight, D3DXCOLOR col, TYPE type, CEnemyBase* pEnemyBase);
 

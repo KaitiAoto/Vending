@@ -24,8 +24,8 @@ CResetGauge* CGame::m_pReset = nullptr;
 CMap* CGame::m_pMap = nullptr;
 CBuff* CGame::m_pBuff = nullptr;
 CScreenFlash* CGame::m_pScreenFlash = nullptr;
-CTutorial* CGame::m_pTutprial = nullptr;
-
+CTutorial* CGame::m_pTutorial = nullptr;
+CTutorialConveni* CGame::m_pTutoConveni = nullptr;
 CPause* CGame::m_pPause = nullptr;
 
 CGame::MODE CGame::m_mode = CGame::MODE_NONE;
@@ -137,7 +137,7 @@ void CGame::Init(void)
 		m_pPause = CPause::Create();
 	}
 
-	m_pTutprial = CTutorial::Create(D3DXVECTOR3(TUTORIAL_SIZE / 1.5f, SCREEN_HEIGHT - (TUTORIAL_SIZE / 1.5f), 0.0f), TUTORIAL_SIZE, TUTORIAL_SIZE);
+	m_pTutorial = CTutorial::Create(D3DXVECTOR3(TUTORIAL_SIZE / 1.5f, SCREEN_HEIGHT - (TUTORIAL_SIZE / 1.5f), 0.0f), TUTORIAL_SIZE, TUTORIAL_SIZE);
 
 	CStartUI::Create("data\\TEXTURE\\tutorial_start00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), STARTUI_SIZE_X, STARTUI_SIZE_Y);
 	

@@ -147,6 +147,8 @@ void CEnemyBase::Update(void)
 					m_pGauge[nCnt]->SetDraw(m_bRespawn);
 				}
 
+				BlinkIcon();
+
 				if (m_nLife <= 0)
 				{
 					CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 30, 8.0f, CParticle::TYPE_NONE);
@@ -250,21 +252,27 @@ void CEnemyBase::SoldOut(void)
 //
 //
 //
-void CEnemyBase::BlinkIcon(float fRate)
+void CEnemyBase::BlinkIcon(void)
 {
-	if (fRate > 0.7f)
+	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 	{
-		m_pMapIcon->SetBlink(false);
-	}
-	else if (fRate > 0.4f)
-	{
-		m_pMapIcon->SetBlink(false);
-	}
-	else if (fRate > 0.05f)
-	{
-		m_pMapIcon->SetBlink(true);
-	}
+		float fRate = m_pGauge[nCnt]->GetRate();
 
+		if (fRate > 0.7f)
+		{
+			m_pMapIcon->SetBlink(false);
+		}
+		else if (fRate > 0.4f)
+		{
+			m_pMapIcon->SetBlink(false);
+		}
+		else if (fRate > 0.05f)
+		{
+			m_pMapIcon->SetBlink(true);
+
+			break;
+		}
+	}
 }
 
 //=============

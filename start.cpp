@@ -9,6 +9,7 @@
 #include "manager.h"
 #include "collision.h"
 #include "startUI.h"
+#include "tutorial_conveni.h"
 //==================
 // コンストラクタ
 //==================
@@ -102,16 +103,12 @@ void CStart::Update(void)
 
 		if (bColl == true)
 		{	
+			CTutorialConveni* pTuto = CTutorialConveni::Create();
+			CGame::SetTutoConveni(pTuto);
+
 			m_bDraw = true;
 			m_pos.x -= 40.0f;
 			SetObjType(TYPE_STAGE);
-
-			CStartUI::Create("data\\TEXTURE\\game_start00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), STARTUI_SIZE_X, STARTUI_SIZE_Y);
-
-			CSound* pSound = CManager::GetSound();
-			pSound->PlaySound(CSound::SOUND_LABEL_START);
-
-			CGame::SetMode(CGame::MODE_PLAY);
 		}
 	}
 }

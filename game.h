@@ -55,6 +55,7 @@
 #include "screen_flash.h"
 #include "enemy_group.h"
 #include "sell.h"
+#include "tutorial_conveni.h"
 
 // マクロ定義
 #define GAME_TIME (180)
@@ -75,6 +76,7 @@ public:
 		MODE_PAUSE,
 		MODE_BACK,
 		MODE_TUTORIAL,
+		MODE_TUTORIAL_CONVENI,
 		MODE_MAX
 	}MODE;
 
@@ -90,6 +92,7 @@ public:
 	// 設定
 	static void SetPlayer(CPlayer* player) { m_pPlayer = player; }
 	static void SetMode(MODE mode) { m_mode = mode; }
+	static void SetTutoConveni(CTutorialConveni* Tutoconveni) { m_pTutoConveni = Tutoconveni; }
 
 	// 取得
 	static CPlayer* GetPlayer(void) { return m_pPlayer; }
@@ -105,8 +108,9 @@ public:
 	static CMap* GetMap(void) { return m_pMap; }
 	static CBuff* GetBuff(void) { return m_pBuff; }
 	static CScreenFlash* GetFlash(void) { return m_pScreenFlash; }
-	static CTutorial* GetTutorial(void) { return m_pTutprial; }
+	static CTutorial* GetTutorial(void) { return m_pTutorial; }
 	static CPause* GetPause(void) { return m_pPause; }
+	static CTutorialConveni* GetTutoConveni(void) { return m_pTutoConveni; }
 
 	static MODE GetMode(void) { return m_mode; }
 
@@ -128,8 +132,9 @@ private:
 	static CMap* m_pMap;						// マップへのポインタ
 	static CBuff* m_pBuff;						// バフへのポインタ
 	static CScreenFlash* m_pScreenFlash;		// 画面点滅へのポインタ
-	static CTutorial* m_pTutprial;				// チュートリアルへのポインタ
+	static CTutorial* m_pTutorial;				// チュートリアルへのポインタ
 	static CPause* m_pPause;					// ポーズへのポインタ
+	static CTutorialConveni* m_pTutoConveni;
 
 	static MODE m_mode;							// ゲームモード
 

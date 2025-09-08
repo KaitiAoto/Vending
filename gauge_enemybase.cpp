@@ -103,8 +103,6 @@ void CEnemyBaseGauge::Uninit(void)
 //==========
 void CEnemyBaseGauge::Update(void)
 {
-	m_pEnemyBase->BlinkIcon(m_rate);
-
 	if (m_bDraw == true)
 	{
 		m_pGauge->SetBase(m_Base);

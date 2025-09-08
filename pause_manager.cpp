@@ -20,6 +20,7 @@ CPauseMana::CPauseMana()
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	m_Select = SELECT_CONTNUE;
+	m_bDraw = false;
 }
 //================
 // デストラクタ
@@ -78,6 +79,7 @@ void CPauseMana::Update(void)
 
 	for (int nCnt = 0; nCnt < SELECT_MAX; nCnt++)
 	{
+		m_pSelect[nCnt]->SetDraw(m_bDraw);
 		if (m_Select == nCnt)
 		{
 			m_pSelect[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));

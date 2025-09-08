@@ -106,8 +106,11 @@ void CScoreMana::Update(void)
 			{//–Ú•W‚Ì’l‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
 				m_nCntUp = m_nScore;
 			}
-
 		}
+	}
+	else
+	{
+		m_nCntUp = m_nScore;
 	}
 
 	//”šØ‚è‘Ö‚¦

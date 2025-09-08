@@ -13,6 +13,7 @@
 //==================
 CPauseSelect::CPauseSelect(int nPriority) :CObject2D(nPriority)
 {
+	m_bDraw = false;
 }
 //================
 // デストラクタ
@@ -64,6 +65,9 @@ void CPauseSelect::Draw(void)
 {
 	if (CManager::GetPause() == true)
 	{
-		CObject2D::Draw();
+		if (m_bDraw == true)
+		{
+			CObject2D::Draw();
+		}
 	}
 }

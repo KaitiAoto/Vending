@@ -11,6 +11,7 @@
 #include "light.h"
 #include "sound.h"
 #include "debugproc.h"
+#include "tutorial_conveni.h"
 //静的メンバ変数
 CRenderer* CManager::m_pRenderer = NULL;
 CInputKey* CManager::m_pInputKey = NULL;
@@ -166,7 +167,10 @@ void CManager::SetMode(CScene::MODE mode)
 		{//現在がゲームで次がリザルト
 			nBreakCnt = CGame::GetBreakCnt()->GetScore();//破壊スコア保存
 			nTotalScore = CGame::GetTotalScore()->GetScore();//トータルスコア保存
-			nTotalScore += nBreakCnt * 10000;
+			if (CGame::GetPlayer()->GetUse() == true)
+			{
+				nTotalScore += nBreakCnt * 10000;
+			}
 		}
 		else if (mode == CScene::MODE_RANKING && m_pScene->GetMode() == CScene::MODE_RESULT)
 		{//現在がゲームで次がリザルト
@@ -320,8 +324,17 @@ void CManager::Update(void)
 	}
 	else
 	{
-		CPause* pPause = CGame::GetPause();
-		pPause->Update();
+		if (CGame::GetMode() != CGame::MODE_TUTORIAL_CONVENI)
+		{
+			CPause* pPause = CGame::GetPause();
+			pPause->SetDraw(true);
+			pPause->Update();
+		}
+		else if (CGame::GetMode() == CGame::MODE_TUTORIAL_CONVENI)
+		{
+			CTutorialConveni* tuto = CGame::GetTutoConveni();
+			tuto->Update();
+		}
 	}
 
 	if (m_pInputKey != nullptr)

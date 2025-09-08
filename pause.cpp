@@ -11,7 +11,7 @@
 //
 CPauseMana* CPause::m_pPauseMana = NULL;
 CClick* CPause::m_pClick = NULL;
-
+bool CPause::m_bDraw = false;
 //==================
 // コンストラクタ
 //==================
@@ -122,6 +122,7 @@ void CPause::Update(void)
 	{
 		if (m_pPauseMana != nullptr)
 		{
+			m_pPauseMana->SetDraw(m_bDraw);
 			m_pPauseMana->Update();
 			m_pClick->Update();
 		}

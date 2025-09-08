@@ -236,6 +236,7 @@
     <ClCompile Include="title_logo.cpp" />
     <ClCompile Include="title_select.cpp" />
     <ClCompile Include="tutorial.cpp" />
+    <ClCompile Include="tutorial_conveni.cpp" />
     <ClCompile Include="vender.cpp" />
     <ClCompile Include="wall_invisible.cpp" />
   </ItemGroup>
@@ -318,6 +319,7 @@
     <ClInclude Include="title_logo.h" />
     <ClInclude Include="title_select.h" />
     <ClInclude Include="tutorial.h" />
+    <ClInclude Include="tutorial_conveni.h" />
     <ClInclude Include="vender.h" />
     <ClInclude Include="wall_invisible.h" />
   </ItemGroup>

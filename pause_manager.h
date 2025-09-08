@@ -44,7 +44,7 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	//設定処理
-
+	void SetDraw(bool bDraw) { m_bDraw = bDraw; }
 	// 静的メンバ関数
 	static CPauseMana* Create(D3DXVECTOR3 pos);
 private:
@@ -56,6 +56,7 @@ private:
 	CPauseSelect* m_pSelect[SELECT_MAX];	// ポーズ選択へのポインタ
 	CObject2D* m_pBack;						// 背景へのポインタ
 	int m_Select;							// 選択しているもの
+	bool m_bDraw;
 };
 
 #endif

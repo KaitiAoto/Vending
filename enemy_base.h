@@ -40,7 +40,7 @@ public:
 	void Draw(void);
 	void Hit(const CBullet::TYPE type);
 	void SoldOut(void);
-	void BlinkIcon(float fRate);
+	void BlinkIcon(void);
 
 	// ê›íË
 	void SetRespawn(bool bUse) { m_bRespawn = bUse; }

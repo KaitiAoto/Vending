@@ -25,11 +25,14 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SetDraw(bool bDraw) { m_bDraw = bDraw; }
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CPauseSelect* Create(const char* pTexName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 private:
 	//ƒƒ“ƒo•Ï”
+	bool m_bDraw;
+
 };
 
 #endif
