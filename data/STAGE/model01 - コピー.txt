@@ -133,7 +133,6 @@ WALLSET
 	ROT = 0 2430 0
 	SIZE = 360 100
 END_WALLSET
-
 #==============================================================================
 # ÉÇÉfÉãîzíuèÓïÒ
 #==============================================================================
@@ -1029,6 +1028,70 @@ MODELSET
 	TYPE = 7
 	POS = -635 0 -940
 	ROT = 0 900 0
+	SHADOW = 0
+	OBJECT = 1
+END_MODELSET
+
+MODELSET
+	TYPE = 8
+	POS = 23 0 -873
+	ROT = 0 180 0
+	SHADOW = 0
+	OBJECT = 2
+END_MODELSET
+
+MODELSET
+	TYPE = 8
+	POS = -870 0 118
+	ROT = 0 270 0
+	SHADOW = 0
+	OBJECT = 2
+END_MODELSET
+
+MODELSET
+	TYPE = 8
+	POS = 298 0 345
+	ROT = 0 540 0
+	SHADOW = 0
+	OBJECT = 2
+END_MODELSET
+
+MODELSET
+	TYPE = 3
+	POS = 320 0 245
+	ROT = 0 990 0
+	SHADOW = 0
+	OBJECT = 1
+END_MODELSET
+
+MODELSET
+	TYPE = 0
+	POS = 787 0 168
+	ROT = 0 1170 0
+	SHADOW = 0
+	OBJECT = 1
+END_MODELSET
+
+MODELSET
+	TYPE = 1
+	POS = 787 0 94
+	ROT = 0 1170 0
+	SHADOW = 0
+	OBJECT = 1
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = 678 0 815
+	ROT = 0 1440 0
+	SHADOW = 0
+	OBJECT = 1
+END_MODELSET
+
+MODELSET
+	TYPE = 3
+	POS = 335 0 830
+	ROT = 0 1440 0
 	SHADOW = 0
 	OBJECT = 1
 END_MODELSET
