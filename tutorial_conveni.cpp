@@ -84,7 +84,6 @@ HRESULT CTutorialConveni::Init()
 	m_pClick = CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
 	m_pClick->SetUse(true);
 
-
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
 	m_nIdxTex = pTex->Register(m_apFileName[m_type]);
@@ -111,9 +110,9 @@ void CTutorialConveni::Uninit(void)
 void CTutorialConveni::Update(void)
 {
 	const float fSpeed = 100.0f;
+
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
-
 	//キー取得
 	CInputKey* pInputKey = CManager::GetInputKey();
 	//パッド
