@@ -356,7 +356,7 @@ void CEnemy::Move_Charge(void)
 	static bool isCharging = false;
 	static int chargeTimer = 0;
 	
-	const float chargeframe = 90.0f;
+	const float chargeframe = 120.0f;
 	const int chargeTime = 90;
 	const int waitTime = 120;
 

@@ -170,6 +170,12 @@ void CEnemyBase::Update(void)
 						m_pGauge[nCnt]->SetDraw(false);
 					}
 				}
+
+				if (CGame::GetPlayer()->GetUse() == false)
+				{
+					m_nLife = 0;
+				}
+
 			}
 			else if (m_bUse == false)
 			{//g‚Á‚Ä‚¢‚È‚¢‚È‚ç
@@ -265,7 +271,6 @@ void CEnemyBase::BlinkIcon(void)
 		else
 		{
 			m_pMapIcon->SetBlink(false);
-
 		}
 	}
 }
