@@ -94,8 +94,8 @@ void CResetGauge::Update(void)
 		{//‚e’·‰Ÿ‚µ
 			m_bUse = true;
 			m_nCntReset++;
-			m_Base += 0.15f;
-			if (m_nCntReset >= 90)
+			m_Base += 0.45f;
+			if (m_nCntReset >= 30)
 			{//ˆê’èŽžŠÔŒo‰ß‚Å’†g‚ð‚O‚É
 				pPlayer->ClearContents();
 				m_nCntReset = 0;

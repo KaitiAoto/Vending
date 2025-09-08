@@ -12,6 +12,7 @@
 // インクルード
 #include "main.h"
 #include "object2D.h"
+#include "click.h"
 
 // マクロ定義
 
@@ -70,6 +71,7 @@ private:
 	TYPE m_type;						// 種類
 	STATE m_state;						// 状態
 	CObject2D* m_pSkip;					// スキップＵＩへのポインタ
+	CClick* m_pClick;					// 決定キーＵＩへのポインタ
 	const char* m_apFileName[TYPE_MAX];	// テクスチャ名
 	bool m_bUse;						// 使用しているか
 	bool m_bClear;						// クリアしているか

@@ -124,6 +124,8 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 
 		pTotalScore->AddScore(50);
 
+		pPlayer->Heal(1);
+
 		//チュートリアルクリア判定
 		if (CGame::GetMode() == CGame::MODE_TUTORIAL)
 		{

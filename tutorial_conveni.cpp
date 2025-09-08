@@ -80,7 +80,10 @@ HRESULT CTutorialConveni::Init()
 
 	CObject2D::Init(m_apFileName[m_type], m_posOut, m_rot, m_fWidth, m_fHeight);
 	
-	//m_pSkip = CObject2D::Create("data\\TEXTURE\\skip00.png", D3DXVECTOR3(pos.x, pos.y + fHeight / 1.75f, pos.z), m_rot, fWidth * 1.25f, fHeight / 6, 7);
+	m_pSkip = CObject2D::Create("data\\TEXTURE\\skip00.png", D3DXVECTOR3(m_posStay.x - (m_fWidth / 1.75f), m_posStay.y + (m_fHeight / 1.75f), m_posStay.z), m_rot, m_fWidth / 3, m_fHeight / 10, 9);
+	m_pClick = CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
+	m_pClick->SetUse(true);
+
 
 	//テクスチャ割り当て
 	CTexture* pTex = CManager::GetTex();
@@ -173,6 +176,8 @@ void CTutorialConveni::Update(void)
 		}
 
 		CObject2D::SetPos(m_pos);
+
+		m_pClick->Update();
 	}
 	else if (m_bUse == false)
 	{
@@ -188,7 +193,8 @@ void CTutorialConveni::Update(void)
 		CArrow::Create({ pos.x,pos.y + pPlayer->GetSize().y,pos.z });
 		
 		CObject2D::SetUse(false);
-		//m_pSkip->SetUse(false);
+		m_pSkip->SetUse(false);
+		m_pClick->SetUse(false);
 
 		CManager::SetPause(false);
 
@@ -203,6 +209,8 @@ void CTutorialConveni::Draw(void)
 	if (m_bUse == true)
 	{
 		CObject2D::Draw();
+
+		m_pClick->Draw();
 	}
 }
 //==================
