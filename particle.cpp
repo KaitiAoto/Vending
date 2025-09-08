@@ -124,8 +124,8 @@ void CParticle::None(void)
 		//fAngle = (float)(rand() % 629 - 314) / 100.0f;
 		//fLength = (float)(rand() % 10) / 5.0f + 0.3f;
 
-		float theta = D3DXToRadian(rand() % 360);       // •ûˆÊŠp
-		float phi = D3DXToRadian(rand() % 180);         // ‹ÂŠp
+		float theta = D3DXToRadian(rand() % 360);			// •ûˆÊŠp
+		float phi = D3DXToRadian(rand() % 180);				// ‹ÂŠp
 		float fLength = (float)(rand() % 20) / 10.0f + 0.5f;
 
 		//move.x = sinf(fAngle) * fLength;
@@ -141,7 +141,6 @@ void CParticle::None(void)
 
 		CEffect::Create(pos, m_rot, move, col, nLife, fRadius, 6);
 	}
-
 }
 void CParticle::Smoke(void)
 {
