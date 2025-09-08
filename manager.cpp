@@ -166,6 +166,7 @@ void CManager::SetMode(CScene::MODE mode)
 		{//現在がゲームで次がリザルト
 			nBreakCnt = CGame::GetBreakCnt()->GetScore();//破壊スコア保存
 			nTotalScore = CGame::GetTotalScore()->GetScore();//トータルスコア保存
+			nTotalScore += nBreakCnt * 10000;
 		}
 		else if (mode == CScene::MODE_RANKING && m_pScene->GetMode() == CScene::MODE_RESULT)
 		{//現在がゲームで次がリザルト

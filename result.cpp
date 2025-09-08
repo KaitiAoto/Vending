@@ -37,7 +37,7 @@ void CResult::Init(void)
 
 	m_nCntStay = RESULT_STAY;
 
-	CObject2D::Create("data\\TEXTURE\\result01.png", D3DXVECTOR3(SCREEN_WIDTH / 3.25f, SCREEN_HEIGHT / 1.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
+	CObject2D::Create("data\\TEXTURE\\result00.png", D3DXVECTOR3(SCREEN_WIDTH / 3.25f, SCREEN_HEIGHT / 1.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
 	CObject2D::Create("data\\TEXTURE\\result02.png", D3DXVECTOR3(SCREEN_WIDTH / 3.25f, SCREEN_HEIGHT / 2.5f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 500.0f, 100.0f, 7);
 
 	CClick::Create("data\\TEXTURE\\next00.png", D3DXVECTOR3(SCREEN_WIDTH - (CLICK_SIZE_X / 1.5f), SCREEN_HEIGHT - (CLICK_SIZE_Y / 1.5f), 0.0f), CLICK_SIZE_X, CLICK_SIZE_Y);
@@ -133,5 +133,8 @@ void CResult::Update(void)
 //=======================
 void CResult::Draw(void)
 {
+	CDebugProc* pDegub = CManager::GetDebug();
+	pDegub->Print("破壊数：%d", m_pBreakCnt->GetScore());
+	pDegub->Print("トータル：%d", m_pTotalScore->GetScore());
 
 }

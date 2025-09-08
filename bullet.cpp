@@ -254,7 +254,7 @@ bool CBullet::Collision(void)
 	if (m_user == USER_PLAYER)
 	{
 		// “GƒTƒCƒh‚Æ‚Ì”»’è
-		if (m_bSkill != true)
+		//if (m_bSkill != true)
 		{
 			bCollEnemy = pColl->ToEnemy(m_pos, m_rot, m_size, TYPE_BULLET, contactNormal);
 		}

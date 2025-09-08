@@ -21,6 +21,13 @@
 class CScoreMana
 {
 public:
+	// 種類
+	typedef enum
+	{
+		TYPE_CNTUP = 0,
+		TYPE_CNTDOWN,
+		TYPE_MAX
+	}TYPE;
 
 	// メンバ関数
 	CScoreMana();
@@ -40,6 +47,7 @@ public:
 
 	// 静的メンバ関数
 	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int MaxScore);
+	static CScoreMana* Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int MaxScore, TYPE type);
 
 private:
 	void ChangeTex(void);
@@ -47,6 +55,7 @@ private:
 	// メンバ変数
 	D3DXCOLOR m_col;				// 色
 	CScore* m_pScore[MAX_SCORE];	// スコアへのポインタ
+	TYPE m_type;
 	int m_nScore;					// 現在のスコア
 	int m_nCntUp;					// カウントアップで表示するスコア
 	int m_MaxScore;					// スコアの最大桁数

@@ -69,7 +69,7 @@ void CGame::Init(void)
 	//スコア生成
 	if (m_pBreakCnt == nullptr)
 	{
-		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(ScoreX, 90.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 2);
+		m_pBreakCnt = CScoreMana::Create(D3DXVECTOR3(ScoreX, 90.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 2, CScoreMana::TYPE_CNTDOWN);
 		CObject2D::Create("data\\TEXTURE\\conveni_icon00.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 90.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 8);
 	}
 	//スコア生成

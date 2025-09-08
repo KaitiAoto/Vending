@@ -42,6 +42,23 @@ CScoreMana* CScoreMana::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3D
 
 	return pScoreMana;
 }
+CScoreMana* CScoreMana::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, D3DXCOLOR col, int MaxScore, TYPE type)
+{
+	CScoreMana* pScoreMana = new CScoreMana;
+
+	for (int nCnt = 0; nCnt < MaxScore; nCnt++)
+	{
+		pScoreMana->m_pScore[nCnt] = CScore::Create(D3DXVECTOR3(pos.x + (nCnt * fWidth * 2.5f), pos.y, 0.0f), fWidth, fHeight);
+		pScoreMana->m_pScore[nCnt]->SetColor(col);
+		pScoreMana->m_col = col;
+	}
+	pScoreMana->m_fWidth = fWidth;
+
+	pScoreMana->Init(MaxScore);
+	pScoreMana->m_type = type;
+
+	return pScoreMana;
+}
 //===============
 // 初期化処理
 //===============
@@ -52,6 +69,7 @@ HRESULT CScoreMana::Init(int MaxScore)
 	m_nCntUp = 0;
 	
 	m_MaxScore = MaxScore;
+	m_type = TYPE_CNTUP;
 
 	m_ScoreData = 1;
 	for (int nCnt = 0; nCnt < m_MaxScore - 1; nCnt++)
@@ -73,23 +91,27 @@ void CScoreMana::Uninit(void)
 //============
 void CScoreMana::Update(void)
 {
-	if (m_nCntUp < m_nScore)
+	if (m_type == TYPE_CNTUP)
 	{
-		//目標のスコアと表示のスコアの差分を計算
-		int nDiff = m_nScore - m_nCntUp;
+		if (m_nCntUp < m_nScore)
+		{
+			//目標のスコアと表示のスコアの差分を計算
+			int nDiff = m_nScore - m_nCntUp;
 
-		//差分の10分の１の値を足す
-		int nAdd = max(1, nDiff / 10);//足す値を計算
-		m_nCntUp += nAdd;//加算
+			//差分の10分の１の値を足す
+			int nAdd = max(1, nDiff / 10);//足す値を計算
+			m_nCntUp += nAdd;//加算
 
-		if (m_nCntUp >= m_nScore)
-		{//目標の値を超えないようにする
-			m_nCntUp = m_nScore;
+			if (m_nCntUp >= m_nScore)
+			{//目標の値を超えないようにする
+				m_nCntUp = m_nScore;
+			}
+
 		}
-
-		//数字切り替え
-		ChangeTex();
 	}
+
+	//数字切り替え
+	ChangeTex();
 }
 //============
 // 描画処理

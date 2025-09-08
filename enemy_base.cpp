@@ -153,15 +153,19 @@ void CEnemyBase::Update(void)
 
 					m_bUse = false;
 
-					pBreakScore->AddScore(-1);
-
 					CSound* pSound = CManager::GetSound();
 					pSound->PlaySound(CSound::SOUND_LABEL_BREAK);
+
+					pBreakScore->AddScore(-1);
 
 					m_nNum--;
 					if (m_nNum <= 0)
 					{
 						CGame::SetMode(CGame::MODE_FIN);
+					}
+					for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+					{
+						m_pGauge[nCnt]->SetDraw(false);
 					}
 				}
 			}
@@ -219,6 +223,10 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 			{
 				m_nStock[nCnt] = MAX_STOCK;
 			}
+
+			CScoreMana* pTotalScore = CGame::GetTotalScore();
+			pTotalScore->AddScore(100);
+			
 			break;
 		}
 	}
