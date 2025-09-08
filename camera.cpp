@@ -54,6 +54,7 @@ HRESULT CCamera::Init(void)
 					  + ((m_posV.y - m_posR.y) * (m_posV.y - m_posR.y))
 					  + ((m_posV.z - m_posR.z) * (m_posV.z - m_posR.z)));	
 
+	m_posV.y = 150.0f;
 	return S_OK;
 }
 //===================

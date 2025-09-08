@@ -15,6 +15,8 @@
 #include "collision.h"
 #include "matchup.h"
 #include "score_manager.h"
+//
+int CEnemy::m_nCntKill = 0;
 //==================
 // コンストラクタ
 //==================
@@ -205,6 +207,13 @@ void CEnemy::Update(void)
 	}
 	else if (m_bUse == false)
 	{//使っていないなら
+		m_nCntKill++;
+		if (m_nCntKill >= 5)
+		{
+			CGame::GetBuff()->AddSpeed(PLAYER_SPEED * 1.5f, 5);
+			m_nCntKill = 0;
+		}
+
 		Uninit();
 	}
 }

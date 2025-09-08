@@ -131,8 +131,8 @@ private:
 	CBullet::TYPE m_Bullet;				// 弾の種類
 	int m_nCntContents;					// 中身の残量
 	float m_fShotTimer;					// 発射間隔カウント
-	const float SHOT_INTERVAL = 0.5f;	// 発射間隔
-	const float SHOT_TIMESUB = 0.05f;	// 発射時間を減らす値
+	const float SHOT_INTERVAL = 0.75f;	// 発射間隔
+	const float SHOT_TIMESUB = 0.075f;	// 発射時間を減らす値
 
 	// 静的メンバ変数
 	static bool m_bUse;					// 使用しているか

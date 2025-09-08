@@ -33,6 +33,7 @@ public:
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CTimerMana* Create(D3DXVECTOR3 pos);
 	static void AddTime(int nAdd);
+	static int GetTime(void) { return m_nTimer; }
 private:
 	static void Second(void);
 	static void Minute(void);

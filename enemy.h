@@ -108,6 +108,9 @@ private:
 	STATE m_State;				// 
 	CEnemyGauge* m_pGauge;		// ゲージへのポインタ
 	CEnemyGroup* m_pMyGroup;	// グループへのポインタ
+
+	//
+	static int m_nCntKill;
 };
 
 #endif

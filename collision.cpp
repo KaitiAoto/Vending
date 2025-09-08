@@ -301,7 +301,7 @@ bool CCollision::EnemyBase(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DX
 
 	if (mytype == CObject::TYPE_PLAYER)
 	{
-		bRespawn = Radius(pos, size, EnemyPos, Enemysize * 5);
+		bRespawn = Radius(pos, size, EnemyPos, Enemysize * 8);
 		pEnemyBase->SetRespawn(bRespawn);
 	}
 

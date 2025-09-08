@@ -198,6 +198,12 @@ void CTutorialConveni::Update(void)
 
 		CManager::SetPause(false);
 
+
+		const float fWidth = 250.0f;
+		const float fHeight = 100.0f;
+
+		CObject2D::Create("data\\TEXTURE\\tutorial_play00.png", D3DXVECTOR3(fWidth / 2, SCREEN_HEIGHT - (fHeight / 2), 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 8);
+
 		Uninit();
 	}
 }

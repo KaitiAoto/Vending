@@ -256,21 +256,16 @@ void CEnemyBase::BlinkIcon(void)
 {
 	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 	{
-		float fRate = m_pGauge[nCnt]->GetRate();
-
-		if (fRate > 0.7f)
-		{
-			m_pMapIcon->SetBlink(false);
-		}
-		else if (fRate > 0.4f)
-		{
-			m_pMapIcon->SetBlink(false);
-		}
-		else if (fRate > 0.05f)
+		if (m_nStock[nCnt] < MAX_STOCK / 3)
 		{
 			m_pMapIcon->SetBlink(true);
 
 			break;
+		}
+		else
+		{
+			m_pMapIcon->SetBlink(false);
+
 		}
 	}
 }
