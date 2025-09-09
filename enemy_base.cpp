@@ -13,7 +13,7 @@
 #include "debugproc.h"
 #include "particle.h"
 
-//静的メンバ変数
+// 静的メンバ変数
 int CEnemyBase::m_nNum = 0;
 
 //==================
@@ -98,6 +98,10 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	
 		CScoreMana* pBreakScore = CGame::GetBreakCnt();
 		pBreakScore->AddScore(1);
+
+
+		m_Help = CObject2D::Create("data\\TEXTURE\\help00.png", D3DXVECTOR3(SCREEN_WIDTH - 130.0f, SCREEN_HEIGHT / 1.75f + 25.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 200.0f, 100.0f, 8);
+		m_Help->SetUse(false);
 	}
 	return S_OK;
 }
@@ -265,12 +269,13 @@ void CEnemyBase::BlinkIcon(void)
 		if (m_nStock[nCnt] < MAX_STOCK / 3)
 		{
 			m_pMapIcon->SetBlink(true);
-
+			m_Help->SetUse(true);
 			break;
 		}
 		else
 		{
 			m_pMapIcon->SetBlink(false);
+			m_Help->SetUse(false);
 		}
 	}
 }

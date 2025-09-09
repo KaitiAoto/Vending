@@ -58,6 +58,7 @@ private:
 	float m_rate;				// レート
 	CGaugeBillboard* m_pGauge;	// ビルボードゲージへのポインタ
 	CObjectBillboard* m_pIcon;	// ビルボードへのポインタ
+	CObjectBillboard* m_pFrame;	// ビルボードへのポインタ
 	CEnemyBase* m_pEnemyBase;	// 敵拠点へのポインタ
 	bool m_bDraw;				// 描画するか
 	TYPE m_type;

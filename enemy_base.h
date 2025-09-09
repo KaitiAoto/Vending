@@ -78,6 +78,8 @@ private:
 
 	// Ã“Iƒƒ“ƒo•Ï”
 	static int m_nNum;
+	CObject2D* m_Help;
+
 };
 
 #endif
