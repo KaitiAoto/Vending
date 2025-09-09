@@ -132,13 +132,13 @@ void CCamera::Update(void)
 	{
 		int mouseMoveX = pInputMouse->GetRelX();
 
-		const float sensitivity = 0.0003f; // 感度調整用
+		const float sensitivity = 0.0003f;
 
 		m_rot.y += mouseMoveX * sensitivity;
 
 		int mouseMoveY = pInputMouse->GetRelY();
 
-		const float sensitivityY = 0.05f; // 感度調整用
+		const float sensitivityY = 0.05f;
 
 		m_posV.y += mouseMoveY * sensitivityY;
 
@@ -154,10 +154,10 @@ void CCamera::Update(void)
 
 	if (pInputPad != nullptr)
 	{
-		const float sensitivity = 0.05f;				// 感度調整用
-		const float sensitivityY = 1.0f;				// 感度調整用	
-		const float rx = pInputPad->GetRightStickX();	// 横
-		const float ry = pInputPad->GetRightStickY();	// 縦
+		const float sensitivity = 0.05f;			
+		const float sensitivityY = 1.0f;				
+		const float rx = pInputPad->GetRightStickX();
+		const float ry = pInputPad->GetRightStickY();
 
 		// デッドゾーン処理
 		const float deadZone = 0.2f;

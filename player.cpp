@@ -442,7 +442,6 @@ void CPlayer::Move(void)
 		}
 	}
 
-
 	//Šp“x‚Ì³‹K‰»
 	if (m_rotDest.y - m_rot.y > D3DX_PI)
 	{
@@ -584,7 +583,6 @@ void CPlayer::Action(void)
 	CDebugProc* pDegub = CManager::GetDebug();
 	pDegub->Print("”j‰ó”F%d", pScore->GetScore());
 	pDegub->Print("ƒg[ƒ^ƒ‹F%d", pScore1->GetScore());
-
 
 #endif
 }

@@ -273,12 +273,11 @@ void CEnemy::Move(void)
 		m_nStayCounter--;
 		if (m_nStayCounter <= 0)
 		{
-			// 一定時間ごとにランダム方向を更新
+			// 一定時間ごとに方向を更新
 			m_fRandomAngle = D3DXToRadian(rand() % 360);
 			m_nStayCounter = rand() % 120 + 60;
 		}
 
-		// ランダム方向にゆっくり動く
 		float moveSpeed = 0.05f;
 		m_move.x = cosf(m_fRandomAngle) * moveSpeed;
 		m_move.z = sinf(m_fRandomAngle) * moveSpeed;
@@ -353,7 +352,7 @@ void CEnemy::Move_Normal(void)
 void CEnemy::Move_Charge(void)
 {
 	// 静的変数で突進／待機の状態とタイマーを保持
-	static bool isCharging = false;
+	static bool bCharging = false;
 	static int chargeTimer = 0;
 	
 	const float chargeframe = 120.0f;
@@ -369,10 +368,8 @@ void CEnemy::Move_Charge(void)
 	float distance = D3DXVec3Length(&toPlayer);
 	D3DXVec3Normalize(&toPlayer, &toPlayer);
 
-	if (!isCharging)
+	if (!bCharging)
 	{
-		// 突進開始
-		// 距離の2倍分を進む速度を設定
 		float chargeDistance = distance * 2.0f;
 		float Speed = chargeDistance / chargeframe;
 
@@ -380,31 +377,29 @@ void CEnemy::Move_Charge(void)
 		m_move.z = toPlayer.z * Speed;
 		m_rotDest.y = atan2f(toPlayer.x, toPlayer.z) + D3DX_PI;
 
-		isCharging = true;
-		chargeTimer = chargeTime; // 突進時間
+		bCharging = true;
+		chargeTimer = chargeTime; 
 	}
 	else
 	{
 		if (chargeTimer > 0)
 		{
-			// 突進中（そのまま速度維持）
 			chargeTimer--;
 
 			CEffect::Create(m_pos, m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f), 0, 10);
 		}
 		else
 		{
-			// 突進終了 → 待機
 			m_move.x = 0.0f;
 			m_move.z = 0.0f;
 
 			static int waitTimer = 0;
 			waitTimer++;
 
-			if (waitTimer > waitTime) // 約1秒待機
+			if (waitTimer > waitTime)
 			{
 				waitTimer = 0;
-				isCharging = false; // 再突進開始
+				bCharging = false; 
 			}
 		}
 	}
@@ -500,10 +495,9 @@ void CEnemy::Move_Shot(void)
 
 	if (distance <= AttackRange)
 	{
-		// 範囲内 → 移動停止して弾発射
 		m_move = D3DXVECTOR3(0, 0, 0);
 
-		// 敵の向きをプレイヤー方向にセット
+		// 敵の向きをプレイヤー方向に
 		D3DXVECTOR3 dir = toPlayer;
 		D3DXVec3Normalize(&dir, &dir);
 		m_rotDest.y = atan2f(dir.x, dir.z) + D3DX_PI;
