@@ -57,3 +57,11 @@ float CEasing::OutExpo(float fX)
         return 1.0f - powf(2.0f, -10.0f * fX);
     }
 }
+
+float CEasing::OutBack(float fX)
+{
+    const float c1 = 1.70158f;
+    const float c3 = c1 + 1.0f;
+
+    return 1.0f + c3 * pow(fX - 1.0f, 3.0f) + c1 * pow(fX - 1.0f, 2.0f);
+}

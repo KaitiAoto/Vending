@@ -174,7 +174,10 @@ void CEnemyBase::Update(void)
 					m_nNum--;
 					if (m_nNum <= 0)
 					{
-						CGame::SetMode(CGame::MODE_FIN);
+						if (CGame::GetMode() != CGame::MODE_FIN)
+						{
+							CGame::SetMode(CGame::MODE_FIN);
+						}
 					}
 					for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 					{
@@ -183,7 +186,10 @@ void CEnemyBase::Update(void)
 
 					m_Help->SetUse(false);
 
-					CScreenFlash::Create(nullptr, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+					if (CGame::GetMode() != CGame::MODE_FIN)
+					{
+						CScreenFlash::Create(nullptr, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+					}
 				}
 
 				if (CGame::GetPlayer()->GetUse() == false)
@@ -295,6 +301,7 @@ void CEnemyBase::BlinkIcon(void)
 //
 void CEnemyBase::Scale(void)
 {
+	const float fSubScale = 0.01f;
 	D3DXVECTOR3 scale;
 
 	switch (m_state)
@@ -303,10 +310,29 @@ void CEnemyBase::Scale(void)
 		scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 		break;
 	case STATE_THRIVING:
-		scale = D3DXVECTOR3(1.2f, 1.2f, 1.2f);
+		scale = m_pModel->GetScale();
+		scale.x += fSubScale;
+		scale.y += fSubScale;
+		scale.z += fSubScale;
+
+		if (scale.x >= 1.2f)
+		{
+			CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2.0f), m_pos.z), m_rot, D3DCOLOR_RGBA(255, 255, 1, 255), 1, 15.0f, CParticle::TYPE_NONE);
+			scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		}
 		break;
 	case STATE_STUGGLING:
-		scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
+		scale = m_pModel->GetScale();
+		scale.x -= fSubScale / 2;
+		scale.y -= fSubScale / 2;
+		scale.z -= fSubScale / 2;
+
+		if (scale.x <= 0.8f)
+		{
+			CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2.0f), m_pos.z), m_rot, D3DCOLOR_RGBA(1, 1, 255, 255), 1, 10.0f, CParticle::TYPE_NONE);
+			scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		}
+
 		break;
 	default:
 		break;
@@ -317,26 +343,39 @@ void CEnemyBase::Scale(void)
 void CEnemyBase::SetState(void)
 {
 	int totalStock = 0;
+	bool bSTUGGLING = false;
 
 	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 	{
+		if (m_nStock[nCnt] < MAX_STOCK / 3)
+		{
+			bSTUGGLING = true;
+			break;
+		}
 		totalStock += m_nStock[nCnt];
 	}
 
-	// î…ê∑ÇµÇƒÇ¢Ç»Ç¢
-	if (totalStock < (MAX_STOCK * STOCK_TYPE) / 3)
+	if (bSTUGGLING == false)
 	{
-		m_state = STATE_STUGGLING;
+		// î…ê∑ÇµÇƒÇ¢Ç»Ç¢
+		if (totalStock < (MAX_STOCK * STOCK_TYPE) / 3)
+		{
+			m_state = STATE_STUGGLING;
+		}
+		// î…ê∑ÇµÇƒÇ¢ÇÈ
+		else if (totalStock >= STOCK_TYPE * 8)
+		{
+			m_state = STATE_THRIVING;
+		}
+		// í èÌ
+		else
+		{
+			m_state = STATE_NONE;
+		}
 	}
-	// î…ê∑ÇµÇƒÇ¢ÇÈ
-	else if (totalStock >= STOCK_TYPE * 8)
-	{
-		m_state = STATE_THRIVING;
-	}
-	// í èÌ
 	else
 	{
-		m_state = STATE_NONE;
+		m_state = STATE_STUGGLING;
 	}
 
 	Scale();

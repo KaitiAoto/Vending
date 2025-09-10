@@ -34,6 +34,7 @@ public:
 
 	// éÊìæ
 	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }
+	D3DXVECTOR3 GetScale(void) { return m_scale; }
 	// ê›íË
 	void SetParent(CModel* pModel) { m_pParent = pModel; }
 	void Set(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
