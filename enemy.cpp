@@ -248,28 +248,30 @@ void CEnemy::Move(void)
 	CPlayer* pPlayer = CGame::GetPlayer();
 	D3DXVECTOR3 PlayerPos = pPlayer->GetPos();
 	D3DXVECTOR3 PlayerRot = pPlayer->GetRot();
+
+	// プレイヤーに向かって動く
 	if (m_State == STATE_MOVE)
-	{//プレイヤーに向かって動く
+	{
 		if(m_type == TYPE_TORNADO || m_type == TYPE_MAGNET || m_type == TYPE_MONEY1)
 		{
-			Move_Charge();
+			Move_Charge();	// 突進
 		}
 		else if (m_type == TYPE_RANGE || m_type == TYPE_KETTLE || m_type == TYPE_MONEY0)
 		{
-			Move_Jump();
+			Move_Jump();	// ジャンプ
 		}
 		else if (m_type == TYPE_LIGHTER || m_type == TYPE_SPRAY || m_type == TYPE_EXT)
 		{
-			Move_Shot();
+			Move_Shot();	// ショット
 		}
 		else
 		{
-			Move_Normal();
+			Move_Normal();	// 通常
 		}
 	}
+	// ランダムに動く
 	else if (m_State == STATE_STAY)
-	{
-		//ランダムに動く
+	{	
 		m_nStayCounter--;
 		if (m_nStayCounter <= 0)
 		{
@@ -285,21 +287,23 @@ void CEnemy::Move(void)
 		m_rotDest.y = atan2f(m_move.x, m_move.z) + D3DX_PI;
 	}
 
+	// プレイヤーとの距離と自身の検知する半径を求める
 	D3DXVECTOR3 toPlayer = PlayerPos - m_pos;
 	float distance = D3DXVec3Length(&toPlayer);
 	float fRadius = max(m_size.x, max(m_size.y, m_size.z)) * 10.0f;
 
+	// 範囲内なら
 	if (distance <= fRadius)
 	{
 		State(STATE_MOVE);
 	}
+	// 範囲外なら
 	else if (distance > fRadius)
 	{
 		State(STATE_STAY);
 	}
 
-
-	//角度の正規化
+	// 角度の正規化
 	if (m_rotDest.y - m_rot.y > D3DX_PI)
 	{
 		m_rot.y += D3DX_PI * 2.0f;
@@ -309,15 +313,17 @@ void CEnemy::Move(void)
 		m_rot.y -= D3DX_PI * 2.0f;
 	}
 
+	// 向きを変える
 	m_rot += (m_rotDest - m_rot) * 0.5f;
 
 	m_move.y -= GRAVITY; //重力加算
 
-	//前回の位置保存
+	// 前回の位置保存
 	m_posOld = m_pos;
-
+	// 移動
 	m_pos += m_move;
 
+	// 地面判定
 	if (m_pos.y < 0.0f)
 	{
 		m_pos.y = 0.0f;
@@ -351,7 +357,6 @@ void CEnemy::Move_Normal(void)
 //===============
 void CEnemy::Move_Charge(void)
 {
-	// 静的変数で突進／待機の状態とタイマーを保持
 	static bool bCharging = false;
 	static int chargeTimer = 0;
 	
@@ -409,7 +414,7 @@ void CEnemy::Move_Charge(void)
 //=====================
 void CEnemy::Move_Jump(void)
 {
-	static int state = 0;       // 0: 接近中, 1: ジャンプ中, 2: 待機中
+	static int state = 0;       // 0: 接近, 1: ジャンプ, 2: 待機
 	static int timer = 0;
 	static bool canJump = true;
 
@@ -666,9 +671,9 @@ void CEnemy::State(STATE state)
 		break;
 	}
 }
-//
-//
-//
+//===================
+// アイテムセット
+//===================
 void CEnemy::ItemSet()
 {
 	int nItem;

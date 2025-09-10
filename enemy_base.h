@@ -56,7 +56,6 @@ public:
 	static CEnemyBase* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 	static int GetNum(void) { return m_nNum; }
 private:
-	void CreateEnemy(void);
 	CEnemyBaseGauge::TYPE SearchHitType(CBullet::TYPE type);
 
 	// メンバ変数
@@ -66,19 +65,18 @@ private:
 	D3DXMATRIX m_mtxWorld;					// ワールドマトリックス
 	CModel* m_pModel;						// 通常時のモデルへのポインタ
 	CModel* m_pBreakModel;					// 破壊時のモデルへのポインタ
+	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];	// ゲージへのポインタ
+	CMapEnemyBase* m_pMapIcon;				// マップアイコンへのポインタ
 	int m_nLife;							// 寿命
-	//int m_nCntSpan;							// 敵生成時間カウント
 	int m_nDecreaseTime;					// 在庫消費までの時間
 	int m_nStock[STOCK_TYPE];				// 在庫（種類分）
 	bool m_bUse;							// 使用しているか
-	bool m_bRespawn;
-	bool m_bBlinkIcon;
-	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];	// ゲージへのポインタ
-	CMapEnemyBase* m_pMapIcon;				// マップアイコンへのポインタ
+	bool m_bRespawn;						// 
+	bool m_bBlinkIcon;						// アイコンが点滅するか
 
 	// 静的メンバ変数
-	static int m_nNum;
-	CObject2D* m_Help;
+	static int m_nNum;						// 総数
+	CObject2D* m_Help;						// ヘルプUIへのポインタ
 
 };
 

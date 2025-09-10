@@ -5,7 +5,7 @@
 //
 //==============================
 
-//
+// インクルード
 #include "enemy_base.h"
 #include "renderer.h"
 #include "manager.h"
@@ -33,11 +33,10 @@ CEnemyBase::CEnemyBase(int nPriority):CObject(nPriority)
 
 	m_bUse = true;
 
-	//m_nCntSpan = 0;
-
-	m_nNum++;
-
 	m_bBlinkIcon = false;
+
+	// 総数を増やす
+	m_nNum++;
 }
 //================
 // デストラクタ
@@ -72,7 +71,6 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	m_rot = rot;
 	m_nLife = ENEMY_BASE_LIFE;
 	m_bUse = true;
-	//m_nCntSpan = 0;
 	m_nDecreaseTime = 0;
 	//モデル生成
 	m_pModel = CModel::Create("data\\MODEL\\convenience_store00.x", m_pos, m_rot);
@@ -247,9 +245,9 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 		}
 	}
 }
-//
-//
-//
+//=====================
+// 在庫を減らす処理
+//=====================
 void CEnemyBase::SoldOut(void)
 {
 	int nType;
@@ -263,9 +261,9 @@ void CEnemyBase::SoldOut(void)
 		m_nLife = 0;
 	}
 }
-//
-//
-//
+//========================
+// アイコンが点滅するか
+//========================
 void CEnemyBase::BlinkIcon(void)
 {
 	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
@@ -283,22 +281,9 @@ void CEnemyBase::BlinkIcon(void)
 		}
 	}
 }
-
-//=============
-// 敵生成処理
-//=============
-void CEnemyBase::CreateEnemy(void)
-{
-	auto now = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	size_t seed = static_cast<size_t>(now) ^ reinterpret_cast<size_t>(this);
-
-	std::mt19937 mt((unsigned int)seed);
-	std::uniform_int_distribution<int> dist(0, CEnemy::TYPE_MAX - 1);
-
-	int nType = dist(mt);
-	CEnemy::Create(m_pos, m_rot, (CEnemy::TYPE)nType);
-}
-
+//=======================
+// 何の弾と当たったか
+//=======================
 CEnemyBaseGauge::TYPE CEnemyBase::SearchHitType(CBullet::TYPE type)
 {
 	CEnemyBaseGauge::TYPE HitType = CEnemyBaseGauge::TYPE_DRINK;
