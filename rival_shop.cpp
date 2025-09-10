@@ -103,7 +103,6 @@ void CRivalShop::Update(void)
 			// Žg—p‚µ‚Ä‚¢‚ê‚Î
 			if (m_bUse == true)
 			{
-
 				SetState();
 			}
 			else if (m_bUse == false)
@@ -227,7 +226,7 @@ void CRivalShop::SetState(void)
 	{
 		m_state = STATE_STUGGLING;
 	}
-	if (nCntStuggling >= nCntNone && nCntStuggling >= nCntThriving)
+	else if (nCntStuggling >= nCntNone && nCntStuggling >= nCntThriving)
 	{
 		m_state = STATE_THRIVING;
 	}
