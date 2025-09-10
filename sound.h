@@ -100,7 +100,7 @@ private:
 		{"data/SOUND/SE/miss00.wav", 0},
 		{"data/SOUND/SE/start00.wav", 0},
 		{"data/SOUND/SE/finish00.wav", 0},
-		{"data/SOUND/SE/select00.wav", 0},
+		{"data/SOUND/SE/Laser.wav", 0},
 
 	};
 };

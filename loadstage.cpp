@@ -16,6 +16,7 @@
 #include "object3D.h"
 #include "gimmick.h"
 #include "wall_invisible.h"
+#include "rival_shop.h"
 //==================
 // コンストラクタ
 //==================
@@ -379,6 +380,12 @@ void CLoadStage::Create(const char* pFilename, D3DXVECTOR3 pos, D3DXVECTOR3 rot,
 		CGimmick::Create(pos, rot, Gimmicktype);
 		break;
 	}
+	case CStage::TYPE_RIVAL_SHOP:
+	{
+		CRivalShop::Create(pos, rot);
+		break;
+	}
+	
 	default:
 		break;
 	}

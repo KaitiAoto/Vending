@@ -1289,46 +1289,6 @@ MODELSET
 	OBJECT = 1
 END_MODELSET
 
-MODELSET
-	TYPE = 9
-	POS = 975 0 -95
-	ROT = 0 90 0
-	SHADOW = 0
-	OBJECT = 4
-END_MODELSET
-
-MODELSET
-	TYPE = 9
-	POS = -433 0 -401
-	ROT = 0 0 0
-	SHADOW = 0
-	OBJECT = 4
-END_MODELSET
-
-MODELSET
-	TYPE = 9
-	POS = 1024 0 732
-	ROT = 0 360 0
-	SHADOW = 0
-	OBJECT = 4
-END_MODELSET
-
-MODELSET
-	TYPE = 9
-	POS = -466 0 1018
-	ROT = 0 450 0
-	SHADOW = 0
-	OBJECT = 4
-END_MODELSET
-
-MODELSET
-	TYPE = 9
-	POS = 747 0 -553
-	ROT = 0 450 0
-	SHADOW = 0
-	OBJECT = 4
-END_MODELSET
-
 #==============================================================================
 # ÉvÉåÉCÉÑÅ[èÓïÒ
 #==============================================================================

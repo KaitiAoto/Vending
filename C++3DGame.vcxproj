@@ -217,6 +217,7 @@
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="restock.cpp" />
     <ClCompile Include="result.cpp" />
+    <ClCompile Include="rival_shop.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="score_manager.cpp" />
@@ -300,6 +301,7 @@
     <ClInclude Include="renderer.h" />
     <ClInclude Include="restock.h" />
     <ClInclude Include="result.h" />
+    <ClInclude Include="rival_shop.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="score_manager.h" />
