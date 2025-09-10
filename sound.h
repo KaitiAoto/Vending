@@ -103,6 +103,7 @@ private:
 		{"data/SOUND/SE/Laser.wav", 0},
 
 	};
+
 };
 
 #endif
