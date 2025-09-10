@@ -17,18 +17,28 @@
 class CShadow:public CObject3D
 {
 public:
+	// 種類
+	typedef enum
+	{
+		TYPE_CIRCLE = 0,
+		TYPE_SQUARE,
+		TYPE_MAX
+	}TYPE;
 
 	// メンバ関数
 	CShadow(int nPriority = 2);
 	~CShadow();
 
-	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius);
+	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fX, float fZ);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 
+	void SetUse(bool bUse) { m_bUse = bUse; }
+
 	// 静的メンバ関数
-	static CShadow* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius);
+	static CShadow* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fX, float fZ);
+	static CShadow* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fX, float fZ,TYPE type);
 private:
 
 	// メンバ変数
@@ -36,6 +46,7 @@ private:
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXMATRIX m_mtxWorld;	// ワールドマトリックス
 	D3DXCOLOR m_col;		// 色
+	TYPE m_type;
 	bool m_bUse;			// 使用しているか
 	float m_fLength;		// 対角線の長さ
 	float m_fRadius;		// 半径

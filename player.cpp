@@ -117,8 +117,7 @@ HRESULT CPlayer::Init(const char* pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 		m_apModel[nCnt]->SetColorChange(true);
 	}
 
-	float fRadius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
-	m_pShadow = CShadow::Create(m_pos, m_rot, fRadius);
+	m_pShadow = CShadow::Create(m_pos, m_rot, m_size.x, m_size.z, CShadow::TYPE_CIRCLE);
 
 	//m_pShadowS = CShadowS::Create(m_pos, m_rot, fRadius);
 
@@ -205,7 +204,7 @@ void CPlayer::Update(void)
 		if (m_pShadow != nullptr)
 		{
 			m_pShadow->SetPos(D3DXVECTOR3(m_pos.x, 0.3f, m_pos.z));
-			//m_pShadow->SetPos(m_pos);
+			m_pShadow->SetRot(m_rot);
 		}
 	}
 	else if(m_bUse == false)

@@ -35,6 +35,8 @@ CEnemyBase::CEnemyBase(int nPriority):CObject(nPriority)
 
 	m_bBlinkIcon = false;
 
+	m_state = STATE_NONE;
+
 	// 総数を増やす
 	m_nNum++;
 }
@@ -78,8 +80,10 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	m_pBreakModel = CModel::Create("data\\MODEL\\convenience_store01.x", m_pos, m_rot);
 	//オブジェクトの種類設定
 	SetObjType(TYPE_ENEMY_BASE);
-	
 
+	CShadow::Create(m_pos, m_rot, m_size.x * 0.75f, m_size.z * 0.75f);
+
+	// モードがゲームなら
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
 		for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
@@ -130,16 +134,18 @@ void CEnemyBase::Uninit(void)
 //============
 void CEnemyBase::Update(void)
 {
-	const int nDecreaseTime = 120;
-
+	// モードがゲームなら
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
+		// チュートリアル以外
 		if (CGame::GetMode() != CGame::MODE_TUTORIAL)
 		{
 			CScoreMana* pBreakScore = CGame::GetBreakCnt();
 
+			// 使用していれば
 			if (m_bUse == true)
 			{
+				// ゲージ
 				for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 				{
 					float rate = (float)m_nStock[nCnt] / (float)MAX_STOCK;
@@ -149,8 +155,11 @@ void CEnemyBase::Update(void)
 					m_pGauge[nCnt]->SetDraw(m_bRespawn);
 				}
 
+				// アイコンの点滅確認
 				BlinkIcon();
+				SetState();
 
+				// ライフが０なら
 				if (m_nLife <= 0)
 				{
 					CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 30, 8.0f, CParticle::TYPE_NONE);
@@ -181,7 +190,6 @@ void CEnemyBase::Update(void)
 				{
 					m_nLife = 0;
 				}
-
 			}
 			else if (m_bUse == false)
 			{//使っていないなら
@@ -218,6 +226,7 @@ void CEnemyBase::Draw(void)
 	}
 	else
 	{
+		// 破壊モデル描画
 		m_pBreakModel->Draw();
 	}
 }
@@ -281,6 +290,57 @@ void CEnemyBase::BlinkIcon(void)
 		}
 	}
 }
+//
+// スケール変更
+//
+void CEnemyBase::Scale(void)
+{
+	D3DXVECTOR3 scale;
+
+	switch (m_state)
+	{
+	case STATE_NONE:
+		scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		break;
+	case STATE_THRIVING:
+		scale = D3DXVECTOR3(1.2f, 1.2f, 1.2f);
+		break;
+	case STATE_STUGGLING:
+		scale = D3DXVECTOR3(0.8f, 0.8f, 0.8f);
+		break;
+	default:
+		break;
+	}
+
+	m_pModel->SetScale(scale);
+}
+void CEnemyBase::SetState(void)
+{
+	int totalStock = 0;
+
+	for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
+	{
+		totalStock += m_nStock[nCnt];
+	}
+
+	// 繁盛していない
+	if (totalStock < (MAX_STOCK * STOCK_TYPE) / 3)
+	{
+		m_state = STATE_STUGGLING;
+	}
+	// 繁盛している
+	else if (totalStock >= STOCK_TYPE * 8)
+	{
+		m_state = STATE_THRIVING;
+	}
+	// 通常
+	else
+	{
+		m_state = STATE_NONE;
+	}
+
+	Scale();
+}
 //=======================
 // 何の弾と当たったか
 //=======================
@@ -288,6 +348,7 @@ CEnemyBaseGauge::TYPE CEnemyBase::SearchHitType(CBullet::TYPE type)
 {
 	CEnemyBaseGauge::TYPE HitType = CEnemyBaseGauge::TYPE_DRINK;
 
+	// どの弾がどの種類かを判別
 	switch (type)
 	{
 		case CBullet::TYPE_CAN:
@@ -321,5 +382,6 @@ CEnemyBaseGauge::TYPE CEnemyBase::SearchHitType(CBullet::TYPE type)
 		break;
 	}
 
-	return HitType;
+	return HitType;	// 種類を返す
 }
+

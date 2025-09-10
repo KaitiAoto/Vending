@@ -139,6 +139,7 @@ HRESULT CManager::CreatePointa(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		m_pDebug->Init();
 	}
 
+	// フェード生成
 	if (m_pFade == nullptr)
 	{
 		m_pFade = CFade::Create(CScene::MODE_TITLE);
@@ -153,50 +154,53 @@ HRESULT CManager::CreatePointa(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 void CManager::SetMode(CScene::MODE mode)
 {
 	if (mode != CScene::MODE_RANKING)
-	{//ランキング以外は音を止める
+	{// ランキング以外は音を止める
 		m_pSound->Stop();
 	}
 
-	//スコア保存用変数
+	// スコア保存用変数
 	int nBreakCnt = 0;
 	int nTotalScore = 0;
 
 	if (m_pScene != nullptr)
-	{//NULLチェック
+	{// NULLチェック
+		// 現在がゲームで次がリザルト
 		if (mode == CScene::MODE_RESULT && m_pScene->GetMode() == CScene::MODE_GAME)
-		{//現在がゲームで次がリザルト
-			nBreakCnt = CGame::GetBreakCnt()->GetScore();//破壊スコア保存
-			nTotalScore = CGame::GetTotalScore()->GetScore();//トータルスコア保存
+		{
+			nBreakCnt = CGame::GetBreakCnt()->GetScore();		// 破壊スコア保存
+			nTotalScore = CGame::GetTotalScore()->GetScore();	// トータルスコア保存
 			nTotalScore += nBreakCnt * 10000;
 		}
+		// 現在がリザルトで次がランキング
 		else if (mode == CScene::MODE_RANKING && m_pScene->GetMode() == CScene::MODE_RESULT)
-		{//現在がゲームで次がリザルト
-			nBreakCnt = CResult::GetBreakCnt()->GetScore();//破壊スコア保存
-			nTotalScore = CResult::GetTotalScore()->GetScore();//トータルスコア保存
+		{
+			nBreakCnt = CResult::GetBreakCnt()->GetScore();		// 破壊スコア保存
+			nTotalScore = CResult::GetTotalScore()->GetScore();	// トータルスコア保存
 		}
-		//シーンの終了処理
+		// シーンの終了処理
 		m_pScene->Uninit();
 	}
-	//オブジェクト総破棄
+	// オブジェクト総破棄
 	CObject::ReleaseAll();
 
-	//新しいシーンを生成
+	// 新しいシーンを生成
 	m_pScene = CScene::Create(mode);
-	//シーンの初期化
+	// シーンの初期化
 	m_pScene->Init();
 	
+	// 現在がランキング
 	if (mode == CScene::MODE_RANKING)
-	{//現在がリザルト
-		CRanking::SetNowScore(nBreakCnt, nTotalScore);//今回のスコアを保存
+	{
+		CRanking::SetNowScore(nBreakCnt, nTotalScore);	// 今回のスコアを保存
 	}
 	if (m_pScene != nullptr && m_pScene->GetMode() == CScene::MODE_RESULT)
 	{//NULLチェック＆現在がリザルト
-		//スコア代入
+		// スコア代入
 		CResult::GetBreakCnt()->Set(nBreakCnt);
 		CResult::GetTotalScore()->Set(nTotalScore);
 	}
 
-	//カメラ初期化
+	// カメラ初期化
 	m_pCamera->Init();
 }
 //=============

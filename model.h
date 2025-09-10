@@ -44,6 +44,7 @@ public:
 	void SetOffSet(D3DXVECTOR3 pos, D3DXVECTOR3 rot) { m_Offsetpos = pos, m_Offsetrot = rot; }
 	void SetColorChange(bool bUse) { m_bColorChange = bUse; }
 	void SetColor(D3DXCOLOR col) { m_forcedColor = col; }
+	void SetScale(D3DXVECTOR3 scale) { m_scale = scale; }
 	D3DXVECTOR3 SetSize(void);
 
 	// 静的メンバ関数
@@ -59,6 +60,7 @@ private:
 	D3DXVECTOR3 m_rot;			// 向き
 	D3DXVECTOR3 m_Offsetpos;	// 位置(オフセット)
 	D3DXVECTOR3 m_Offsetrot;	// 向き(オフセット)
+	D3DXVECTOR3 m_scale;		// スケール
 	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
 	D3DXCOLOR m_forcedColor;	// 色
 	CModel* m_pParent;			// 親モデル

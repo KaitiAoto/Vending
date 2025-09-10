@@ -21,6 +21,8 @@ CModel::CModel(void)
 	m_Offsetpos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Offsetrot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
+	m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
 	m_mtxWorld = {};
 
 	m_pMesh = NULL;		//メッシュ(頂点情報)へのポインタ
@@ -152,7 +154,7 @@ void CModel::Draw(void)
 	CTexture* pTex = CManager::GetTex();
 
 	//計算用マトリックス
-	D3DXMATRIX mtxRot, mtxTrans;
+	D3DXMATRIX mtxRot, mtxTrans, mtxScale;
 	//現在のマテリアル保存用
 	D3DMATERIAL9 matDef;
 	//マテリアルデータへのポインタ
@@ -160,6 +162,10 @@ void CModel::Draw(void)
 
 	//ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
+
+	// スケールを反映
+	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 
 	//向きを反転
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y + m_Offsetrot.y, m_rot.x + m_Offsetrot.x, m_rot.z + m_Offsetrot.z);

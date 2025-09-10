@@ -30,6 +30,15 @@
 class CEnemyBase:public CObject
 {
 public:
+	// 状態
+	typedef enum
+	{
+		STATE_NONE = 0,
+		STATE_THRIVING, //繁盛してる
+		STATE_STUGGLING,//繁盛してない
+		STATE_MAX
+	}STATE;
+
 	// メンバ関数
 	CEnemyBase(int nPriority = PRIORITY_ENEMYBASE);
 	~CEnemyBase();
@@ -56,6 +65,9 @@ public:
 	static CEnemyBase* Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
 	static int GetNum(void) { return m_nNum; }
 private:
+	void Scale(void);
+	void SetState(void);
+
 	CEnemyBaseGauge::TYPE SearchHitType(CBullet::TYPE type);
 
 	// メンバ変数
@@ -73,7 +85,7 @@ private:
 	bool m_bUse;							// 使用しているか
 	bool m_bRespawn;						// 
 	bool m_bBlinkIcon;						// アイコンが点滅するか
-
+	STATE m_state;
 	// 静的メンバ変数
 	static int m_nNum;						// 総数
 	CObject2D* m_Help;						// ヘルプUIへのポインタ

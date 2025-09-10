@@ -21,6 +21,7 @@ CShadow::CShadow(int nPriority):CObject3D(nPriority)
 
 	m_bUse = true;
 	m_nIdxTex = 0;
+	m_type = TYPE_SQUARE;
 }
 //================
 // デストラクタ
@@ -31,13 +32,13 @@ CShadow::~CShadow()
 //===========
 // 生成処理
 //===========
-CShadow* CShadow::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius)
+CShadow* CShadow::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fX, float fZ)
 {
 	CShadow* pEffect;
 	//
 	pEffect = new CShadow;
 	//初期化
-	if (FAILED(pEffect->Init(pos, rot, fRadius)))
+	if (FAILED(pEffect->Init(pos, rot, fX, fZ)))
 	{
 		delete pEffect;
 		return nullptr;
@@ -45,17 +46,38 @@ CShadow* CShadow::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius)
 
 	return pEffect;
 }
+CShadow* CShadow::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fX, float fZ, TYPE type)
+{
+	CShadow* pEffect;
+	//
+	pEffect = new CShadow;
+
+	pEffect->m_type = type;
+	//初期化
+	if (FAILED(pEffect->Init(pos, rot, fX, fZ)))
+	{
+		delete pEffect;
+		return nullptr;
+	}
+	return pEffect;
+}
 //===============
 // 初期化処理
 //===============
-HRESULT CShadow::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fRadius)
+HRESULT CShadow::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fX, float fZ)
 {
 	m_pos = pos;
 	m_rot = rot;
-	m_fRadius = fRadius;
-	m_fLength=(sqrtf(fRadius * fRadius + fRadius * fRadius) / 2.0f);
-
-	CObject3D::Init("data\\TEXTURE\\shadow000.jpg", m_pos, rot, fRadius, fRadius, CObject3D::TYPE_SHADOW);
+	m_bUse = true;
+	if (m_type == TYPE_SQUARE)
+	{
+		CObject3D::Init("data\\TEXTURE\\shadow001.jpg", m_pos, rot, fX, fZ, CObject3D::TYPE_SHADOW);
+	}
+	else
+	{
+		CObject3D::Init("data\\TEXTURE\\shadow000.jpg", m_pos, rot, fX, fZ, CObject3D::TYPE_SHADOW);
+	}
+	SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));
 
 	SetObjType(CObject::TYPE_SHADOW);
 	

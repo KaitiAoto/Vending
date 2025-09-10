@@ -16,6 +16,9 @@
 #include "gauge_enemy.h"
 #include "enemy_group.h"
 
+// 
+class CShadow;
+
 // マクロ定義
 #define ENEMY_LIFE (30)
 #define ENEMY_ACTIONSTATE (300)
@@ -99,6 +102,7 @@ private:
 	D3DXVECTOR3 m_size;			// サイズ
 
 	CModel* m_pModel;			// モデルへのポインタ
+	CShadow* m_pShadow;			// 影へのポインタ
 	int m_nLife;				// 寿命
 	int m_nCntState;			// 状態カウンター
 	int m_nStayCounter;			// 滞在状態のカウント

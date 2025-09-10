@@ -56,6 +56,8 @@ HRESULT CStage::Init(const char* pFilename, const D3DXVECTOR3 pos, const D3DXVEC
 	m_pModel = CModel::Create(pFilename, m_pos, m_rot);
 	m_size = m_pModel->SetSize();
 
+	CShadow::Create(m_pos, m_rot, m_size.x, m_size.z);
+
 	//オブジェクトの種類設定
 	SetObjType(TYPE_STAGE);
 

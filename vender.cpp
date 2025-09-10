@@ -76,6 +76,8 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 	m_pModel = CModel::Create(pFilename, m_pos, m_rot);
 	m_size = m_pModel->SetSize();
 
+	CShadow::Create(m_pos, m_rot, m_size.x * 1.25f, m_size.z * 1.25f);
+
 	//オブジェクトの種類設定
 	SetObjType(TYPE_VENDER);
 

@@ -115,6 +115,8 @@ HRESULT CEnemy::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type)
 	float GeuseBase = m_nLife / 10.0f;
 	m_pGauge = CEnemyGauge::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), GeuseBase, 5.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 
+	m_pShadow = CShadow::Create(m_pos, m_rot, m_size.x, m_size.z, CShadow::TYPE_CIRCLE);
+
 	//オブジェクトの種類設定
 	SetObjType(TYPE_ENEMY);
 
@@ -191,6 +193,13 @@ void CEnemy::Update(void)
 		//当たり判定
 		Collision();
 
+
+		if (m_pShadow != nullptr)
+		{
+			m_pShadow->SetPos(D3DXVECTOR3(m_pos.x, 0.3f, m_pos.z));
+			m_pShadow->SetRot(m_rot);
+		}
+
 		//寿命
 		if (m_nLife <= 0)
 		{
@@ -203,6 +212,7 @@ void CEnemy::Update(void)
 			{
 				m_pMyGroup->SubMyEnemy();
 			}
+			m_pShadow->SetUse(false);
 		}
 	}
 	else if (m_bUse == false)
