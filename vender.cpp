@@ -111,7 +111,10 @@ void CVender::Update(void)
 	{
 		if (m_bUseRestock == true)
 		{
-
+			if (m_pRestock != nullptr&& m_pRestock->GetUse() == true)
+			{
+				Shake();
+			}
 		}
 		else if (m_bUseRestock == false)
 		{
@@ -129,6 +132,14 @@ void CVender::Update(void)
 		Uninit();
 	}
 }
+//===========
+// —h‚ê‚é
+//===========
+void CVender::Shake(void)
+{
+
+}
+
 //============
 // •`‰æˆ—
 //============

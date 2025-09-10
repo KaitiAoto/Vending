@@ -57,6 +57,7 @@ public:
 
 private:
 	const char* SetModelName(void);
+	void Shake(void);
 
 	// ƒƒ“ƒo•Ï”
 	D3DXVECTOR3 m_pos;			// ˆÊ’u
