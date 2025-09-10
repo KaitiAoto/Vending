@@ -78,13 +78,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 	dwCurrentTime = 0;
 	dwExecLastTime = timeGetTime();
 
+	bool bFull = true;
 #ifndef _DEBUG
 	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+	bFull = true;
 #endif
 
 #ifdef _DEBUG
 	//ウインドウの表示
 	ShowWindow(hWnd, nCmdShow);
+	bFull = false;
+
 #endif
 
 	UpdateWindow(hWnd);
@@ -147,12 +151,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 					// カーソル位置をセット
 					SetCursorPos(pt.x, pt.y);
 				}
-#ifdef _DEBUG
 				if (pManager->GetInputKey()->GetTrigger(DIK_F10))
 				{
-					ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+					if (bFull == false)
+					{
+						ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+						bFull = true;
+					}
+					else
+					{
+						ShowWindow(hWnd, nCmdShow);
+						bFull = false;
+					}
 				}
-#endif
 
 				//マネージャー描画処理
 				pManager->Draw();
@@ -189,6 +200,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 //=======================
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	int nID;
+
 	switch (uMsg)
 	{
 	case WM_DESTROY:
@@ -200,7 +213,16 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_ESCAPE://[ESC]キーが押された場合
-			DestroyWindow(hWnd);
+			nID = MessageBox(hWnd, "終了しますか?", "終了メッセージ", MB_YESNO);
+			if (nID == IDYES)
+			{
+				DestroyWindow(hWnd);
+				break;
+			}
+			else
+			{
+				return 0;
+			}
 			break;
 
 		default:

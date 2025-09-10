@@ -100,7 +100,7 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 		pBreakScore->AddScore(1);
 
 
-		m_Help = CObject2D::Create("data\\TEXTURE\\help00.png", D3DXVECTOR3(SCREEN_WIDTH - 130.0f, SCREEN_HEIGHT / 1.75f + 25.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 200.0f, 100.0f, 8);
+		m_Help = CObject2D::Create("data\\TEXTURE\\help00.png", D3DXVECTOR3(SCREEN_WIDTH - 130.0f, SCREEN_HEIGHT / 1.75f + 25.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 250.0f, 120.0f, 8);
 		m_Help->SetUse(false);
 	}
 	return S_OK;
@@ -173,6 +173,10 @@ void CEnemyBase::Update(void)
 					{
 						m_pGauge[nCnt]->SetDraw(false);
 					}
+
+					m_Help->SetUse(false);
+
+					CScreenFlash::Create(nullptr, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 				}
 
 				if (CGame::GetPlayer()->GetUse() == false)

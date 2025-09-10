@@ -22,7 +22,7 @@ public:
 	CScreenFlash(int nPriority = 9);
 	~CScreenFlash();
 
-	HRESULT Init(void);
+	HRESULT Init(const char* pTexName, D3DXCOLOR col);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -33,7 +33,7 @@ public:
 	void SetColor(D3DXCOLOR col) { m_col = col; m_bUse = true; }
 
 	// ê√ìIÉÅÉìÉoä÷êî
-	static CScreenFlash* Create(void);
+	static CScreenFlash* Create(const char* pTexName, D3DXCOLOR col);
 
 private:
 

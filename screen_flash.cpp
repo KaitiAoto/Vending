@@ -26,23 +26,29 @@ CScreenFlash::~CScreenFlash()
 //===========
 // 生成処理
 //===========
-CScreenFlash* CScreenFlash::Create(void)
+CScreenFlash* CScreenFlash::Create(const char* pTexName, D3DXCOLOR col)
 {
 	CScreenFlash* pObject2D;
 	pObject2D = new CScreenFlash;
 	//初期化
-	pObject2D->Init();
+	pObject2D->Init(pTexName, col);
 	return pObject2D;
 }
 //===============
 // 初期化処理
 //===============
-HRESULT CScreenFlash::Init(void)
+HRESULT CScreenFlash::Init(const char* pTexName, D3DXCOLOR col)
 {
-	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
-	m_bUse = false;
-
-	CObject2D::Init(nullptr, { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2,0.0f }, { 0.0f,0.0f,0.0f }, SCREEN_WIDTH, SCREEN_HEIGHT);
+	m_col = col;	
+	if (m_col.a <= 0.0f)
+	{
+		m_bUse = false;
+	}
+	else
+	{
+		m_bUse = true;
+	}
+	CObject2D::Init(pTexName, { SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2,0.0f }, { 0.0f,0.0f,0.0f }, SCREEN_WIDTH, SCREEN_HEIGHT);
 	//オブジェクトの種類設定
 	SetObjType(TYPE_UI);
 

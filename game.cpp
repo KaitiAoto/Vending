@@ -123,7 +123,7 @@ void CGame::Init(void)
 	CEnemyGroup::Create(D3DXVECTOR3(-700.0f, 0.0f, 750.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(560.0f, 0.0f, -190.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(300.0f, 0.0f, -700.0f));
-	CEnemyGroup::Create(D3DXVECTOR3(70.0f, 0.0f, -50.0f));
+	CEnemyGroup::Create(D3DXVECTOR3(-300.0f, 0.0f, -100.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(800.0f, 0.0f, 700.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(100.0f, 0.0f, 550.0f));
 
@@ -140,7 +140,7 @@ void CGame::Init(void)
 
 	CStartUI::Create("data\\TEXTURE\\tutorial_start00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), STARTUI_SIZE_X, STARTUI_SIZE_Y);
 	
-	m_pScreenFlash = CScreenFlash::Create();
+	m_pScreenFlash = CScreenFlash::Create(nullptr, D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
 
 	SetMode(MODE_TUTORIAL);
 
