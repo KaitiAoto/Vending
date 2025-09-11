@@ -27,6 +27,20 @@ class CRestock;
 class CVender:public CObject
 {
 public:
+	// éÌóﬁ
+	typedef enum
+	{
+		SHAKE_ROTX = 0,
+		SHAKE_ROTY,
+		SHAKE_ROTZ,
+
+		SHAKE_SCALEX,
+		SHAKE_SCALEY,
+		SHAKE_SCALEZ,
+
+		SHAKE_MAX
+	}SHAKE;
+
 	// ÉÅÉìÉoä÷êî
 	CVender(int nPriority = PRIORITY_VENDER);
 	~CVender();

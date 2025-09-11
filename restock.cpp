@@ -95,10 +95,10 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 {
 	CDebugProc* pDegub = CManager::GetDebug();
 
-	//キー取得
-	CInputKey* pInputKey = CManager::GetInputKey();
 	//パッド
 	CInputPad* pInputPad = CManager::GetInputPad();
+	//マウス取得
+	CInputMouse* pInputMouse = CManager::GetInputMouse();
 
 	//プレイヤー情報取得
 	CPlayer* pPlayer = CGame::GetPlayer();
@@ -107,12 +107,18 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 
 	pDegub->Print("補充可能");
 	m_bUse = true;
-	if (pInputKey->GetTrigger(DIK_F) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_Y) == true)
+
+	pPlayer->SetCanRestock(true);
+
+	if (pInputMouse->GetTrigger(0) == true || pInputPad->GetR2Trigger(30) == true)
 	{
 		//中身補充
 		pPlayer->AddContents(nRestock);
 		//種類設定
 		pPlayer->SetBulletType(type);
+
+		pPlayer->SetCanRestock(false);
+		pPlayer->SetShotTime(0.75f * 5.0f);
 
 		pVender->SetUseRestock(false);
 		m_bUse = false;

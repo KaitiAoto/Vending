@@ -65,6 +65,8 @@ CPlayer::CPlayer(int nPriority):CObject(nPriority)
 
 	m_BaseColor = { 1.0f,1.0f,1.0f,1.0f };
 	m_DamageColor = { 1.0f, 1.0f, 1.0f,0.0f };
+
+	m_bCanRestock = false;
 }
 //================
 // デストラクタ
@@ -508,49 +510,51 @@ void CPlayer::Action(void)
 	CSound* pSound = CManager::GetSound();
 
 	//弾発射
-	if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
+	if (m_bCanRestock != true)
 	{
-		if (m_nCntContents > 0)
-		{//中身あり
-			m_fShotTimer -= SHOT_TIMESUB;
-			if (m_fShotTimer <= 0.0f)
-			{
-				CBullet::Create(m_pos, m_rot, CBullet::USER_PLAYER);
-				m_nCntContents--;
-
-				pSound->PlaySound(CSound::SOUND_LABEL_SHOT);
-
-				m_fShotTimer = SHOT_INTERVAL;
-
-				//チュートリアルクリア判定
-				if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+		if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
+		{
+			if (m_nCntContents > 0)
+			{//中身あり
+				m_fShotTimer -= SHOT_TIMESUB;
+				if (m_fShotTimer <= 0.0f)
 				{
-					CTutorial* pTutorial = CGame::GetTutorial();
-					if (pTutorial != nullptr)
+					CBullet::Create(m_pos, m_rot, CBullet::USER_PLAYER);
+					m_nCntContents--;
+
+					pSound->PlaySound(CSound::SOUND_LABEL_SHOT);
+
+					m_fShotTimer = SHOT_INTERVAL;
+
+					//チュートリアルクリア判定
+					if (CGame::GetMode() == CGame::MODE_TUTORIAL)
 					{
-						if (pTutorial->GetType() == CTutorial::TYPE_BULLET)
+						CTutorial* pTutorial = CGame::GetTutorial();
+						if (pTutorial != nullptr)
 						{
-							CGame::GetTutorial()->SetClear(true);
+							if (pTutorial->GetType() == CTutorial::TYPE_BULLET)
+							{
+								CGame::GetTutorial()->SetClear(true);
+							}
 						}
 					}
 				}
 			}
+			else
+			{
+				if (CSoldOut::GetUse() == false)
+				{
+					CSoldOut::Create();
+				}
+
+				pSound->PlaySound(CSound::SOUND_LABEL_MISS);
+			}
 		}
 		else
 		{
-			if (CSoldOut::GetUse() == false)
-			{
-				CSoldOut::Create();
-			}
-
-			pSound->PlaySound(CSound::SOUND_LABEL_MISS);
+			m_fShotTimer = 0.0f;
 		}
 	}
-	else
-	{
-		m_fShotTimer = 0.0f;
-	}
-
 
 #ifdef _DEBUG
 	//パーティクル

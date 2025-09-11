@@ -137,7 +137,11 @@ void CVender::Update(void)
 //===========
 void CVender::Shake(void)
 {
+	//static D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
+	//rot.z += 0.1f;
+
+	//m_pModel->SetRot(rot);
 }
 
 //============

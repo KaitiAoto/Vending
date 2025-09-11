@@ -105,7 +105,29 @@ void CCamera::Update(void)
 	}
 
 	// カメラアップ
-	if (pInputPad->GetTrigger(CInputPad::JOYKEY_R3) == true || pInputMouse->GetTrigger(2) == true)
+	int wheel = 0;
+	wheel = pInputMouse->GetWheel();
+	if (wheel > 0)
+	{// ↑
+		m_fDistance -= 5.0f;
+		if (m_fDistance <= 150.0f)
+		{
+			m_fDistance = 150.0f;
+		}
+	}
+	else if (wheel < 0)
+	{// ↓
+		m_fDistance += 5.0f;
+		if (m_fDistance >= 500.0f)
+		{
+			m_fDistance = 500.0f;
+		}
+
+	}
+
+
+
+	if (pInputPad->GetTrigger(CInputPad::JOYKEY_R3) == true)
 	{
 		m_fDistance -= 100.0f;
 		m_posV.y -= 80.0f;

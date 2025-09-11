@@ -72,7 +72,8 @@ public:
 	void SetUse(void) {m_bUse = true; m_nLife = PLAYER_LIFE;}
 	void SetMove(D3DXVECTOR3 move) { m_move = move; }
 	void MovePos(D3DXVECTOR3 move) { m_pos += move; }
-
+	void SetCanRestock(bool bCan) { m_bCanRestock = bCan; }
+	void SetShotTime(float fTime) { m_fShotTimer += fTime; }
 	// 取得
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
@@ -120,6 +121,7 @@ private:
 	int m_nCntState;					// 状態カウンター
 	int m_nCntStackt;					// スタックカウント
 	bool m_bMove;						// 移動しているか
+	bool m_bCanRestock;					// 補充できるかどうか
 	// ステータス
 	int m_nLife;						// ライフ
 	float m_fSpeed;						// 移動速度
