@@ -415,6 +415,7 @@ bool CCollision::Vender(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVEC
 		else if (bColl == false)
 		{
 			pRestock->SetUse(false);
+			pPlayer->SetCanRestock(false);
 		}
 	}
 

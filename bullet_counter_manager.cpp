@@ -12,11 +12,6 @@
 #include "object.h"
 #include "player.h"
 
-// 静的メンバ変数
-int CBulletCntMana::m_nCount = 0;
-CBullerCounter* CBulletCntMana::m_pCounter[MAX_BULLETCNT] = {};
-CBulletIcon* CBulletCntMana::m_pIcon = NULL;
-
 //==================
 // コンストラクタ
 //==================
@@ -73,15 +68,12 @@ void CBulletCntMana::Uninit(void)
 // 更新処理
 //============
 void CBulletCntMana::Update(void)
-{
-	// プレイヤー情報取得
-	CPlayer* pPlayer = CGame::GetPlayer();
-
-	// 現在の所持数を取得
-	m_nCount = pPlayer->GetContents();
-	
+{	
 	// カウンター更新
 	UpdateCounter();
+
+	m_pIcon->SetType(m_Bullet);
+	m_pIcon->SetContens(m_nCount);
 }
 //============
 // 描画処理

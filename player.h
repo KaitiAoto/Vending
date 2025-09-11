@@ -25,6 +25,7 @@
 #define PLAYER_MODEL (1)
 #define PLAYER_SPEED (3.0f)
 #define PLAYER_JUMP (7.8f)
+#define BULLET_HAVE (2)
 
 // プレイヤークラス
 class CPlayer:public CObject
@@ -82,9 +83,11 @@ public:
 	D3DXVECTOR3 GetPosOffSet(void) { return m_posOffSet; }
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
 	CBullet::TYPE GetMyBullet(void) { return m_Bullet; }
+	CBullet::TYPE GetMySubBullet(void) { return m_SubBullet; }
 	STATE GetState(void) { return m_State; }
 	bool GetbMove(void) { return m_bMove; }
 	int GetContents(void) { return m_nCntContents; }
+	int GetSubContents(void) { return m_nCntSubContents; }
 	int GetNumModel(void) { return m_nNumModel; }
 	int GetLife(void) { return m_nLife; }
 
@@ -95,6 +98,7 @@ public:
 private:
 	void Move(void);
 	void Action(void);
+	void ChangeBullet(void);
 	bool Collision(void);
 	void State(STATE state);
 	void CheckStack(bool bColl, bool bMove);
@@ -132,6 +136,9 @@ private:
 	// 弾
 	CBullet::TYPE m_Bullet;				// 弾の種類
 	int m_nCntContents;					// 中身の残量
+	CBullet::TYPE m_SubBullet;				// 弾の種類
+	int m_nCntSubContents;					// 中身の残量
+
 	float m_fShotTimer;					// 発射間隔カウント
 	const float SHOT_INTERVAL = 0.75f;	// 発射間隔
 	const float SHOT_TIMESUB = 0.075f;	// 発射時間を減らす値

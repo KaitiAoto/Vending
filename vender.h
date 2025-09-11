@@ -76,6 +76,7 @@ private:
 	// メンバ変数
 	D3DXVECTOR3 m_pos;			// 位置
 	D3DXVECTOR3 m_rot;			// 向き
+	D3DXVECTOR3 m_Offrot;		// 向き
 	D3DXVECTOR3 m_size;			// サイズ
 	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
 	CModel* m_pModel;			// モデルへのポインタ

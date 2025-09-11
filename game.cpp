@@ -15,6 +15,7 @@ CObject3D* CGame::m_pObj3D = nullptr;
 CScoreMana* CGame::m_pBreakCnt = nullptr;
 CScoreMana* CGame::m_pTotalScore = nullptr;
 CBulletCntMana* CGame::m_pBulletCount = nullptr;
+CBulletCntMana* CGame::m_pSubBulletCount = nullptr;
 CCollision* CGame::m_pColl = nullptr;
 CMatchUp* CGame::m_pMatchup = nullptr;
 CHpGauge* CGame::m_pHpGauge = nullptr;
@@ -82,7 +83,12 @@ void CGame::Init(void)
 	//弾数カウント生成
 	if (m_pBulletCount == nullptr)
 	{
-		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.25f, 0.0f));
+		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.35f, 0.0f));
+	}
+	//弾数カウント生成
+	if (m_pSubBulletCount == nullptr)
+	{
+		m_pSubBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.15f, 0.0f));
 	}
 
 	if (m_pHpGauge == nullptr)
@@ -92,7 +98,7 @@ void CGame::Init(void)
 
 	if (m_pReset == nullptr)
 	{
-		m_pReset = CResetGauge::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (BULLET_COUNT_SIZE * 5), SCREEN_HEIGHT / 1.25f - 50.0f, 0.0f), 0, GAUGE_Y, D3DCOLOR_RGBA(255, 255, 1, 255));
+		m_pReset = CResetGauge::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (BULLET_COUNT_SIZE * 5), SCREEN_HEIGHT / 1.35f - 50.0f, 0.0f), 0, GAUGE_Y, D3DCOLOR_RGBA(255, 255, 1, 255));
 	}
 
 	if (m_pBuff == nullptr)
@@ -210,6 +216,15 @@ void CGame::Uninit(void)
 		m_pBulletCount = nullptr;
 	}
 
+	//弾数カウンター破棄
+	if (m_pSubBulletCount != nullptr)
+	{
+		//弾数カウンター終了処理
+		m_pSubBulletCount->Uninit();
+
+		delete m_pSubBulletCount;
+		m_pSubBulletCount = nullptr;
+	}
 
 	//当たり判定
 	if (m_pColl != nullptr)
@@ -304,6 +319,11 @@ void CGame::Update(void)
 	{
 		//弾数カウント更新
 		m_pBulletCount->Update();
+	}
+	if (m_pSubBulletCount != nullptr)
+	{
+		//弾数カウント更新
+		m_pSubBulletCount->Update();
 	}
 
 	if (pInputKey->GetTrigger(DIK_P) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_START) == true)

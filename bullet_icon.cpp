@@ -78,21 +78,15 @@ void CBulletIcon::Uninit(void)
 //============
 void CBulletIcon::Update(void)
 {	
-	//プレイヤー情報取得
-	CPlayer* pPlayer = CGame::GetPlayer();
-	// 今の中身の数を取得
-	int nCntContens = pPlayer->GetContents();
-
 	// 中身があれば
-	if (nCntContens > 0)
+	if (m_nCntContens > 0)
 	{
-		m_bUse = true;						// 使用している状態にする
-		m_type = pPlayer->GetMyBullet();	// 種類をプレイヤーと同じにする
+		m_bUse = true;				// 使用している状態にする
 		// テクスチャ切り替え
 		ChangeIcon(m_type);
 	}
 	// 中身がなければ
-	else if (nCntContens <= 0)
+	else if (m_nCntContens <= 0)
 	{
 		m_bUse = false;	// 使用していない状態にする
 	}

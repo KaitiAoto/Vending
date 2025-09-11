@@ -63,6 +63,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 {
 	m_pos = pos;
 	m_rot = rot;
+	m_Offrot = m_rot;
 	m_bUse = true;
 
 	m_nRestock = MAX_RESTOCK;
@@ -85,7 +86,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 	{
 		float radius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
 		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, D3DXCOLOR(1.0, 1.0, 0.0, 0.75), CMeshCylinder::TYPE_BOTHSIDES);
-		m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, 500.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
+		m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
 	}
 	return S_OK;
 }
@@ -115,9 +116,17 @@ void CVender::Update(void)
 			{
 				Shake();
 			}
+			else
+			{
+				m_rot = m_Offrot;
+				m_pModel->SetRot(m_rot);
+			}
 		}
 		else if (m_bUseRestock == false)
 		{
+			m_rot = m_Offrot;
+			m_pModel->SetRot(m_rot);
+
 			m_nCntReuse--;
 			if (m_nCntReuse <= 0)
 			{
@@ -137,11 +146,18 @@ void CVender::Update(void)
 //===========
 void CVender::Shake(void)
 {
-	//static D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_rot.y += 0.1f;
+	// Šp“x‚Ì³‹K‰»
+	if (m_rot.y >= D3DX_PI)
+	{
+		m_rot.y -= D3DX_PI * 2.0f;
+	}
+	else if (m_rot.y <= -D3DX_PI)
+	{
+		m_rot.y += D3DX_PI * 2.0f;
+	}
 
-	//rot.z += 0.1f;
-
-	//m_pModel->SetRot(rot);
+	m_pModel->SetRot(m_rot);
 }
 
 //============

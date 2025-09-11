@@ -49,7 +49,7 @@ CPlayer::CPlayer(int nPriority):CObject(nPriority)
 	m_nLife = 0;
 	m_fSpeed = 0;
 	m_nCntContents = 0;
-
+	m_nCntSubContents = 0;
 	m_nNumModel = 0;
 	m_mtxWorld = {};
 
@@ -197,6 +197,11 @@ void CPlayer::Update(void)
 			m_nCntState = 0;
 			State(STATE_NONE);
 		}
+
+		CGame::GetMainCnt()->SetCnt(m_nCntContents);
+		CGame::GetMainCnt()->SetType(m_Bullet);
+		CGame::GetSubCnt()->SetCnt(m_nCntSubContents);
+		CGame::GetSubCnt()->SetType(m_SubBullet);
 
 		//モーション更新
 		if (m_pMotion != nullptr)
@@ -556,6 +561,8 @@ void CPlayer::Action(void)
 		}
 	}
 
+	ChangeBullet();
+
 #ifdef _DEBUG
 	//パーティクル
 	if (pInputKey->GetTrigger(DIK_2) == true)
@@ -588,6 +595,26 @@ void CPlayer::Action(void)
 	pDegub->Print("トータル：%d", pScore1->GetScore());
 
 #endif
+}
+void CPlayer::ChangeBullet(void)
+{
+	//マウス取得
+	CInputMouse* pInputMouse = CManager::GetInputMouse();
+	//パッド
+	CInputPad* pInputPad = CManager::GetInputPad();
+
+	if (pInputMouse->GetTrigger(1) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_R1) == true)
+	{
+		CBullet::TYPE type = m_Bullet;
+		int nContents = m_nCntContents;
+
+		m_Bullet = m_SubBullet;
+		m_nCntContents = m_nCntSubContents;
+
+		m_SubBullet = type;
+		m_nCntSubContents = nContents;
+	}
+
 }
 //================
 // ダメージ処理
