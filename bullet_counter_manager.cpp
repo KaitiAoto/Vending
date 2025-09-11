@@ -27,12 +27,12 @@ CBulletCntMana::~CBulletCntMana()
 //===========
 // 生成処理
 //===========
-CBulletCntMana* CBulletCntMana::Create(D3DXVECTOR3 pos)
+CBulletCntMana* CBulletCntMana::Create(D3DXVECTOR3 pos, bool bSub)
 {
 	// 生成
 	CBulletCntMana* pBulletCntMana = new CBulletCntMana;
 	// 初期化
-	if (FAILED(pBulletCntMana->Init(pos)))
+	if (FAILED(pBulletCntMana->Init(pos,bSub)))
 	{// NULLチェック
 		delete pBulletCntMana;
 		return nullptr;
@@ -42,18 +42,27 @@ CBulletCntMana* CBulletCntMana::Create(D3DXVECTOR3 pos)
 //===============
 // 初期化処理
 //===============
-HRESULT CBulletCntMana::Init(D3DXVECTOR3 pos)
+HRESULT CBulletCntMana::Init(D3DXVECTOR3 pos, bool bSub)
 {
+	const float fDiv = 1.75f;
+	float fIconSize = BULLETICON_SIZE;
+	float fCntSize = BULLET_COUNT_SIZE;
+	if (bSub == true)
+	{
+		fIconSize /= fDiv;
+		fCntSize /= fDiv;
+	}
+
 	// 弾アイコン生成
-	m_pIcon = CBulletIcon::Create(D3DXVECTOR3(pos.x - (BULLET_COUNT_SIZE * 4.5f), pos.y, 0.0f), BULLETICON_SIZE, BULLETICON_SIZE);
+	m_pIcon = CBulletIcon::Create(D3DXVECTOR3(pos.x - (fCntSize * 4.5f), pos.y, 0.0f), fIconSize, fIconSize);
 
 	// ×生成
-	CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (BULLET_COUNT_SIZE * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), BULLETICON_SIZE, BULLETICON_SIZE, 8);
+	CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (fCntSize * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fIconSize, fIconSize, 8);
 
 	// 桁数分カウンター生成
 	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
 	{
-		m_pCounter[nCnt] = CBullerCounter::Create(D3DXVECTOR3(pos.x + (nCnt * BULLET_COUNT_SIZE * 2.5f), pos.y, 0.0f));
+		m_pCounter[nCnt] = CBullerCounter::Create(D3DXVECTOR3(pos.x + (nCnt * fCntSize * 2.5f), pos.y, 0.0f), fCntSize, fCntSize);
 	}
 
 	return S_OK;

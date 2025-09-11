@@ -32,7 +32,7 @@ public:
 	CNumber* GetNumber(void) { return m_pNumber; }
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CBullerCounter* Create(D3DXVECTOR3 pos);
+	static CBullerCounter* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
 	// ƒƒ“ƒo•Ï”

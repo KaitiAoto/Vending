@@ -83,12 +83,12 @@ void CGame::Init(void)
 	//弾数カウント生成
 	if (m_pBulletCount == nullptr)
 	{
-		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.35f, 0.0f));
+		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.35f, 0.0f),false);
 	}
 	//弾数カウント生成
 	if (m_pSubBulletCount == nullptr)
 	{
-		m_pSubBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.15f, 0.0f));
+		m_pSubBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.15f, 0.0f),true);
 	}
 
 	if (m_pHpGauge == nullptr)

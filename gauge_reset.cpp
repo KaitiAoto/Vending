@@ -78,6 +78,8 @@ void CResetGauge::Uninit(void)
 //==========
 void CResetGauge::Update(void)
 {
+	//マウス取得
+	CInputMouse* pInputMouse = CManager::GetInputMouse();
 	//キー取得
 	CInputKey* pInputKey = CManager::GetInputKey();
 	//パッド
@@ -90,7 +92,7 @@ void CResetGauge::Update(void)
 
 	if (nCntContents > 0)
 	{//中身あり
-		if (pInputKey->GetPress(DIK_F) == true || pPad->GetPress(CInputPad::JOYKEY_Y) == true)
+		if (pInputKey->GetPress(DIK_SPACE) == true || pPad->GetPress(CInputPad::JOYKEY_Y) == true)
 		{//Ｆ長押し
 			m_bUse = true;
 			m_nCntReset++;

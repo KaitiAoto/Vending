@@ -28,12 +28,12 @@ CBullerCounter::~CBullerCounter()
 //===========
 // 生成処理
 //===========
-CBullerCounter* CBullerCounter::Create(D3DXVECTOR3 pos)
+CBullerCounter* CBullerCounter::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
 	// 生成
 	CBullerCounter* pBullerCounter = new CBullerCounter;
 	// 初期化
-	if (FAILED(pBullerCounter->Init(pos, BULLET_COUNT_SIZE, BULLET_COUNT_SIZE)))
+	if (FAILED(pBullerCounter->Init(pos, fWidth, fHeight)))
 	{// NULLチェック
 		delete pBullerCounter;
 		return nullptr;

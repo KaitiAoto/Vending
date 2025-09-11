@@ -30,13 +30,12 @@ public:
 	// 種類
 	typedef enum
 	{
-		SHAKE_ROTX = 0,
-		SHAKE_ROTY,
+	
+		SHAKE_ROTY = 0,
 		SHAKE_ROTZ,
 
 		SHAKE_SCALEX,
 		SHAKE_SCALEY,
-		SHAKE_SCALEZ,
 
 		SHAKE_MAX
 	}SHAKE;
@@ -78,13 +77,17 @@ private:
 	D3DXVECTOR3 m_rot;			// 向き
 	D3DXVECTOR3 m_Offrot;		// 向き
 	D3DXVECTOR3 m_size;			// サイズ
+	D3DXVECTOR3 m_scale;			// サイズ
 	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
 	CModel* m_pModel;			// モデルへのポインタ
 	CMeshCylinder* m_pCylinder;	// シリンダーへのポインタ
 	CRestock* m_pRestock;		// 補充ＵＩへのポインタ
 	CBullet::TYPE m_type;		// 補充する中身の種類
+	SHAKE m_ShakeType;			//
 	bool m_bUse;				// 使用しているか
 	bool m_bUseRestock;			// 補充できるか
+	bool m_bShake;
+	bool m_bRLShake;
 	int m_nCntReuse;			// 再使用できるまでの時間
 	int m_nRestock;				// 補充数
 

@@ -70,6 +70,9 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 	m_nCntReuse = NUM_REUSETIME;
 	m_bUseRestock = true;
 	m_type = type;
+	m_bShake = false;
+	m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	m_bRLShake = true;
 
 	//ƒ‚ƒfƒ‹¶¬
 	const char* pFilename = SetModelName();
@@ -114,18 +117,32 @@ void CVender::Update(void)
 		{
 			if (m_pRestock != nullptr&& m_pRestock->GetUse() == true)
 			{
+				if (m_bShake != true)
+				{
+					int nType;
+					nType = rand() % SHAKE_MAX;
+
+					m_ShakeType = (SHAKE)nType;
+
+				}
 				Shake();
+				m_bShake = true;
 			}
 			else
 			{
 				m_rot = m_Offrot;
 				m_pModel->SetRot(m_rot);
+				m_bShake = false;
+				m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 			}
+			m_pModel->SetScale(m_scale);
 		}
 		else if (m_bUseRestock == false)
 		{
 			m_rot = m_Offrot;
 			m_pModel->SetRot(m_rot);
+			m_bShake = false;
+			m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 			m_nCntReuse--;
 			if (m_nCntReuse <= 0)
@@ -146,17 +163,59 @@ void CVender::Update(void)
 //===========
 void CVender::Shake(void)
 {
-	m_rot.y += 0.1f;
-	// Šp“x‚Ì³‹K‰»
-	if (m_rot.y >= D3DX_PI)
+	if (m_ShakeType == SHAKE_ROTY)
 	{
-		m_rot.y -= D3DX_PI * 2.0f;
+		m_rot.y += 0.1f;
+		// Šp“x‚Ì³‹K‰»
+		if (m_rot.y >= D3DX_PI)
+		{
+			m_rot.y -= D3DX_PI * 2.0f;
+		}
+		else if (m_rot.y <= -D3DX_PI)
+		{
+			m_rot.y += D3DX_PI * 2.0f;
+		}
 	}
-	else if (m_rot.y <= -D3DX_PI)
+	else if (m_ShakeType == SHAKE_ROTZ)
 	{
-		m_rot.y += D3DX_PI * 2.0f;
+		if (m_bRLShake == true)
+		{
+			m_rot.z += 0.05f;
+			if (m_rot.z >= 0.5f)
+			{
+				m_bRLShake = false;
+			}
+		}
+		else if (m_bRLShake == false)
+		{
+			m_rot.z -= 0.05f;
+			if (m_rot.z <= -0.5f)
+			{
+				m_bRLShake = true;
+			}
+		}
+	}
+	else if (m_ShakeType == SHAKE_SCALEX)
+	{
+		m_scale.x += 0.01f;
+		if (m_scale.x >= 1.5f)
+		{
+			m_scale.x = 1.0f;
+		}
+	}
+	else if (m_ShakeType == SHAKE_SCALEY)
+	{
+		m_scale.y += 0.01f;
+		if (m_scale.y >= 1.5f)
+		{
+			m_scale.y = 1.0f;
+		}
 	}
 
+
+
+
+	
 	m_pModel->SetRot(m_rot);
 }
 

@@ -27,7 +27,7 @@ public:
 	CBulletCntMana();
 	~CBulletCntMana();
 
-	HRESULT Init(D3DXVECTOR3 pos);
+	HRESULT Init(D3DXVECTOR3 pos, bool bSub);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -36,7 +36,7 @@ public:
 	void SetType(CBullet::TYPE type) { m_Bullet = type; }
 
 	// 静的メンバ関数
-	static CBulletCntMana* Create(D3DXVECTOR3 pos);
+	static CBulletCntMana* Create(D3DXVECTOR3 pos, bool bSub);
 
 private:
 	//静的メンバ変数
