@@ -109,7 +109,7 @@ void CCamera::Update(void)
 	wheel = pInputMouse->GetWheel();
 	if (wheel > 0)
 	{// ª
-		m_fDistance -= 5.0f;
+		m_fDistance -= 30.0f;
 		if (m_fDistance <= 150.0f)
 		{
 			m_fDistance = 150.0f;
@@ -117,7 +117,7 @@ void CCamera::Update(void)
 	}
 	else if (wheel < 0)
 	{// «
-		m_fDistance += 5.0f;
+		m_fDistance += 30.0f;
 		if (m_fDistance >= 500.0f)
 		{
 			m_fDistance = 500.0f;
@@ -154,7 +154,7 @@ void CCamera::Update(void)
 	{
 		int mouseMoveX = pInputMouse->GetRelX();
 
-		const float sensitivity = 0.0003f;
+		const float sensitivity = 0.0009f;
 
 		m_rot.y += mouseMoveX * sensitivity;
 
@@ -176,7 +176,7 @@ void CCamera::Update(void)
 
 	if (pInputPad != nullptr)
 	{
-		const float sensitivity = 0.05f;			
+		const float sensitivity = 0.1f;			
 		const float sensitivityY = 1.0f;				
 		const float rx = pInputPad->GetRightStickX();
 		const float ry = pInputPad->GetRightStickY();

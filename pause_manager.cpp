@@ -89,7 +89,7 @@ void CPauseMana::Update(void)
 			m_pSelect[nCnt]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 	}
-
+	
 	//キー取得
 	CInputKey* pInputKey = CManager::GetInputKey();
 	//パッド

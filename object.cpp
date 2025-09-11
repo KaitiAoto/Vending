@@ -121,38 +121,6 @@ void CObject::DrawAll(void)
 void CObject::Release(void)
 { 
 	m_bDeath = true;
-
-
-	//int nPriority = m_nPriority;
-	//
-	//if (this == m_apTop[nPriority])
-	//{//自分が先頭なら
-	//	m_apTop[nPriority] = m_pNext;//先頭を自身の次(m_pNext)に
-	//	if (m_apTop[nPriority])
-	//	{
-	//		m_apTop[nPriority]->m_pPrev = NULL;
-	//	}
-	//}
-	//else if (this == m_apCur[nPriority])
-	//{//自分が最後尾なら
-	//	m_apCur[nPriority] = m_pPrev;//最後尾を自身の前(m_pPrev)に
-	//	if (m_apCur[nPriority])
-	//	{
-	//		m_apCur[nPriority]->m_pNext = NULL;//最後尾の次をNULLに
-	//	}
-	//}
-	//else
-	//{//それ以外の中間地点なら
-	//	m_pPrev->m_pNext = m_pNext;//自分の前の次のオブジェクト(this->m_pPrev->m_pNext)を自分の次(this->m_pNext)にする
-	//	m_pNext->m_pPrev = m_pPrev;//自分の次の前のオブジェクト(this->m_pNext->m_pPrev)を自分の前(this->m_pPrev)にする
-	//}
-	//
-	//m_pNext = nullptr;
-	//m_pPrev = nullptr;
-	//
-	//m_nNumAll--;
-	//
-	//delete this;
 }
 //===========================
 // 死亡フラグチェック処理

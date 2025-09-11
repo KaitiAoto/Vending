@@ -47,11 +47,11 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-
+	void SubRestock(void) { m_nRestock--; if (m_nRestock <= 0) { m_nRestock = 0; } }
 
 	// Ý’è
 	void SetUseRestock(bool bUse) { m_bUseRestock = bUse; }
-
+	void SetRestock(int nRestock) { m_nRestock = nRestock; }
 	// Žæ“¾
 	D3DXVECTOR3 GetSize(void) { return m_size; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }

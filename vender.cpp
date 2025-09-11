@@ -149,6 +149,7 @@ void CVender::Update(void)
 			{
 				m_nCntReuse = NUM_REUSETIME;
 				m_bUseRestock = true;
+				m_nRestock = MAX_RESTOCK;
 			}
 			m_pCylinder->SetUse(m_bUseRestock);
 		}

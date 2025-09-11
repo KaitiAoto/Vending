@@ -110,27 +110,33 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 
 	pPlayer->SetCanRestock(true);
 
-	if (pInputMouse->GetTrigger(0) == true || pInputPad->GetR2Trigger(30) == true)
+	if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
 	{
 		//中身補充
-		pPlayer->AddContents(nRestock);
+		pPlayer->AddContents(1);
 		//種類設定
 		pPlayer->SetBulletType(type);
 
-		pPlayer->SetCanRestock(false);
-		pPlayer->SetShotTime(0.75f * 5.0f);
+		pVender->SubRestock();
 
-		pVender->SetUseRestock(false);
-		m_bUse = false;
+		pTotalScore->AddScore(1);
 
-		CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.5f));
+		if (pVender->GetRestock() <= 0)
+		{
+			pPlayer->SetCanRestock(false);
+			pPlayer->SetShotTime(0.75f * 5.0f);
 
-		CSound* pSound = CManager::GetSound();
-		pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
+			pVender->SetUseRestock(false);
+			m_bUse = false;
 
-		pTotalScore->AddScore(50);
+			CGame::GetFlash()->SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 0.5f));
 
-		pPlayer->Heal(1);
+			CSound* pSound = CManager::GetSound();
+			pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
+
+
+			pPlayer->Heal(10);
+		}
 
 		//チュートリアルクリア判定
 		if (CGame::GetMode() == CGame::MODE_TUTORIAL)

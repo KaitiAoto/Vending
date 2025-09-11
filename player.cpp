@@ -430,13 +430,13 @@ void CPlayer::Move(void)
 	{
 		int mouseMoveX = pInputMouse->GetRelX();
 
-		const float sensitivity = 0.0003f; // 感度調整用
+		const float sensitivity = 0.0009f; // 感度調整用
 
 		m_rotDest.y += mouseMoveX * sensitivity;
 	}
 	if (pInputPad != nullptr)
 	{
-		const float sensitivity = 0.05f; // 感度調整用
+		const float sensitivity = 0.1f; // 感度調整用
 
 		float rx = pInputPad->GetRightStickX(); // 横
 
@@ -517,47 +517,50 @@ void CPlayer::Action(void)
 	//弾発射
 	if (m_bCanRestock != true)
 	{
-		if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
+		if (pInputMouse->GetPress(1) == false)
 		{
-			if (m_nCntContents > 0)
-			{//中身あり
-				m_fShotTimer -= SHOT_TIMESUB;
-				if (m_fShotTimer <= 0.0f)
-				{
-					CBullet::Create(m_pos, m_rot, CBullet::USER_PLAYER);
-					m_nCntContents--;
-
-					pSound->PlaySound(CSound::SOUND_LABEL_SHOT);
-
-					m_fShotTimer = SHOT_INTERVAL;
-
-					//チュートリアルクリア判定
-					if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+			if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
+			{
+				if (m_nCntContents > 0)
+				{//中身あり
+					m_fShotTimer -= SHOT_TIMESUB;
+					if (m_fShotTimer <= 0.0f)
 					{
-						CTutorial* pTutorial = CGame::GetTutorial();
-						if (pTutorial != nullptr)
+						CBullet::Create(m_pos, m_rot, CBullet::USER_PLAYER);
+						m_nCntContents--;
+
+						pSound->PlaySound(CSound::SOUND_LABEL_SHOT);
+
+						m_fShotTimer = SHOT_INTERVAL;
+
+						//チュートリアルクリア判定
+						if (CGame::GetMode() == CGame::MODE_TUTORIAL)
 						{
-							if (pTutorial->GetType() == CTutorial::TYPE_BULLET)
+							CTutorial* pTutorial = CGame::GetTutorial();
+							if (pTutorial != nullptr)
 							{
-								CGame::GetTutorial()->SetClear(true);
+								if (pTutorial->GetType() == CTutorial::TYPE_BULLET)
+								{
+									CGame::GetTutorial()->SetClear(true);
+								}
 							}
 						}
 					}
 				}
+				else
+				{
+					if (CSoldOut::GetUse() == false)
+					{
+						CSoldOut::Create();
+					}
+
+					pSound->PlaySound(CSound::SOUND_LABEL_MISS);
+				}
 			}
 			else
 			{
-				if (CSoldOut::GetUse() == false)
-				{
-					CSoldOut::Create();
-				}
-
-				pSound->PlaySound(CSound::SOUND_LABEL_MISS);
+				m_fShotTimer = 0.0f;
 			}
-		}
-		else
-		{
-			m_fShotTimer = 0.0f;
 		}
 	}
 
@@ -603,18 +606,20 @@ void CPlayer::ChangeBullet(void)
 	//パッド
 	CInputPad* pInputPad = CManager::GetInputPad();
 
-	if (pInputMouse->GetTrigger(1) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_R1) == true)
+	if (pInputMouse->GetPress(0) == false)
 	{
-		CBullet::TYPE type = m_Bullet;
-		int nContents = m_nCntContents;
+		if (pInputMouse->GetTrigger(1) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_R1) == true)
+		{
+			CBullet::TYPE type = m_Bullet;
+			int nContents = m_nCntContents;
 
-		m_Bullet = m_SubBullet;
-		m_nCntContents = m_nCntSubContents;
+			m_Bullet = m_SubBullet;
+			m_nCntContents = m_nCntSubContents;
 
-		m_SubBullet = type;
-		m_nCntSubContents = nContents;
+			m_SubBullet = type;
+			m_nCntSubContents = nContents;
+		}
 	}
-
 }
 //================
 // ダメージ処理

@@ -92,7 +92,7 @@ void CResetGauge::Update(void)
 
 	if (nCntContents > 0)
 	{//’†g‚ ‚è
-		if (pInputKey->GetPress(DIK_SPACE) == true || pPad->GetPress(CInputPad::JOYKEY_Y) == true)
+		if ((pInputMouse->GetPress(0) == true && pInputMouse->GetPress(1) == true) || pPad->GetPress(CInputPad::JOYKEY_Y) == true)
 		{//‚e’·‰Ÿ‚µ
 			m_bUse = true;
 			m_nCntReset++;
