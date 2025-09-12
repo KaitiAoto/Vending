@@ -40,7 +40,7 @@ public:
 	void SetTex(float U1, float U2, float V1, float V2);
 	void SetColor(D3DCOLOR fColor);
 	void SetIdxTex(int nIdx) { m_nIdxTex = nIdx; }
-
+	void SetSize(float fWidth, float fHeight);
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CNumber* Create(const char* pFilename, D3DXVECTOR3 pos, float fWidth, float fHeight);
 

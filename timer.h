@@ -39,6 +39,8 @@ public:
 private:
 	// メンバ変数
 	CNumber* m_pNumber;		// 数字へのポインタ
+	float m_fWidth;
+	float m_fHeight;
 };
 
 #endif

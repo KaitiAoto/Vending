@@ -63,7 +63,7 @@ void CGame::Init(void)
 	//タイマー生成
 	if (m_pTimer == nullptr)
 	{
-		m_pTimer = CTimerMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (TIMER_SIZE * 4.5), 40.0f, 0.0f));
+		m_pTimer = CTimerMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 - (TIMER_SIZE * 4.5), 50.0f, 0.0f));
 	}
 
 	const float ScoreX = 950.0f;
@@ -126,7 +126,6 @@ void CGame::Init(void)
 	CEnemyGroup::Create(D3DXVECTOR3(-150.0f, 0.0f, -550.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(-500.0f, 0.0f, 0.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(-170.0f, 0.0f, 550.0f));
-	CEnemyGroup::Create(D3DXVECTOR3(-700.0f, 0.0f, 750.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(560.0f, 0.0f, -190.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(300.0f, 0.0f, -700.0f));
 	CEnemyGroup::Create(D3DXVECTOR3(-300.0f, 0.0f, -100.0f));

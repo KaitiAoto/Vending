@@ -271,7 +271,7 @@ void CTutorial::CheckClear(void)
 				m_bClear = true;
 			}
 		}
-	
+		break;
 	case TYPE_HOLD:
 		//ŠÔŒo‰ß‚ÅƒNƒŠƒA
 		m_nTime++;

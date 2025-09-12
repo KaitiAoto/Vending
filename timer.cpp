@@ -38,6 +38,8 @@ CTimer* CTimer::Create(D3DXVECTOR3 pos)
 //===============
 HRESULT CTimer::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
+	m_fWidth = fWidth;
+	m_fHeight = fHeight;
 	//èâä˙âª
 	m_pNumber = CNumber::Create("data\\TEXTURE\\number002.png", pos, fWidth, fHeight);
 	

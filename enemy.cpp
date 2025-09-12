@@ -613,7 +613,7 @@ void CEnemy::Hit(const int nDamage)
 	m_nLife -= nDamage;
 
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_move.y += 8.0f;
+	m_move.y += 7.0f;
 
 	if (m_nLife > 0)
 	{

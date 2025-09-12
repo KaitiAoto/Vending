@@ -203,3 +203,34 @@ void CNumber::SetColor(D3DCOLOR fColor)
 	//頂点バッファをアンロック
 	m_pVtxBuff->Unlock();
 }
+
+void CNumber::SetSize(float fWidth, float fHeight)
+{
+	m_fWidth = fWidth;
+	m_fHeight = fHeight;
+
+	VERTEX_2D* pVtx;
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	//頂点座標
+	pVtx[0].pos.x = m_pos.x - m_fWidth;
+	pVtx[0].pos.y = m_pos.y - m_fHeight;
+	pVtx[0].pos.z = 0.0f;
+
+	pVtx[1].pos.x = m_pos.x + m_fWidth;
+	pVtx[1].pos.y = m_pos.y - m_fHeight;
+	pVtx[1].pos.z = 0.0f;
+
+	pVtx[2].pos.x = m_pos.x - m_fWidth;
+	pVtx[2].pos.y = m_pos.y + m_fHeight;
+	pVtx[2].pos.z = 0.0f;
+
+	pVtx[3].pos.x = m_pos.x + m_fWidth;
+	pVtx[3].pos.y = m_pos.y + m_fHeight;
+	pVtx[3].pos.z = 0.0f;
+
+	//頂点バッファをアンロック
+	m_pVtxBuff->Unlock();
+
+}

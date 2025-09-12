@@ -177,7 +177,7 @@ void CCamera::Update(void)
 	if (pInputPad != nullptr)
 	{
 		const float sensitivity = 0.1f;			
-		const float sensitivityY = 1.0f;				
+		const float sensitivityY = 3.0f;				
 		const float rx = pInputPad->GetRightStickX();
 		const float ry = pInputPad->GetRightStickY();
 

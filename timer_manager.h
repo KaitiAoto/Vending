@@ -37,6 +37,7 @@ public:
 private:
 	static void Second(void);
 	static void Minute(void);
+	static void CntDown(void);
 
 	// 静的メンバ変数
 	static CTimer* m_pSecond[TIME_DIGIT];	// 秒数へのポインタ
@@ -45,6 +46,10 @@ private:
 	static int m_nCntTime;					// 1秒計測用
 	static int m_nDrawSecond;				// 描画する秒数
 	static int m_nDrawMinute;				// 描画する分数
+
+	static float m_fWidth;
+	static float m_fHeight;
+
 };
 
 #endif

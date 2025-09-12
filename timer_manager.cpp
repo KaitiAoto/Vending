@@ -16,6 +16,8 @@ CTimer* CTimerMana::m_pMinute[TIME_DIGIT] = {};
 int CTimerMana::m_nCntTime = 0;
 int CTimerMana::m_nDrawSecond = 0;
 int CTimerMana::m_nDrawMinute = 0;
+float CTimerMana::m_fHeight = 0;
+float CTimerMana::m_fWidth = 0;
 
 //==================
 // コンストラクタ
@@ -51,6 +53,9 @@ CTimerMana* CTimerMana::Create(D3DXVECTOR3 pos)
 		m_pSecond[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
 	}
 
+	m_fWidth = TIMER_SIZE;
+	m_fHeight = TIMER_SIZE;
+
 	pTimerMane->Init();
 
 	return pTimerMane;
@@ -82,17 +87,50 @@ void CTimerMana::Update(void)
 	{
 		m_nCntTime = 0;
 		CTimerMana::AddTime(-1);
+
+		CScoreMana* pTotalScore = CGame::GetTotalScore();
+		pTotalScore->AddScore(CEnemyBase::GetNum() * 1);
+
+		m_fWidth = TIMER_SIZE;
+		m_fHeight = TIMER_SIZE;
 	}
+	if (m_nTimer <= 5)
+	{
+		CntDown();
+	}
+
 	if (m_nTimer <= 0)
 	{
 		m_nTimer = 0;
 		CGame::SetMode(CGame::MODE_FIN);
 	}
 
+	
 	CDebugProc* pDegub = CManager::GetDebug();
 	pDegub->Print("分：秒＝%d,%d", m_nDrawMinute, m_nDrawSecond);
 
 }
+void CTimerMana::CntDown(void)
+{	
+	m_fWidth += 2.0f;
+	m_fHeight += 2.0f;
+
+	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
+	{
+		if (m_pSecond[nCnt] != nullptr)
+		{
+			CNumber* pNumber = m_pSecond[nCnt]->GetNumber();
+			pNumber->SetSize(m_fWidth, m_fHeight);
+		}
+
+		if (m_pMinute[nCnt] != nullptr)
+		{
+			CNumber* pNumber = m_pMinute[nCnt]->GetNumber();
+			pNumber->SetSize(m_fWidth, m_fHeight);
+		}
+	}
+}
+
 //============
 // 描画処理
 //============

@@ -144,6 +144,9 @@ void CTitleSelect::Select(void)
 	int wheel = 0;
 	wheel =	pInputMouse->GetWheel();
 
+	CDebugProc* pDegub = CManager::GetDebug();
+	pDegub->Print("wheelF%d", wheel);
+
 
 	if (pInputKey->GetTrigger(DIK_W) == true || pPad->GetStickTriggerUp() == true || wheel > 0 || pPad->GetTrigger(CInputPad::JOYKEY_UP) == true)
 	{

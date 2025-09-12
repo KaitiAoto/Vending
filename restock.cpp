@@ -110,7 +110,7 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 
 	pPlayer->SetCanRestock(true);
 
-	if (pInputMouse->GetPress(0) == true || pInputPad->GetPress(CInputPad::JOYKEY_Y) == true)
+	if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
 	{
 		//’†g•â[
 		pPlayer->AddContents(1);
