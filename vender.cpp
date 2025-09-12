@@ -143,6 +143,7 @@ void CVender::Update(void)
 			m_pModel->SetRot(m_rot);
 			m_bShake = false;
 			m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+			m_pModel->SetScale(m_scale);
 
 			m_nCntReuse--;
 			if (m_nCntReuse <= 0)

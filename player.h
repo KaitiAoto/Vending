@@ -75,6 +75,7 @@ public:
 	void MovePos(D3DXVECTOR3 move) { m_pos += move; }
 	void SetCanRestock(bool bCan) { m_bCanRestock = bCan; }
 	void SetShotTime(float fTime) { m_fShotTimer += fTime; }
+	void SetDoRestock(bool bDo) { m_bDoRestock = bDo; }
 	// 取得
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
@@ -126,6 +127,7 @@ private:
 	int m_nCntStackt;					// スタックカウント
 	bool m_bMove;						// 移動しているか
 	bool m_bCanRestock;					// 補充できるかどうか
+	bool m_bDoRestock;
 	// ステータス
 	int m_nLife;						// ライフ
 	float m_fSpeed;						// 移動速度
