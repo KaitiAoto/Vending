@@ -73,6 +73,7 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 		"data\\TEXTURE\\tutorial01.jpg",
 		"data\\TEXTURE\\tutorial03.jpg",
 		"data\\TEXTURE\\tutorial04.jpg",
+		"data\\TEXTURE\\tutorial08.jpg",
 
 		"data\\TEXTURE\\tutorial06.jpg",
 		"data\\TEXTURE\\tutorial07.jpg",
@@ -262,6 +263,15 @@ void CTutorial::CheckClear(void)
 
 		break;
 	}
+	case TYPE_CHANGE:
+		if (pInputMouse->GetPress(0) == false)
+		{
+			if (pInputMouse->GetTrigger(1) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_R1) == true)
+			{
+				m_bClear = true;
+			}
+		}
+	
 	case TYPE_HOLD:
 		//ŠÔŒo‰ß‚ÅƒNƒŠƒA
 		m_nTime++;
