@@ -85,6 +85,7 @@ private:
 	void Move_Charge(void);
 	void Move_Jump(void);
 	void Move_Shot(void);
+	
 
 	void State(STATE state);
 	bool Collision(void);

@@ -165,6 +165,23 @@ void CEnemy::Update(void)
 			Move();
 			break;
 		case STATE_HIT:
+			
+			m_move.y -= GRAVITY; //重力加算
+
+			// 前回の位置保存
+			m_posOld = m_pos;
+			// 移動
+			m_pos += m_move;
+			// 地面判定
+			if (m_pos.y <= 0.0f)
+			{
+				m_pos.y = 0.0f;
+				m_move.y = 0.0f;
+			}
+			m_posHalf = D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2), m_pos.z);
+			m_pModel->Set(m_pos, m_rot);
+
+
 			m_nCntState--;
 			if (m_nCntState <= 0)
 			{
@@ -334,9 +351,10 @@ void CEnemy::Move(void)
 	m_pos += m_move;
 
 	// 地面判定
-	if (m_pos.y < 0.0f)
+	if (m_pos.y <= 0.0f)
 	{
 		m_pos.y = 0.0f;
+		m_move.y = 0.0f;
 	}
 
 	m_posHalf = D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2), m_pos.z);
@@ -594,10 +612,14 @@ void CEnemy::Hit(const int nDamage)
 
 	m_nLife -= nDamage;
 
+	m_move.y = 0.0f;
+	m_move.y += 8.0f;
+
 	if (m_nLife > 0)
 	{
 		if (m_State != STATE_HIT)
 		{
+
 			m_pModel->SetColorChange(true);
 
 			State(STATE_HIT);
