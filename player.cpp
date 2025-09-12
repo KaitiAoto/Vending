@@ -182,6 +182,10 @@ void CPlayer::Update(void)
 		//s“®
 		Action();
 		
+		if (m_fSpeed > PLAYER_SPEED)
+		{
+			CEffect::Create(m_pos, m_rot, m_move, D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f), 1, 15);
+		}
 
 		if (m_nLife <= 0)
 		{
@@ -516,7 +520,7 @@ void CPlayer::Action(void)
 	CSound* pSound = CManager::GetSound();
 
 	//’e”­ŽË
-	if (m_bCanRestock != true && m_bDoRestock != true)
+	if (m_bCanRestock != true)
 	{
 		if (pInputMouse->GetPress(1) == false)
 		{

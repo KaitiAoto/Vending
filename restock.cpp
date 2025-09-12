@@ -108,8 +108,6 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 	pDegub->Print("•â[‰Â”\");
 	m_bUse = true;
 
-	pPlayer->SetCanRestock(true);
-
 	if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
 	{
 		//’†g•â[
@@ -117,7 +115,7 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 		//Ží—ÞÝ’è
 		pPlayer->SetBulletType(type);
 
-		pPlayer->SetDoRestock(true);
+		pPlayer->SetCanRestock(true);
 
 		pVender->SubRestock();
 
@@ -127,7 +125,6 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 		{
 			pPlayer->SetCanRestock(false);
 			pPlayer->SetShotTime(0.75f * 5.0f);
-			pPlayer->SetDoRestock(false);
 
 			pVender->SetUseRestock(false);
 			m_bUse = false;
@@ -155,6 +152,5 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 	}
 	else
 	{
-		pPlayer->SetDoRestock(false);
 	}
 }

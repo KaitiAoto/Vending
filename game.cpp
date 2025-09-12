@@ -330,7 +330,7 @@ void CGame::Update(void)
 		m_pSubBulletCount->Update();
 	}
 
-	if (pInputKey->GetTrigger(DIK_P) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_START) == true)
+	if (pInputKey->GetTrigger(DIK_TAB) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_START) == true)
 	{
 		CManager::SetPause(true);
 	}

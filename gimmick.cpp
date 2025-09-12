@@ -76,6 +76,8 @@ HRESULT CGimmick::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, TYPE type)
 		m_pModel = CModel::Create("data\\MODEL\\car000.x", m_pos, m_rot);
 	}
 
+	m_size = m_pModel->SetSize();
+
 	//オブジェクトの種類設定
 	SetObjType(TYPE_GIMMICK);
 
@@ -137,6 +139,8 @@ void CGimmick::Draw(void)
 //===========
 void CGimmick::Move(void)
 {
+	CEffect::Create(D3DXVECTOR3( m_pos.x,m_pos.y + (m_size.y / 2),m_pos.z ), m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f), 0, 7);
+
 	m_posOld = m_pos;
 
 	m_pos += m_move;

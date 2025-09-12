@@ -95,7 +95,7 @@ void CPauseMana::Update(void)
 	//ƒpƒbƒh
 	CInputPad* pPad = CManager::GetInputPad();
 
-	if (pInputKey->GetTrigger(DIK_P) == true || pPad->GetTrigger(CInputPad::JOYKEY_START) == true)
+	if (pInputKey->GetTrigger(DIK_TAB) == true || pPad->GetTrigger(CInputPad::JOYKEY_START) == true)
 	{
 		CManager::SetPause(false);
 	}

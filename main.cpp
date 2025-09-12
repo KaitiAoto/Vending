@@ -80,7 +80,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 
 	bool bFull = true;
 #ifndef _DEBUG
-	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+	LONG style = GetWindowLong(hWnd, GWL_STYLE);
+	style &= ~(WS_OVERLAPPEDWINDOW);
+	style |= WS_POPUP;
+	SetWindowLong(hWnd, GWL_STYLE, style);
+
+	SetWindowPos(hWnd, HWND_TOP,
+		0, 0,
+		GetSystemMetrics(SM_CXSCREEN),
+		GetSystemMetrics(SM_CYSCREEN),
+		SWP_FRAMECHANGED | SWP_NOZORDER | SWP_SHOWWINDOW);
 	bFull = true;
 #endif
 
@@ -155,12 +164,34 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 				{
 					if (bFull == false)
 					{
-						ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+						LONG style = GetWindowLong(hWnd, GWL_STYLE);
+						style &= ~(WS_OVERLAPPEDWINDOW);
+						style |= WS_POPUP;
+						SetWindowLong(hWnd, GWL_STYLE, style);
+
+						SetWindowPos(hWnd, HWND_TOP,
+							0, 0,
+							GetSystemMetrics(SM_CXSCREEN),
+							GetSystemMetrics(SM_CYSCREEN),
+							SWP_FRAMECHANGED | SWP_NOZORDER | SWP_SHOWWINDOW);
+
 						bFull = true;
 					}
 					else
 					{
-						ShowWindow(hWnd, nCmdShow);
+						// ウィンドウモードに戻す
+						LONG style = GetWindowLong(hWnd, GWL_STYLE);
+						style &= ~(WS_POPUP);               // 枠なしを外す
+						style |= WS_OVERLAPPEDWINDOW;       // 枠ありウィンドウ
+						SetWindowLong(hWnd, GWL_STYLE, style);
+
+						// ウィンドウサイズを戻す
+						SetWindowPos(hWnd, HWND_TOP,
+							CW_USEDEFAULT, CW_USEDEFAULT,
+							rect.right - rect.left,
+							rect.bottom - rect.top,
+							SWP_FRAMECHANGED | SWP_NOZORDER | SWP_SHOWWINDOW);
+
 						bFull = false;
 					}
 				}

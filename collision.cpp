@@ -385,6 +385,7 @@ bool CCollision::Vender(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVEC
 		bool bColl = Cylinder(pos, size, VenderPos, Vendersize);//‹——£
 		if (bColl == true)
 		{//“–‚½‚Á‚½‚ç
+			
 			//’†g•â[
 			int nRestock = pVender->GetRestock();
 			//Ží—ÞÝ’è
@@ -398,6 +399,8 @@ bool CCollision::Vender(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVEC
 					bool bUse = pVender->GetUse();
 					if (bUse == true)
 					{
+						pPlayer->SetCanRestock(true);
+
 						pRestock->SetUse(true);
 						pRestock->Set(nRestock, type, pVender);
 					}
@@ -416,7 +419,6 @@ bool CCollision::Vender(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVEC
 		{
 			pRestock->SetUse(false);
 			pPlayer->SetCanRestock(false);
-			//pPlayer->SetDoRestock(false);
 		}
 	}
 
