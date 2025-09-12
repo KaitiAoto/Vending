@@ -612,14 +612,13 @@ void CEnemy::Hit(const int nDamage)
 
 	m_nLife -= nDamage;
 
-	m_move.y = 0.0f;
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_move.y += 8.0f;
 
 	if (m_nLife > 0)
 	{
 		if (m_State != STATE_HIT)
 		{
-
 			m_pModel->SetColorChange(true);
 
 			State(STATE_HIT);
