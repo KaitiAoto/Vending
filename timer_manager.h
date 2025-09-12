@@ -25,7 +25,7 @@ public:
 	// ƒƒ“ƒoŠÖ”
 	CTimerMana();
 	~CTimerMana();
-	HRESULT Init(void);
+	HRESULT Init(D3DXVECTOR3 pos);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);

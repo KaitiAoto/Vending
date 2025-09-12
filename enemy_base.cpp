@@ -169,14 +169,6 @@ void CEnemyBase::Update(void)
 
 					pBreakScore->AddScore(-1);
 
-					m_nNum--;
-					if (m_nNum <= 0)
-					{
-						if (CGame::GetMode() != CGame::MODE_FIN)
-						{
-							CGame::SetMode(CGame::MODE_FIN);
-						}
-					}
 					for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 					{
 						m_pGauge[nCnt]->SetDraw(false);
@@ -187,6 +179,16 @@ void CEnemyBase::Update(void)
 					if (CGame::GetMode() != CGame::MODE_FIN)
 					{
 						CScreenFlash::Create(nullptr, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+					}
+
+					m_nNum--;
+					if (m_nNum <= 0)
+					{
+						if (CGame::GetMode() != CGame::MODE_FIN)
+						{
+							CGame::SetMode(CGame::MODE_FIN);
+							return;
+						}
 					}
 				}
 

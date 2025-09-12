@@ -23,7 +23,7 @@ class CBulletIcon:public CObject2D
 public:
 
 	// ÉÅÉìÉoä÷êî
-	CBulletIcon(int nPriority = 7);
+	CBulletIcon(int nPriority = 8);
 	~CBulletIcon();
 
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);

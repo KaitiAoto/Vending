@@ -176,11 +176,12 @@ void CPlayer::Update(void)
 {
 	if (m_bUse == true)
 	{
+		//ˆÚ“®
+		Move();
+
 		//s“®
 		Action();
 		
-		//ˆÚ“®
-		Move();
 
 		if (m_nLife <= 0)
 		{

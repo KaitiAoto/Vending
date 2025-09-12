@@ -308,6 +308,11 @@ void CGame::Update(void)
 	if (m_pBreakCnt != nullptr)
 	{
 		m_pBreakCnt->Update();
+		if (m_pBreakCnt->GetScore() <= 0)
+		{
+			SetMode(MODE_FIN);
+		}
+
 	}
 	if (m_pTotalScore != nullptr)
 	{

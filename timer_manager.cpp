@@ -39,12 +39,24 @@ CTimerMana* CTimerMana::Create(D3DXVECTOR3 pos)
 {
 	CTimerMana* pTimerMane = new CTimerMana;
 
+
+	pTimerMane->Init(pos);
+
+	return pTimerMane;
+}
+//===============
+// ‰Šú‰»ˆ—
+//===============
+HRESULT CTimerMana::Init(D3DXVECTOR3 pos)
+{
+	//‰Šú‰»
+	CObject2D::Create("data\\TEXTURE\\colon00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, pos.y, 0.0f), { 0.0f,0.0f,0.0f }, TIMER_SIZE * 1.5f, TIMER_SIZE * 1.5f, 8);
+
 	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
 	{
 		m_pMinute[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
 	}
 
-	CObject2D::Create("data\\TEXTURE\\colon00.png", D3DXVECTOR3(SCREEN_WIDTH / 2, pos.y, 0.0f), { 0.0f,0.0f,0.0f }, TIMER_SIZE * 1.5f, TIMER_SIZE * 1.5f, 8);
 
 	pos.x += (2.5 * TIMER_SIZE * 2.5f);
 
@@ -56,17 +68,9 @@ CTimerMana* CTimerMana::Create(D3DXVECTOR3 pos)
 	m_fWidth = TIMER_SIZE;
 	m_fHeight = TIMER_SIZE;
 
-	pTimerMane->Init();
-
-	return pTimerMane;
-}
-//===============
-// ‰Šú‰»ˆ—
-//===============
-HRESULT CTimerMana::Init(void)
-{
-	//‰Šú‰»
 	m_nTimer = 0;
+	//CTimerMana::AddTime(10);
+
 	CTimerMana::AddTime(GAME_TIME);
 	return S_OK;
 }
@@ -94,7 +98,7 @@ void CTimerMana::Update(void)
 		m_fWidth = TIMER_SIZE;
 		m_fHeight = TIMER_SIZE;
 	}
-	if (m_nTimer <= 5)
+	if (m_nTimer <= 10)
 	{
 		CntDown();
 	}
@@ -121,12 +125,14 @@ void CTimerMana::CntDown(void)
 		{
 			CNumber* pNumber = m_pSecond[nCnt]->GetNumber();
 			pNumber->SetSize(m_fWidth, m_fHeight);
+			pNumber->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 
 		if (m_pMinute[nCnt] != nullptr)
 		{
 			CNumber* pNumber = m_pMinute[nCnt]->GetNumber();
 			pNumber->SetSize(m_fWidth, m_fHeight);
+			pNumber->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 	}
 }
