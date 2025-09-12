@@ -243,7 +243,6 @@ void CCamera::Update(void)
 	m_posV.x = m_posR.x - sinf(m_rot.y) * m_fDistance;
 	m_posV.z = m_posR.z - cosf(m_rot.y) * m_fDistance;
 
-
 	pDegub->Print("カメラの角度：(%.1f, %.1f, %.1f)", m_rot.x, m_rot.y, m_rot.z);
 	pDegub->Print("カメラの視点：(%.1f, %.1f, %.1f)", m_posV.x, m_posV.y, m_posV.z);
 	pDegub->Print("視点と注視点の距離：%.1f", m_fDistance);
