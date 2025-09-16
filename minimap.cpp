@@ -34,7 +34,7 @@ HRESULT CMap::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	CObject2D::Create("data\\TEXTURE\\map01.png", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 8);
 
-	m_pMapPlayer = CMapPlayer::Create(pos, 25.0f, 25.0f);
+	m_pMapPlayer = CMapPlayer::Create(pos, 15.0f, 20.0f);
 	m_pMapPlayer->SetUse(false);
 
 	return S_OK;

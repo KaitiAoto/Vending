@@ -9,6 +9,8 @@
 #include "manager.h"
 #include "player.h"
 #include "restock.h"
+#include "gauge_enemybase.h"
+
 //==================
 // コンストラクタ
 //==================
@@ -31,6 +33,8 @@ CVender::CVender(int nPriority):CObject(nPriority)
 	m_type = CBullet::TYPE_CAN;
 	m_pCylinder = nullptr;
 	m_pRestock = nullptr;
+
+	m_pMapIcon = nullptr;
 }
 //================
 // デストラクタ
@@ -90,6 +94,31 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 		float radius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
 		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, D3DXCOLOR(1.0, 1.0, 0.0, 0.75), CMeshCylinder::TYPE_BOTHSIDES);
 		m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
+
+		
+		const char* pTexName[CEnemyBaseGauge::TYPE_MAX] =
+		{
+			"data\\TEXTURE\\vendingIcon00.jpg",
+			"data\\TEXTURE\\vendingIcon01.jpg",
+			"data\\TEXTURE\\vendingIcon02.jpg"
+		};
+
+		CEnemyBaseGauge::TYPE Icontype = CEnemyBaseGauge::TYPE_DRINK;
+		// どの弾がどの種類かを判別
+		if (m_type == CBullet::TYPE_CAN || m_type == CBullet::TYPE_PETBOTTLE || m_type == CBullet::TYPE_BOTTLE)
+		{
+			Icontype = CEnemyBaseGauge::TYPE_DRINK;
+		}
+		else if (m_type == CBullet::TYPE_ICE || m_type == CBullet::TYPE_SNACK)
+		{
+			Icontype = CEnemyBaseGauge::TYPE_FOOD;
+		}
+		else if (m_type == CBullet::TYPE_CAPSULE || m_type == CBullet::TYPE_CIGARET || m_type == CBullet::TYPE_CARD)
+		{
+			Icontype = CEnemyBaseGauge::TYPE_GENERAL;
+		}
+
+		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 10.0f, 10.0f);
 	}
 	return S_OK;
 }

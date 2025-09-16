@@ -80,8 +80,8 @@ void CResetGauge::Update(void)
 {
 	//マウス取得
 	CInputMouse* pInputMouse = CManager::GetInputMouse();
-	//キー取得
-	CInputKey* pInputKey = CManager::GetInputKey();
+	////キー取得
+	//CInputKey* pInputKey = CManager::GetInputKey();
 	//パッド
 	CInputPad* pPad = CManager::GetInputPad();
 

@@ -23,7 +23,7 @@ public:
 	CMapEnemyBase(int nPriority = 8);
 	~CMapEnemyBase();
 
-	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	HRESULT Init(const char* pFileName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -36,7 +36,7 @@ public:
 	void SetUse(bool bUse) { m_bUse = bUse; }
 	void SetBlink(bool bBlink) { m_bBlink = bBlink; }
 	// ê√ìIÉÅÉìÉoïœêî
-	static CMapEnemyBase* Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
+	static CMapEnemyBase* Create(const char* pFileName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
 	

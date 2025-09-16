@@ -51,7 +51,7 @@ HRESULT CMapPlayer::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_pos = pos;
 	m_bUse = true;
 
-	CObject2D::Init("data\\TEXTURE\\build007.png", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
+	CObject2D::Init("data\\TEXTURE\\vending00.jpg", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
 
 
 	//オブジェクトの種類設定

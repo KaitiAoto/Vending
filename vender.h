@@ -18,6 +18,7 @@
 
 // 前方宣言
 class CRestock;
+class CMapEnemyBase;
 
 // マクロ定義
 #define MAX_RESTOCK (50)
@@ -29,8 +30,7 @@ class CVender:public CObject
 public:
 	// 種類
 	typedef enum
-	{
-	
+	{	
 		SHAKE_ROTY = 0,
 		SHAKE_ROTZ,
 
@@ -77,11 +77,12 @@ private:
 	D3DXVECTOR3 m_rot;			// 向き
 	D3DXVECTOR3 m_Offrot;		// 向き
 	D3DXVECTOR3 m_size;			// サイズ
-	D3DXVECTOR3 m_scale;			// サイズ
+	D3DXVECTOR3 m_scale;		// サイズ
 	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
 	CModel* m_pModel;			// モデルへのポインタ
 	CMeshCylinder* m_pCylinder;	// シリンダーへのポインタ
 	CRestock* m_pRestock;		// 補充ＵＩへのポインタ
+	CMapEnemyBase* m_pMapIcon;
 	CBullet::TYPE m_type;		// 補充する中身の種類
 	SHAKE m_ShakeType;			//
 	bool m_bUse;				// 使用しているか

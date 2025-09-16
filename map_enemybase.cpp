@@ -29,18 +29,18 @@ CMapEnemyBase::~CMapEnemyBase()
 //===========
 // 生成処理
 //===========
-CMapEnemyBase* CMapEnemyBase::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
+CMapEnemyBase* CMapEnemyBase::Create(const char* pFileName,D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
 	CMapEnemyBase* pObject2D;
 	pObject2D = new CMapEnemyBase;
 	//初期化
-	pObject2D->Init(pos, fWidth, fHeight);
+	pObject2D->Init(pFileName,pos, fWidth, fHeight);
 	return pObject2D;
 }
 //===============
 // 初期化処理
 //===============
-HRESULT CMapEnemyBase::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
+HRESULT CMapEnemyBase::Init(const char* pFileName,D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
 	//デバイスの取得
 	CRenderer *pRenderer = CManager::GetRenderer();
@@ -52,8 +52,8 @@ HRESULT CMapEnemyBase::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_bUse = true;
 
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-
-	CObject2D::Init("data\\TEXTURE\\conveni02.jpg", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
+	
+	CObject2D::Init(pFileName, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
 
 	// ミニマップの情報
 	const float miniMapCenterX = CGame::GetMap()->GetPos().x;
@@ -114,6 +114,8 @@ void CMapEnemyBase::Update(void)
 		// 色を設定
 		CObject2D::SetColor(m_col);
 	}
+
+	CObject2D::SetUse(m_bUse);
 }
 //============
 // 描画処理
