@@ -122,7 +122,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 			Icontype = CEnemyBaseGauge::TYPE_MAX;
 		}
 
-		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 10.0f, 10.0f);
+		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 15.0f, 20.0f);
 	}
 	return S_OK;
 }

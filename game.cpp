@@ -106,7 +106,7 @@ void CGame::Init(void)
 		m_pBuff = new CBuff;
 	}
 
-	m_pMap = CMap::Create(D3DXVECTOR3(1150.0f, 600.0f, 0.0f), 200.0f, 200.0f);
+	m_pMap = CMap::Create(D3DXVECTOR3(1100.0f, 550.0f, 0.0f), 280.0f, 280.0f);
 
 	if (m_pStage == nullptr)
 	{

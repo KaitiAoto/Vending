@@ -80,15 +80,15 @@ void CMapPlayer::Update(void)
 	// ミニマップの情報
 	const float miniMapCenterX = CGame::GetMap()->GetPos().x;
 	const float miniMapCenterY = CGame::GetMap()->GetPos().y;
-	const float miniMapW = CGame::GetMap()->GetWidth();   // 200
-	const float miniMapH = CGame::GetMap()->GetHeight();  // 200
+	const float miniMapW = CGame::GetMap()->GetWidth(); 
+	const float miniMapH = CGame::GetMap()->GetHeight();
 
-	// ワールド座標を正規化 (-950～+950 → 0.0～1.0)
+	// ワールド座標を正規化
 	const float worldSizeX = 1900.0f;
 	const float worldSizeZ = 1900.0f;
 
-	float normX = (playerPos.x + worldSizeX / 2.0f) / worldSizeX;  // 0.0～1.0
-	float normZ = (playerPos.z + worldSizeZ / 2.0f) / worldSizeZ;  // 0.0～1.0
+	float normX = (playerPos.x + worldSizeX / 2.0f) / worldSizeX;
+	float normZ = (playerPos.z + worldSizeZ / 2.0f) / worldSizeZ;
 
 	// 中心を基準に描画
 	float iconX = miniMapCenterX - miniMapW / 2.0f + normX * miniMapW;
