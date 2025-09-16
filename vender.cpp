@@ -105,7 +105,6 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 		CEnemyBaseGauge::TYPE Icontype = CEnemyBaseGauge::TYPE_DRINK;
 		D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.75f);
 
-		// ‚Ç‚Ì’e‚ª‚Ç‚ÌŽí—Þ‚©‚ð”»•Ê
 		if (m_type == CBullet::TYPE_CAN || m_type == CBullet::TYPE_PETBOTTLE || m_type == CBullet::TYPE_BOTTLE)
 		{
 			Icontype = CEnemyBaseGauge::TYPE_DRINK;
@@ -129,7 +128,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 
 		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 15.0f, 20.0f);
 
-		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, col, CMeshCylinder::TYPE_BOTHSIDES);
+		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 50, col, CMeshCylinder::TYPE_BOTHSIDES);
 	}
 	return S_OK;
 }
