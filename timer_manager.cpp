@@ -18,7 +18,6 @@ int CTimerMana::m_nDrawSecond = 0;
 int CTimerMana::m_nDrawMinute = 0;
 float CTimerMana::m_fHeight = 0;
 float CTimerMana::m_fWidth = 0;
-
 //==================
 // コンストラクタ
 //==================
@@ -69,9 +68,11 @@ HRESULT CTimerMana::Init(D3DXVECTOR3 pos)
 	m_fHeight = TIMER_SIZE;
 
 	m_nTimer = 0;
-	//CTimerMana::AddTime(10);
 
 	CTimerMana::AddTime(GAME_TIME);
+
+	//CTimerMana::AddTime(10);
+
 	return S_OK;
 }
 //============
@@ -87,6 +88,10 @@ void CTimerMana::Uninit(void)
 void CTimerMana::Update(void)
 {
 	m_nCntTime++;
+	if (m_nTimer <= 10)
+	{
+		CntDown();
+	}
 	if (m_nCntTime >= 60)
 	{
 		m_nCntTime = 0;
@@ -97,10 +102,6 @@ void CTimerMana::Update(void)
 
 		m_fWidth = TIMER_SIZE;
 		m_fHeight = TIMER_SIZE;
-	}
-	if (m_nTimer <= 10)
-	{
-		CntDown();
 	}
 
 	if (m_nTimer <= 0)
@@ -115,9 +116,18 @@ void CTimerMana::Update(void)
 
 }
 void CTimerMana::CntDown(void)
-{	
+{
+	static D3DXCOLOR col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+
 	m_fWidth += 2.0f;
 	m_fHeight += 2.0f;
+
+	if (m_nCntTime >= 60)
+	{
+		col.a = 1.0f;
+	}
+	col.a -= 0.01f;
+
 
 	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
 	{
@@ -125,14 +135,14 @@ void CTimerMana::CntDown(void)
 		{
 			CNumber* pNumber = m_pSecond[nCnt]->GetNumber();
 			pNumber->SetSize(m_fWidth, m_fHeight);
-			pNumber->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+			pNumber->SetColor(col);
 		}
 
 		if (m_pMinute[nCnt] != nullptr)
 		{
 			CNumber* pNumber = m_pMinute[nCnt]->GetNumber();
 			pNumber->SetSize(m_fWidth, m_fHeight);
-			pNumber->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+			pNumber->SetColor(col);
 		}
 	}
 }

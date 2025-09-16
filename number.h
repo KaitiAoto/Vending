@@ -38,7 +38,7 @@ public:
 	void SetBuff(LPDIRECT3DVERTEXBUFFER9 buff) { m_pVtxBuff = buff; }
 	void SetPos(D3DXVECTOR3 pos);
 	void SetTex(float U1, float U2, float V1, float V2);
-	void SetColor(D3DCOLOR fColor);
+	void SetColor(D3DXCOLOR Color);
 	void SetIdxTex(int nIdx) { m_nIdxTex = nIdx; }
 	void SetSize(float fWidth, float fHeight);
 	// 静的メンバ関数
@@ -49,6 +49,7 @@ private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; // 頂点情報
 	D3DXVECTOR3 m_pos;					// 位置
+	D3DCOLOR m_col;
 	float m_fWidth;						// 横幅
 	float m_fHeight;					// 高さ
 	int m_nIdxTex;						// テクスチャのインデックス番号

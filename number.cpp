@@ -188,17 +188,19 @@ void CNumber::SetTex(float U1, float U2, float V1, float V2)
 //=====================
 // カラー設定
 //=====================
-void CNumber::SetColor(D3DCOLOR fColor)
+void CNumber::SetColor(D3DXCOLOR Color)
 {
+	m_col = Color;
+
 	VERTEX_2D* pVtx;
 	//頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	//テクスチャ座標
-	pVtx[0].col = fColor;
-	pVtx[1].col = fColor;
-	pVtx[2].col = fColor;
-	pVtx[3].col = fColor;
+	pVtx[0].col = Color;
+	pVtx[1].col = Color;
+	pVtx[2].col = Color;
+	pVtx[3].col = Color;
 
 	//頂点バッファをアンロック
 	m_pVtxBuff->Unlock();

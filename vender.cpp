@@ -92,37 +92,44 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
 		float radius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
-		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, D3DXCOLOR(1.0, 1.0, 0.0, 0.75), CMeshCylinder::TYPE_BOTHSIDES);
 		m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
 
 		const char* pTexName[CEnemyBaseGauge::TYPE_MAX + 1] =
 		{
-			"data\\TEXTURE\\vendingIcon00.jpg",
-			"data\\TEXTURE\\vendingIcon01.jpg",
-			"data\\TEXTURE\\vendingIcon02.jpg",
-			nullptr
+			"data\\TEXTURE\\vendingIcon00.png",
+			"data\\TEXTURE\\vendingIcon01.png",
+			"data\\TEXTURE\\vendingIcon02.png",
+			"data\\TEXTURE\\vendingIcon03.png",
 		};
 
 		CEnemyBaseGauge::TYPE Icontype = CEnemyBaseGauge::TYPE_DRINK;
+		D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.75f);
+
 		// ‚Ç‚Ì’e‚ª‚Ç‚ÌŽí—Þ‚©‚ð”»•Ê
 		if (m_type == CBullet::TYPE_CAN || m_type == CBullet::TYPE_PETBOTTLE || m_type == CBullet::TYPE_BOTTLE)
 		{
 			Icontype = CEnemyBaseGauge::TYPE_DRINK;
+			col = D3DXCOLOR(0.0f, 1.0f, 1.0f, 0.75f);
 		}
 		else if (m_type == CBullet::TYPE_ICE || m_type == CBullet::TYPE_SNACK)
 		{
 			Icontype = CEnemyBaseGauge::TYPE_FOOD;
+			col = D3DXCOLOR(1.0f, 0.6f, 0.6f, 0.75f);
 		}
 		else if (m_type == CBullet::TYPE_CAPSULE || m_type == CBullet::TYPE_CIGARET || m_type == CBullet::TYPE_CARD)
 		{
 			Icontype = CEnemyBaseGauge::TYPE_GENERAL;
+			col = D3DXCOLOR(0.5f, 1.0f, 0.5f, 0.75f);
 		}
 		else
 		{
 			Icontype = CEnemyBaseGauge::TYPE_MAX;
+			col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.75f);
 		}
 
 		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 15.0f, 20.0f);
+
+		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, col, CMeshCylinder::TYPE_BOTHSIDES);
 	}
 	return S_OK;
 }
@@ -146,46 +153,51 @@ void CVender::Update(void)
 {
 	if (m_bUse == true)
 	{
-		if (m_bUseRestock == true)
+		if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 		{
-			if (m_pRestock != nullptr&& m_pRestock->GetUse() == true)
+			if (m_bUseRestock == true)
 			{
-				if (m_bShake != true)
+				if (m_pRestock != nullptr && m_pRestock->GetUse() == true)
 				{
-					int nType;
-					nType = rand() % SHAKE_MAX;
+					if (m_bShake != true)
+					{
+						int nType;
+						nType = rand() % SHAKE_MAX;
 
-					m_ShakeType = (SHAKE)nType;
+						m_ShakeType = (SHAKE)nType;
 
+					}
+					Shake();
+					m_bShake = true;
 				}
-				Shake();
-				m_bShake = true;
+				else
+				{
+					m_rot = m_Offrot;
+					m_pModel->SetRot(m_rot);
+					m_bShake = false;
+					m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+				}
+				m_pModel->SetScale(m_scale);
 			}
-			else
+			else if (m_bUseRestock == false)
 			{
 				m_rot = m_Offrot;
 				m_pModel->SetRot(m_rot);
 				m_bShake = false;
 				m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-			}
-			m_pModel->SetScale(m_scale);
-		}
-		else if (m_bUseRestock == false)
-		{
-			m_rot = m_Offrot;
-			m_pModel->SetRot(m_rot);
-			m_bShake = false;
-			m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-			m_pModel->SetScale(m_scale);
+				m_pModel->SetScale(m_scale);
 
-			m_nCntReuse--;
-			if (m_nCntReuse <= 0)
-			{
-				m_nCntReuse = NUM_REUSETIME;
-				m_bUseRestock = true;
-				m_nRestock = MAX_RESTOCK;
+				m_nCntReuse--;
+				if (m_nCntReuse <= 0)
+				{
+					m_nCntReuse = NUM_REUSETIME;
+					m_bUseRestock = true;
+					m_nRestock = MAX_RESTOCK;
+				}
+				m_pCylinder->SetUse(m_bUseRestock);
 			}
-			m_pCylinder->SetUse(m_bUseRestock);
+
+			m_pMapIcon->SetUse(m_bUseRestock);
 		}
 	}
 	else if (m_bUse == false)
@@ -246,9 +258,6 @@ void CVender::Shake(void)
 			m_scale.y = 1.0f;
 		}
 	}
-
-
-
 
 	
 	m_pModel->SetRot(m_rot);

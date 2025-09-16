@@ -96,7 +96,7 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), (CEnemyBaseGauge::TYPE)nCnt, this);
 		}
 
-		m_pMapIcon = CMapEnemyBase::Create("data\\TEXTURE\\conveniIcon00.png", m_pos, 25.0f, 25.0f);
+		m_pMapIcon = CMapEnemyBase::Create("data\\TEXTURE\\conveniIcon00.jpg", m_pos, 25.0f, 25.0f);
 	
 		CScoreMana* pBreakScore = CGame::GetBreakCnt();
 		pBreakScore->AddScore(1);

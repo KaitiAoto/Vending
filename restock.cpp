@@ -134,7 +134,7 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 			CSound* pSound = CManager::GetSound();
 			pSound->PlaySound(CSound::SOUND_LABEL_RESTOCK);
 
-			pPlayer->Heal(10);
+			pPlayer->Heal(PLAYER_LIFE / 4);
 		}
 
 		//チュートリアルクリア判定
