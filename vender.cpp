@@ -95,12 +95,12 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, D3DXCOLOR(1.0, 1.0, 0.0, 0.75), CMeshCylinder::TYPE_BOTHSIDES);
 		m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
 
-		
-		const char* pTexName[CEnemyBaseGauge::TYPE_MAX] =
+		const char* pTexName[CEnemyBaseGauge::TYPE_MAX + 1] =
 		{
 			"data\\TEXTURE\\vendingIcon00.jpg",
 			"data\\TEXTURE\\vendingIcon01.jpg",
-			"data\\TEXTURE\\vendingIcon02.jpg"
+			"data\\TEXTURE\\vendingIcon02.jpg",
+			nullptr
 		};
 
 		CEnemyBaseGauge::TYPE Icontype = CEnemyBaseGauge::TYPE_DRINK;
@@ -116,6 +116,10 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 		else if (m_type == CBullet::TYPE_CAPSULE || m_type == CBullet::TYPE_CIGARET || m_type == CBullet::TYPE_CARD)
 		{
 			Icontype = CEnemyBaseGauge::TYPE_GENERAL;
+		}
+		else
+		{
+			Icontype = CEnemyBaseGauge::TYPE_MAX;
 		}
 
 		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 10.0f, 10.0f);
