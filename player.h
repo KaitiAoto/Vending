@@ -18,6 +18,7 @@
 #include "shadow.h"
 #include "gauge.h"
 #include "shadowS.h"
+#include "bullet_counter_system.h"
 
 // マクロ定義
 #define PLAYER_SIZE (100)
@@ -59,7 +60,6 @@ public:
 
 	void AddContents(int nAdd) { m_nCntContents += nAdd; if (m_nCntContents >= 99) { m_nCntContents = 99; } }
 	void ClearContents(void);
-	void ClearSubContents(void) { m_nCntSubContents = 0; }
 	void Heal(int nHeal) { m_nLife += nHeal; if (m_nLife >= PLAYER_LIFE) { m_nLife = PLAYER_LIFE; } }
 	void AddSpeed(float fAddSpeed) { m_fSpeed += fAddSpeed; }
 	void Hit(const int nDamage);
@@ -77,6 +77,7 @@ public:
 	void SetCanRestock(bool bCan) { m_bCanRestock = bCan; }
 	void SetShotTime(float fTime) { m_fShotTimer += fTime; }
 	void SetInVend(bool bDo) { m_bInVend = bDo; }
+	void SetContents(int nContents) { m_nCntContents = nContents; }
 	// 取得
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
@@ -85,11 +86,9 @@ public:
 	D3DXVECTOR3 GetPosOffSet(void) { return m_posOffSet; }
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
 	CBullet::TYPE GetMyBullet(void) { return m_Bullet; }
-	CBullet::TYPE GetMySubBullet(void) { return m_SubBullet; }
 	STATE GetState(void) { return m_State; }
 	bool GetbMove(void) { return m_bMove; }
 	int GetContents(void) { return m_nCntContents; }
-	int GetSubContents(void) { return m_nCntSubContents; }
 	int GetNumModel(void) { return m_nNumModel; }
 	int GetLife(void) { return m_nLife; }
 
@@ -137,10 +136,9 @@ private:
 	CMotion* m_pMotion;					// モーションへのポインタ
 	int m_nNumModel;					// モデル最大数
 	// 弾
+	CBullerCntSystem* m_BulletCnt;
 	CBullet::TYPE m_Bullet;				// 弾の種類
 	int m_nCntContents;					// 中身の残量
-	CBullet::TYPE m_SubBullet;				// 弾の種類
-	int m_nCntSubContents;					// 中身の残量
 
 	float m_fShotTimer;					// 発射間隔カウント
 	const float SHOT_INTERVAL = 0.75f;	// 発射間隔

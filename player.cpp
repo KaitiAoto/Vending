@@ -49,7 +49,6 @@ CPlayer::CPlayer(int nPriority):CObject(nPriority)
 	m_nLife = 0;
 	m_fSpeed = 0;
 	m_nCntContents = 0;
-	m_nCntSubContents = 0;
 	m_nNumModel = 0;
 	m_mtxWorld = {};
 
@@ -128,6 +127,8 @@ HRESULT CPlayer::Init(const char* pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	m_nCntContents = 3;
 	m_fShotTimer = 0.0f;
 
+	m_BulletCnt = CBullerCntSystem::Create();
+
 	SetObjType(TYPE_PLAYER);//オブジェクトのタイプ
 	return S_OK;
 }
@@ -203,10 +204,13 @@ void CPlayer::Update(void)
 			State(STATE_NONE);
 		}
 
-		CGame::GetMainCnt()->SetCnt(m_nCntContents);
-		CGame::GetMainCnt()->SetType(m_Bullet);
-		CGame::GetSubCnt()->SetCnt(m_nCntSubContents);
-		CGame::GetSubCnt()->SetType(m_SubBullet);
+		m_BulletCnt->GetUseCnt()->SetCnt(m_nCntContents);
+		m_BulletCnt->GetUseCnt()->SetType(m_Bullet);
+
+		//CGame::GetMainCnt()->SetCnt(m_nCntContents);
+		//CGame::GetMainCnt()->SetType(m_Bullet);
+		//CGame::GetSubCnt()->SetCnt(m_nCntSubContents);
+		//CGame::GetSubCnt()->SetType(m_SubBullet);
 
 		//モーション更新
 		if (m_pMotion != nullptr)
@@ -615,14 +619,7 @@ void CPlayer::ChangeBullet(void)
 	{
 		if (pInputMouse->GetTrigger(1) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_R1) == true)
 		{
-			CBullet::TYPE type = m_Bullet;
-			int nContents = m_nCntContents;
-
-			m_Bullet = m_SubBullet;
-			m_nCntContents = m_nCntSubContents;
-
-			m_SubBullet = type;
-			m_nCntSubContents = nContents;
+			m_BulletCnt->Change();
 		}
 	}
 }

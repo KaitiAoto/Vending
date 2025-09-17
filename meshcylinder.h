@@ -45,6 +45,7 @@ public:
 
 	// 設定
 	void SetUse(bool bUse) { m_bUse = bUse; }
+	void SetHeight(float fHeight);
 
 	// 静的メンバ関数
 	static CMeshCylinder* Create(const char* pFilename,D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight, D3DXCOLOR col, TYPE type);
@@ -60,6 +61,9 @@ private:
 	TYPE m_type;						// 種類 
 	bool m_bUse;						// 使用しているか
 	int m_nIdxTex;						// テクスチャのインデックス番号
+	float m_fHeight;
+	float m_fWidth;
+	D3DXCOLOR m_col;
 };
 
 #endif

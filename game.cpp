@@ -14,8 +14,6 @@ CTimerMana* CGame::m_pTimer = nullptr;
 CObject3D* CGame::m_pObj3D = nullptr;
 CScoreMana* CGame::m_pBreakCnt = nullptr;
 CScoreMana* CGame::m_pTotalScore = nullptr;
-CBulletCntMana* CGame::m_pBulletCount = nullptr;
-CBulletCntMana* CGame::m_pSubBulletCount = nullptr;
 CCollision* CGame::m_pColl = nullptr;
 CMatchUp* CGame::m_pMatchup = nullptr;
 CHpGauge* CGame::m_pHpGauge = nullptr;
@@ -78,17 +76,6 @@ void CGame::Init(void)
 	{
 		m_pTotalScore = CScoreMana::Create(D3DXVECTOR3(ScoreX, 40.0f, 0.0f), SCORE_SIZE, SCORE_SIZE, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f), 6);
 		CObject2D::Create("data\\TEXTURE\\icon_star.png", D3DXVECTOR3(ScoreX - (SCORE_SIZE * 2), 40.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCORE_SIZE * 2, SCORE_SIZE * 2, 8);
-	}
-
-	//弾数カウント生成
-	if (m_pBulletCount == nullptr)
-	{
-		m_pBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.35f, 0.0f),false);
-	}
-	//弾数カウント生成
-	if (m_pSubBulletCount == nullptr)
-	{
-		m_pSubBulletCount = CBulletCntMana::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.15f, 0.0f),true);
 	}
 
 	if (m_pHpGauge == nullptr)
@@ -205,26 +192,6 @@ void CGame::Uninit(void)
 		m_pTimer = nullptr;
 	}
 
-	//弾数カウンター破棄
-	if (m_pBulletCount != nullptr)
-	{
-		//弾数カウンター終了処理
-		m_pBulletCount->Uninit();
-
-		delete m_pBulletCount;
-		m_pBulletCount = nullptr;
-	}
-
-	//弾数カウンター破棄
-	if (m_pSubBulletCount != nullptr)
-	{
-		//弾数カウンター終了処理
-		m_pSubBulletCount->Uninit();
-
-		delete m_pSubBulletCount;
-		m_pSubBulletCount = nullptr;
-	}
-
 	//当たり判定
 	if (m_pColl != nullptr)
 	{
@@ -317,17 +284,6 @@ void CGame::Update(void)
 	if (m_pTotalScore != nullptr)
 	{
 		m_pTotalScore->Update();
-	}
-
-	if (m_pBulletCount != nullptr)
-	{
-		//弾数カウント更新
-		m_pBulletCount->Update();
-	}
-	if (m_pSubBulletCount != nullptr)
-	{
-		//弾数カウント更新
-		m_pSubBulletCount->Update();
 	}
 
 	if (pInputKey->GetTrigger(DIK_TAB) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_START) == true)

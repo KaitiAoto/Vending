@@ -44,6 +44,7 @@ CBulletCntMana* CBulletCntMana::Create(D3DXVECTOR3 pos, bool bSub)
 //===============
 HRESULT CBulletCntMana::Init(D3DXVECTOR3 pos, bool bSub)
 {
+	m_pos = pos;
 	const float fDiv = 1.75f;
 	float fIconSize = BULLETICON_SIZE;
 	float fCntSize = BULLET_COUNT_SIZE;
@@ -57,7 +58,7 @@ HRESULT CBulletCntMana::Init(D3DXVECTOR3 pos, bool bSub)
 	m_pIcon = CBulletIcon::Create(D3DXVECTOR3(pos.x - (fCntSize * 4.5f), pos.y, 0.0f), fIconSize, fIconSize);
 
 	// ×生成
-	CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (fCntSize * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fIconSize, fIconSize, 8);
+	m_cross = CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (fCntSize * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fIconSize, fIconSize, 8);
 
 	// 桁数分カウンター生成
 	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
@@ -84,6 +85,16 @@ void CBulletCntMana::Update(void)
 	m_pIcon->SetType(m_Bullet);
 	m_pIcon->SetContens(m_nCount);
 }
+void CBulletCntMana::BecomeMain()
+{
+
+}
+
+void CBulletCntMana::BecomeSub()
+{
+
+}
+
 //============
 // 描画処理
 //============

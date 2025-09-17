@@ -82,6 +82,8 @@ HRESULT CEnemyBaseGauge::Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCO
 
 	m_pFrame = CObjectBillboard::Create("data\\TEXTURE\\gauge_frame00.png", m_pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (GAUGE_X * m_Base) / 2, m_fHeight, 7);
 
+	m_pFull = CObjectBillboard::Create("data\\TEXTURE\\full00.png", D3DXVECTOR3(m_pos.x + ((GAUGE_X * m_Base) / 2) + m_fHeight, m_pos.y, m_pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_fHeight * 2.0f, m_fHeight, 7);
+
 	//オブジェクトの種類設定
 	SetObjType(TYPE_GAUGE);
 
@@ -112,11 +114,16 @@ void CEnemyBaseGauge::Update(void)
 		m_pGauge->SetColor(m_col);
 		m_pGauge->SetPos(m_pos);
 		m_pGauge->Set();
+
+		m_pFull->SetDraw(m_bFull);
+	}
+	else
+	{
+		m_pFull->SetDraw(false);
 	}
 
 	m_pIcon->SetDraw(m_bDraw);
 	m_pFrame->SetDraw(m_bDraw);
-
 }
 //===========
 // 描画処理

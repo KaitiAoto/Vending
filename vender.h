@@ -47,7 +47,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void SubRestock(void) { m_nRestock--; if (m_nRestock <= 0) { m_nRestock = 0; } }
+	void SubRestock(int nSub) { m_nRestock -= nSub; if (m_nRestock <= 0) { m_nRestock = 0; } }
 
 	// Ý’è
 	void SetUseRestock(bool bUse) { m_bUseRestock = bUse; }

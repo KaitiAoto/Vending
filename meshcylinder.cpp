@@ -59,6 +59,9 @@ HRESULT CMeshCylinder::Init(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, floa
 	m_rot = rot;
 	m_type = type;
 	m_bUse = true;
+	m_fHeight = fHeight;
+	m_fWidth = fWidth;
+	m_col = col;
 
 	//頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * MAXCYLINDER_VTX,
@@ -217,6 +220,47 @@ void CMeshCylinder::Uninit(void)
 void CMeshCylinder::Update(void)
 {
 
+}
+void CMeshCylinder::SetHeight(float fHeight)
+{
+	m_fHeight = fHeight;
+	VERTEX_3D* pVtx = NULL;
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	//円柱
+	int index = 0;
+	float fAngle = (D3DX_PI * 2.0f) / MESHCYLINDERVTX_X;
+
+	for (int nCntV = 0; nCntV < MESHCYLINDERVTX_Z + 1; nCntV++)
+	{
+		for (int nCntH = 0; nCntH < MESHCYLINDERVTX_X + 1; nCntH++)
+		{
+			//角度
+			float Angle = fAngle * nCntH;
+
+			//頂点座標の設定
+			pVtx[index].pos = D3DXVECTOR3(sinf(Angle) * m_fWidth, m_fHeight * (MESHCYLINDERVTX_Z - nCntV), cosf(Angle) * m_fWidth);
+
+			D3DXVECTOR3 nor;//位置
+			nor = pVtx[index].pos - m_pos;
+
+			//法線ベクトル
+			D3DXVec3Normalize(&pVtx[index].nor, &nor);
+
+			//頂点カラーの設定
+			pVtx[index].col = m_col;
+
+			////テクスチャ座標の設定
+			//pVtx[index].tex = D3DXVECTOR2((1.0f / MESHCYLINDERVTX_X) * nCntH, (1.0f / MESHCYLINDERVTX_Z) * nCntV);
+			pVtx[index].tex = D3DXVECTOR2((float)nCntH, (float)nCntV / 2);
+
+			index++;
+		}
+	}
+
+	//頂点バッファをアンロック　
+	m_pVtxBuff->Unlock();
 }
 //===============================
 // メッシュ円柱の描画処理

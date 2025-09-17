@@ -100,8 +100,6 @@ public:
 	static CObject3D* GetObj3D(void) { return m_pObj3D; }
 	static CScoreMana* GetBreakCnt(void) { return m_pBreakCnt; }
 	static CScoreMana* GetTotalScore(void) { return m_pTotalScore; }
-	static CBulletCntMana* GetMainCnt(void) { return m_pBulletCount; }
-	static CBulletCntMana* GetSubCnt(void) { return m_pSubBulletCount; }
 
 	static CCollision* GetColl(void) { return m_pColl; }
 	static CMatchUp* GetMatchup(void) { return m_pMatchup; }
@@ -125,8 +123,6 @@ private:
 	static CObject3D* m_pObj3D;					// 3Dオブジェクトへのポインタ
 	static CScoreMana* m_pBreakCnt;				// 破壊スコアへのポインタ
 	static CScoreMana* m_pTotalScore;			// トータルスコアへのポインタ
-	static CBulletCntMana* m_pBulletCount;		// 弾数カウンターへのポインタ
-	static CBulletCntMana* m_pSubBulletCount;		// 弾数カウンターへのポインタ
 
 	static CCollision* m_pColl;					// 当たり判定へのポインタ
 	static CMatchUp* m_pMatchup;				// タイプ相性へのポインタ

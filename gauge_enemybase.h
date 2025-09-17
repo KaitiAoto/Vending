@@ -43,6 +43,7 @@ public:
 	void SetDraw(bool bDraw) { m_bDraw = bDraw; }
 	void SetRate(float rate) { m_rate = rate; }
 	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }
+	void SetFullUse(bool bUse) { m_bFull = bUse; }
 	//
 	TYPE GetType(void) { return m_type; }
 	float GetRate(void) { return m_rate; }
@@ -59,8 +60,10 @@ private:
 	CGaugeBillboard* m_pGauge;	// ビルボードゲージへのポインタ
 	CObjectBillboard* m_pIcon;	// ビルボードへのポインタ
 	CObjectBillboard* m_pFrame;	// ビルボードへのポインタ
+	CObjectBillboard* m_pFull;	// ビルボードへのポインタ
 	CEnemyBase* m_pEnemyBase;	// 敵拠点へのポインタ
 	bool m_bDraw;				// 描画するか
+	bool m_bFull;
 	TYPE m_type;
 };
 #endif

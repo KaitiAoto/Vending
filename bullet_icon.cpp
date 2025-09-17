@@ -81,14 +81,14 @@ void CBulletIcon::Update(void)
 	// 中身があれば
 	if (m_nCntContens > 0)
 	{
-		m_bUse = true;				// 使用している状態にする
+		m_bUse = true;		// 使用している状態にする
 		// テクスチャ切り替え
 		ChangeIcon(m_type);
 	}
 	// 中身がなければ
 	else if (m_nCntContens <= 0)
 	{
-		m_bUse = false;	// 使用していない状態にする
+		m_bUse = false;		// 使用していない状態にする
 	}
 }
 //============

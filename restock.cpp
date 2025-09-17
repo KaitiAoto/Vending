@@ -111,13 +111,13 @@ void CRestock::Set(int nRestock, CBullet::TYPE type, CVender* pVender)
 	if (pInputMouse->GetPress(0) == true || pInputPad->GetR2Press(30) == true)
 	{
 		//’†g•â[
-		pPlayer->AddContents(1);
+		pPlayer->AddContents(2);
 		//Ží—ÞÝ’è
 		pPlayer->SetBulletType(type);
 
 		pPlayer->SetCanRestock(true);
 
-		pVender->SubRestock();
+		pVender->SubRestock(2);
 
 		pTotalScore->AddScore(1);
 

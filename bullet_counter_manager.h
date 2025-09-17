@@ -32,19 +32,26 @@ public:
 	void Update(void);
 	void Draw(void);
 	void UpdateCounter(void);
+	void BecomeMain();
+	void BecomeSub();
+
 	void SetCnt(int nCnt) { m_nCount = nCnt; }
 	void SetType(CBullet::TYPE type) { m_Bullet = type; }
+
+	int GetContents(void) { return m_nCount; }
+	CBullet::TYPE GetType(void) { return m_Bullet; }
 
 	// 静的メンバ関数
 	static CBulletCntMana* Create(D3DXVECTOR3 pos, bool bSub);
 
 private:
 	//静的メンバ変数
+	D3DXVECTOR3 m_pos;
 	int m_nCount;								// カウント
 	CBullerCounter* m_pCounter[MAX_BULLETCNT];	// カウンターへのポインタ
 	CBulletIcon* m_pIcon;						// 弾アイコンへのポインタ
 	CBullet::TYPE m_Bullet;				// 弾の種類
-
+	CObject2D* m_cross;
 };
 
 #endif

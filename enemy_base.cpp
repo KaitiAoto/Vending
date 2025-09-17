@@ -85,12 +85,7 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 
 	// モードがゲームなら
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
-	{
-		float radius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
-		
-		D3DXVECTOR3 Cylinderpos = m_pos;
-		Cylinderpos.x -= radius / 2;
-
+	{		
 		for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 		{
 			float GauseY = m_pos.y + (m_size.y);
@@ -99,32 +94,12 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 			m_nStock[nCnt] = MAX_STOCK;
 			float GeuseBase = (float)m_nStock[nCnt] / 1.5f;
 			m_pGauge[nCnt] = CEnemyBaseGauge::Create(Pos, GeuseBase, 10.0f, D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f), (CEnemyBaseGauge::TYPE)nCnt, this);
-
-
-			D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.75f);
-			// 種類別にテクスチャ名を指定
-			switch (nCnt)
-			{
-			case CEnemyBaseGauge::TYPE_DRINK:
-				col = D3DXCOLOR(0.0f, 1.0f, 1.0f, 1.0f);
-				break;
-			case CEnemyBaseGauge::TYPE_FOOD:
-				col = D3DXCOLOR(1.0f, 0.6f, 0.6f, 1.0f);
-				break;
-			case CEnemyBaseGauge::TYPE_GENERAL:
-				col = D3DXCOLOR(0.5f, 1.0f, 0.5f, 1.0f);
-				break;
-			default:
-				break;
-			}
-			//m_pCylinder[nCnt] = CMeshCylinder::Create(nullptr, D3DXVECTOR3(Cylinderpos.x + ((radius / 2) * nCnt), Cylinderpos.y, Cylinderpos.z), m_rot, radius / 4, 100, col, CMeshCylinder::TYPE_BOTHSIDES);
 		}
 
 		m_pMapIcon = CMapEnemyBase::Create("data\\TEXTURE\\conveniIcon00.jpg", m_pos, 25.0f, 25.0f);
 	
 		CScoreMana* pBreakScore = CGame::GetBreakCnt();
 		pBreakScore->AddScore(1);
-
 
 		m_Help = CObject2D::Create("data\\TEXTURE\\help00.png", D3DXVECTOR3(CGame::GetMap()->GetPos().x, SCREEN_HEIGHT / 2.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 250.0f, 120.0f, 8);
 		m_Help->SetUse(false);
@@ -176,14 +151,14 @@ void CEnemyBase::Update(void)
 					m_pGauge[nCnt]->SetRate(rate);
 					m_pGauge[nCnt]->SetDraw(m_bRespawn);
 
-					//if (m_nStock[nCnt] < MAX_STOCK)
-					//{
-					//	m_pCylinder[nCnt]->SetUse(false);
-					//}
-					//else if(m_nStock[nCnt] >= MAX_STOCK)
-					//{
-					//	m_pCylinder[nCnt]->SetUse(true);
-					//}
+					if (m_nStock[nCnt] >= MAX_STOCK)
+					{
+						m_pGauge[nCnt]->SetFullUse(true);
+					}
+					else
+					{
+						m_pGauge[nCnt]->SetFullUse(false);
+					}
 				}
 
 				// アイコンの点滅確認
