@@ -29,6 +29,7 @@ CCamera::CCamera(void)
 	m_fDistance = 0.0f;
 	m_mtxProjection = {};
 	m_mtxView = {};
+	m_bShake = false;
 }
 //================
 // デストラクタ
@@ -230,6 +231,8 @@ void CCamera::Update(void)
 	}
 #endif // DEBUG
 
+	UpdateShake();
+
 	// 角度の正規化
 	if (m_rot.y >= D3DX_PI)
 	{
@@ -246,6 +249,39 @@ void CCamera::Update(void)
 	pDegub->Print("カメラの角度：(%.1f, %.1f, %.1f)", m_rot.x, m_rot.y, m_rot.z);
 	pDegub->Print("カメラの視点：(%.1f, %.1f, %.1f)", m_posV.x, m_posV.y, m_posV.z);
 	pDegub->Print("視点と注視点の距離：%.1f", m_fDistance);
+}
+//======================
+// 画面揺れを設定
+//======================
+void CCamera::SetShake(float fShakeX, float fShakeY, int nTime)
+{
+	m_nShakeTime = nTime;
+	m_fMaxShakeX = fShakeX;
+	m_fMaxShakeY = fShakeY;
+	m_bShake = true;
+}
+//=====================
+// 画面揺れを更新
+//=====================
+void CCamera::UpdateShake(void)
+{
+	if (m_bShake == true)
+	{
+		m_nShakeTime--;
+		if (m_nShakeTime > 0)
+		{
+			float offsetX = ((rand() % 200) - 100) / 100.0f * m_fMaxShakeX;
+			float offsetY = ((rand() % 200) - 100) / 100.0f * m_fMaxShakeY;
+
+			m_posV.x += offsetX;
+			m_posV.y += offsetY;
+		}
+		else if(m_nShakeTime <= 0)
+		{
+			m_nShakeTime = 0;
+			m_bShake = false;
+		}
+	}
 }
 //=============================================
 // 更新処理（タイトル・リザルト・ランキング）
@@ -314,3 +350,4 @@ void CCamera::Set(void)
 	// プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_mtxProjection);
 }
+

@@ -128,7 +128,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 
 		m_pMapIcon = CMapEnemyBase::Create(pTexName[Icontype],m_pos, 15.0f, 20.0f);
 
-		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 50, col, CMeshCylinder::TYPE_BOTHSIDES);
+		m_pCylinder = CMeshCylinder::Create("data\\TEXTURE\\gauge00.jpeg", D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, radius / 4, 100, col, CMeshCylinder::TYPE_BOTHSIDES);
 	}
 	return S_OK;
 }

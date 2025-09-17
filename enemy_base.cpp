@@ -117,7 +117,7 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 			default:
 				break;
 			}
-			m_pCylinder[nCnt] = CMeshCylinder::Create(nullptr, D3DXVECTOR3(Cylinderpos.x + ((radius / 2) * nCnt), Cylinderpos.y, Cylinderpos.z), m_rot, radius / 4, 100, col, CMeshCylinder::TYPE_BOTHSIDES);
+			//m_pCylinder[nCnt] = CMeshCylinder::Create(nullptr, D3DXVECTOR3(Cylinderpos.x + ((radius / 2) * nCnt), Cylinderpos.y, Cylinderpos.z), m_rot, radius / 4, 100, col, CMeshCylinder::TYPE_BOTHSIDES);
 		}
 
 		m_pMapIcon = CMapEnemyBase::Create("data\\TEXTURE\\conveniIcon00.jpg", m_pos, 25.0f, 25.0f);
@@ -176,14 +176,14 @@ void CEnemyBase::Update(void)
 					m_pGauge[nCnt]->SetRate(rate);
 					m_pGauge[nCnt]->SetDraw(m_bRespawn);
 
-					if (m_nStock[nCnt] < MAX_STOCK)
-					{
-						m_pCylinder[nCnt]->SetUse(false);
-					}
-					else if(m_nStock[nCnt] >= MAX_STOCK)
-					{
-						m_pCylinder[nCnt]->SetUse(true);
-					}
+					//if (m_nStock[nCnt] < MAX_STOCK)
+					//{
+					//	m_pCylinder[nCnt]->SetUse(false);
+					//}
+					//else if(m_nStock[nCnt] >= MAX_STOCK)
+					//{
+					//	m_pCylinder[nCnt]->SetUse(true);
+					//}
 				}
 
 				// アイコンの点滅確認
@@ -193,6 +193,8 @@ void CEnemyBase::Update(void)
 				// ライフが０なら
 				if (m_nLife <= 0)
 				{
+					CManager::GetCamera()->SetShake(20.0f, 20.0f, 60);
+
 					CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 1.5f), m_pos.z), m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 30, 8.0f, CParticle::TYPE_NONE);
 
 					m_bUse = false;
@@ -232,7 +234,7 @@ void CEnemyBase::Update(void)
 			}
 			else if (m_bUse == false)
 			{//使っていないなら
-				CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, D3DCOLOR_RGBA(127, 127, 127, 255), 1, 15.0f, CParticle::TYPE_SMOKE);
+				//CParticle::Create(D3DXVECTOR3(m_pos.x, m_pos.y, m_pos.z), m_rot, D3DCOLOR_RGBA(127, 127, 127, 255), 1, 15.0f, CParticle::TYPE_SMOKE);
 			}
 		}
 		if (m_pMapIcon != nullptr)

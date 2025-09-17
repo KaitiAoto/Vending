@@ -33,7 +33,10 @@ public:
 	void Set(void);
 	void SetPosV(D3DXVECTOR3 posV) { m_posV = posV; }
 	void SetPosR(D3DXVECTOR3 posR) { m_posR = posR; }
+	void SetShake(float fShakeX, float fShakeY, int nTime);
 private:
+	void UpdateShake(void);
+
 	// メンバ変数
 	D3DXVECTOR3 m_posV;			// 視点
 	D3DXVECTOR3 m_posR;			// 注視点
@@ -46,6 +49,10 @@ private:
 	D3DXMATRIX m_mtxProjection;	// プロジェクションマトリックス
 	D3DXMATRIX m_mtxView;		// ビューマトリックス
 	float m_fDistance;			// 視点から注視点の距離
+	float m_fMaxShakeX;
+	float m_fMaxShakeY;
+	int m_nShakeTime;
+	bool m_bShake;
 
 };
 

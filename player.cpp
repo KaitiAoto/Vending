@@ -649,6 +649,8 @@ void CPlayer::Hit(const int nDamage)
 			State(STATE_DEAD);
 		}
 
+		CManager::GetCamera()->SetShake(5.0f, 5.0f, 30);
+
 		pSound->PlaySound(CSound::SOUND_LABEL_HIT);
 	}
 }
