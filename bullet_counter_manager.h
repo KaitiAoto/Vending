@@ -32,6 +32,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void UpdateCounter(void);
+	void ResetCnt(void) { m_nCount = 0; }
 	void BecomeMain();
 	void BecomeSub();
 

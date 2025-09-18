@@ -123,9 +123,7 @@ void CCamera::Update(void)
 		{
 			m_fDistance = 500.0f;
 		}
-
 	}
-
 
 
 	if (pInputPad->GetTrigger(CInputPad::JOYKEY_R3) == true)

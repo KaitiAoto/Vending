@@ -56,7 +56,6 @@ HRESULT CTimerMana::Init(D3DXVECTOR3 pos)
 		m_pMinute[nCnt] = CTimer::Create(D3DXVECTOR3(pos.x + (nCnt * TIMER_SIZE * 2.5f), pos.y, 0.0f));
 	}
 
-
 	pos.x += (2.5 * TIMER_SIZE * 2.5f);
 
 	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
@@ -176,21 +175,21 @@ void CTimerMana::AddTime(int nAdd)
 //==============================
 void CTimerMana::Second(void)
 {
-	int aPosTexU[TIME_DIGIT]; //åÖêîï™
-
 	int nData = TIMERDATA * 10;
 	int nData2 = TIMERDATA;
 	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
 	{
 		if (m_pSecond[nCnt] != nullptr)
 		{
+			int aPosTexU;
+
 			CNumber* pNumber = m_pSecond[nCnt]->GetNumber();
 
-			aPosTexU[nCnt] = m_nDrawSecond % nData / nData2;
+			aPosTexU = m_nDrawSecond % nData / nData2;
 			nData /= 10;
 			nData2 /= 10;
 
-			pNumber->SetTex((aPosTexU[nCnt] * 0.1f), (aPosTexU[nCnt] * 0.1f) + 0.1f, 0.0f, 1.0f);
+			pNumber->SetTex((aPosTexU * 0.1f), (aPosTexU * 0.1f) + 0.1f, 0.0f, 1.0f);
 		}
 	}
 }
@@ -199,21 +198,21 @@ void CTimerMana::Second(void)
 //==============================
 void CTimerMana::Minute(void)
 {
-	int aPosTexU[TIME_DIGIT]; //åÖêîï™
-
 	int nData = TIMERDATA * 10;
 	int nData2 = TIMERDATA;
 	for (int nCnt = 0; nCnt < TIME_DIGIT; nCnt++)
 	{
 		if (m_pMinute[nCnt] != nullptr)
 		{
+			int aPosTexU;
+
 			CNumber* pNumber = m_pMinute[nCnt]->GetNumber();
 
-			aPosTexU[nCnt] = m_nDrawMinute % nData / nData2;
+			aPosTexU = m_nDrawMinute % nData / nData2;
 			nData /= 10;
 			nData2 /= 10;
 
-			pNumber->SetTex((aPosTexU[nCnt] * 0.1f), (aPosTexU[nCnt] * 0.1f) + 0.1f, 0.0f, 1.0f);
+			pNumber->SetTex((aPosTexU * 0.1f), (aPosTexU * 0.1f) + 0.1f, 0.0f, 1.0f);
 		}
 	}
 }

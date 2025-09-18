@@ -97,7 +97,7 @@ void CArrow::Update(void)
 	CPlayer* pPlayer = CGame::GetPlayer();
 	m_pos = pPlayer->GetPos();// プレイヤーの位置を代入
 	// 位置を設定
-	CObject3D::SetPos({ m_pos.x, m_pos.y + (pPlayer->GetSize().y * 2), m_pos.z });
+	CObject3D::SetPos({ m_pos.x, m_pos.y + (pPlayer->GetSize().y * 1.5f), m_pos.z });
 
 	// ゲームのモードがPLAYなら
 	if (CGame::GetMode() == CGame::MODE_PLAY)

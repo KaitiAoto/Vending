@@ -33,7 +33,7 @@ void CSell::Update(void)
 
 	if (CGame::GetTime()->GetTime() >= GAME_TIME / 6)
 	{
-		nDecreaseTime = 15;
+		nDecreaseTime = 25;
 	}
 
 	m_nCntSellTime++;
@@ -42,6 +42,7 @@ void CSell::Update(void)
 	{
 		int nNumBase = CEnemyBase::GetNum();
 		int nTarget = rand() % nNumBase;
+
 		int nCntBase = 0;
 
 		CObject* pObj = CObject::GetTop(PRIORITY_ENEMYBASE);

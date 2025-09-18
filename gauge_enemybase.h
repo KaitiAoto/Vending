@@ -55,6 +55,7 @@ private:
 	D3DXVECTOR3 m_pos;			// 位置
 	D3DXCOLOR m_col;			// 色
 	float m_Base;				// 基準
+	float m_MaxBase;
 	float m_fHeight;			// 高さ
 	float m_rate;				// レート
 	CGaugeBillboard* m_pGauge;	// ビルボードゲージへのポインタ

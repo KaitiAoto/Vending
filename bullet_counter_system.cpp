@@ -151,6 +151,12 @@ void CBullerCntSystem::Change(void)
 	m_bMove = true;
 }
 
+void CBullerCntSystem::Reset(void)
+{
+	m_pBulletCount->ResetCnt();
+	m_pSubBulletCount->ResetCnt();
+}
+
 CBulletCntMana* CBullerCntSystem::GetUseCnt(void)
 {
 	if (m_bWhich == true)

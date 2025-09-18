@@ -27,6 +27,8 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void PlayerMove(void);
+	void ArrowMove(void);
 
 	//取得処理
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
@@ -44,6 +46,7 @@ private:
 	D3DXVECTOR3 m_pos;	// 位置
 	int m_nIdxTex;		// テクスチャのインデックス番号
 	bool m_bUse;		// 使用しているか
+	CObject2D* m_pArrow;
 };
 
 #endif

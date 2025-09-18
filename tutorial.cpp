@@ -189,7 +189,7 @@ void CTutorial::Update(void)
 	{
 		CPlayer* pPlayer = CGame::GetPlayer();
 		D3DXVECTOR3 pos = pPlayer->GetPos();
-		CArrow::Create({ pos.x,pos.y + pPlayer->GetSize().y,pos.z });
+		CArrow::Create({ pos.x,pos.y + (pPlayer->GetSize().y / 4),pos.z });
 		
 		CObject2D::SetUse(false);
 		m_pBack->SetUse(false);

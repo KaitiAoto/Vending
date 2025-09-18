@@ -471,7 +471,7 @@ bool CCollision::Gimmick(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 size, CObje
 	D3DXVECTOR3 GimmickRot = pGimmick->GetRot();
 	bool bColl = false;
 
-	float fRadius = max(size.x, max(size.y, size.z)) * 1.0f;
+	float fRadius = max(size.x, max(size.y, size.z)) * 0.75f;
 	bColl = SphereToOBB(pos, fRadius, GimmickPos, Gimmicksize, GimmickMtx);
 
 	if (bColl == true)

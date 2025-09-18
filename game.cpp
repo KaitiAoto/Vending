@@ -244,6 +244,11 @@ void CGame::Update(void)
 		pFade->Set(CScene::MODE_RESULT);
 		return;
 	}
+	else if (m_mode == MODE_RESET)
+	{
+		pFade->Set(CScene::MODE_GAME);
+		return;
+	}
 	else if (m_mode == MODE_BACK)
 	{
 		pFade->Set(CScene::MODE_TITLE);

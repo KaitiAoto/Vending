@@ -128,8 +128,6 @@ void CPauseMana::Select(void)
 
 	CSound* pSound = CManager::GetSound();
 
-	CFade* pFade = CManager::GetFade();
-
 	int wheel = 0;
 	wheel =	pInputMouse->GetWheel();
 
@@ -157,7 +155,7 @@ void CPauseMana::Select(void)
 		case SELECT_CONTNUE:
 			break;
 		case SELECT_RESTART:
-			pFade->Set(CScene::MODE_GAME);
+			CGame::SetMode(CGame::MODE_RESET);
 			break;
 		case SELECT_END:
 			CGame::SetMode(CGame::MODE_BACK);

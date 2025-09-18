@@ -50,6 +50,7 @@ private:
 
 	int m_nIdxTex;		// テクスチャのインデックス番号
 	bool m_bUse;		// 使用しているか
+	bool m_bRLShake;
 };
 
 #endif

@@ -29,6 +29,7 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Change(void);
+	void Reset(void);
 
 	void SetbMove(bool bMove) { m_bMove = bMove; }
 

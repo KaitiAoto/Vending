@@ -42,17 +42,12 @@ CMapPlayer* CMapPlayer::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 //===============
 HRESULT CMapPlayer::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
-	//デバイスの取得
-	CRenderer *pRenderer = CManager::GetRenderer();
-	LPDIRECT3DDEVICE9 pDevice;
-	pDevice = pRenderer->GetDevice();
-
 	//値を代入
 	m_pos = pos;
 	m_bUse = true;
 
-	CObject2D::Init("data\\TEXTURE\\vending00.jpg", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
-
+	CObject2D::Init("data\\TEXTURE\\playerIcon00.png", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
+	m_pArrow = CObject2D::Create("data\\TEXTURE\\playerIcon00.png", D3DXVECTOR3(pos.x, pos.y, pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 8);
 
 	//オブジェクトの種類設定
 	SetObjType(TYPE_UI);
@@ -71,6 +66,25 @@ void CMapPlayer::Uninit(void)
 //============
 void CMapPlayer::Update(void)
 {
+	PlayerMove();
+
+	ArrowMove();
+
+	m_pArrow->SetUse(m_bUse);
+}
+//============
+// 描画処理
+//============
+void CMapPlayer::Draw(void)
+{
+	if (m_bUse == true)
+	{
+		CObject2D::Draw();
+	}
+}
+
+void CMapPlayer::PlayerMove(void)
+{
 	//プレイヤー情報取得
 	CPlayer* pPlayer = CGame::GetPlayer();
 
@@ -80,7 +94,7 @@ void CMapPlayer::Update(void)
 	// ミニマップの情報
 	const float miniMapCenterX = CGame::GetMap()->GetPos().x;
 	const float miniMapCenterY = CGame::GetMap()->GetPos().y;
-	const float miniMapW = CGame::GetMap()->GetWidth(); 
+	const float miniMapW = CGame::GetMap()->GetWidth();
 	const float miniMapH = CGame::GetMap()->GetHeight();
 
 	// ワールド座標を正規化
@@ -98,13 +112,8 @@ void CMapPlayer::Update(void)
 
 	CObject2D::SetPos(m_pos);
 }
-//============
-// 描画処理
-//============
-void CMapPlayer::Draw(void)
+
+void CMapPlayer::ArrowMove(void)
 {
-	if (m_bUse == true)
-	{
-		CObject2D::Draw();
-	}
+
 }

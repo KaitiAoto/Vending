@@ -76,7 +76,27 @@ void CRestock::Uninit(void)
 //============
 void CRestock::Update(void)
 {
+	if (m_bUse == true)
+	{
+		if (m_bRLShake == true)
+		{
+			m_rot.z += 0.025f;
+			if (m_rot.z >= 0.25f)
+			{
+				m_bRLShake = false;
+			}
+		}
+		else if (m_bRLShake == false)
+		{
+			m_rot.z -= 0.025f;
+			if (m_rot.z <= -0.25f)
+			{
+				m_bRLShake = true;
+			}
+		}
 
+		CObject2D::Set(m_pos, m_rot);
+	}
 }
 //============
 // •`‰æˆ—

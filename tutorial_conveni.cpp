@@ -188,9 +188,8 @@ void CTutorialConveni::Update(void)
 		CGame::SetMode(CGame::MODE_PLAY);
 
 		CPlayer* pPlayer = CGame::GetPlayer();
-		D3DXVECTOR3 pos = pPlayer->GetPos();
-		CArrow::Create({ pos.x,pos.y + pPlayer->GetSize().y,pos.z });
-		
+		pPlayer->GetCntSystem()->Reset();
+
 		CObject2D::SetUse(false);
 		m_pSkip->SetUse(false);
 		m_pClick->SetUse(false);

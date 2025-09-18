@@ -52,6 +52,7 @@ HRESULT CEnemyBaseGauge::Init(D3DXVECTOR3 pos, float base, float fHeight, D3DXCO
 {
 	m_pos = pos;
 	m_Base = base;
+	m_MaxBase = base;
 	m_fHeight = fHeight;
 	m_col = col;
 	m_pGauge = CGaugeBillboard::Create(m_pos, m_Base, m_fHeight, m_col);
@@ -115,6 +116,22 @@ void CEnemyBaseGauge::Update(void)
 		m_pGauge->SetPos(m_pos);
 		m_pGauge->Set();
 
+		D3DXMATRIX matView, matInv;
+		//デバイスの取得
+		CRenderer* pRenderer = CManager::GetRenderer();
+		LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
+
+		pDevice->GetTransform(D3DTS_VIEW, &matView);
+
+		matView._41 = matView._42 = matView._43 = 0.0f;
+		D3DXMatrixInverse(&matInv, NULL, &matView);
+
+		D3DXVECTOR3 vRight(matInv._11, matInv._12, matInv._13);
+
+		D3DXVECTOR3 vCenter = m_pos;
+		D3DXVECTOR3 vPos = vCenter + vRight * (m_fHeight * 8);
+
+		m_pFull->SetPos(vPos);
 		m_pFull->SetDraw(m_bFull);
 	}
 	else
