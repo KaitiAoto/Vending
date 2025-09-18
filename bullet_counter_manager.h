@@ -45,13 +45,20 @@ public:
 	static CBulletCntMana* Create(D3DXVECTOR3 pos, bool bSub);
 
 private:
-	//静的メンバ変数
+	//メンバ変数
 	D3DXVECTOR3 m_pos;
 	int m_nCount;								// カウント
 	CBullerCounter* m_pCounter[MAX_BULLETCNT];	// カウンターへのポインタ
 	CBulletIcon* m_pIcon;						// 弾アイコンへのポインタ
 	CBullet::TYPE m_Bullet;				// 弾の種類
 	CObject2D* m_cross;
+	float m_fIconSize;
+	float m_fCntSize;
+
+	//静的メンバ変数
+	static D3DXVECTOR3 m_MainPos;
+	static D3DXVECTOR3 m_SubPos;
+
 };
 
 #endif

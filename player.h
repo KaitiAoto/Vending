@@ -91,6 +91,7 @@ public:
 	int GetContents(void) { return m_nCntContents; }
 	int GetNumModel(void) { return m_nNumModel; }
 	int GetLife(void) { return m_nLife; }
+	CBullerCntSystem* GetCntSystem(void) { return m_BulletCnt; }
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CPlayer* Create(const char* pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot);

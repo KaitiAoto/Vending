@@ -12,6 +12,10 @@
 #include "object.h"
 #include "player.h"
 
+//
+D3DXVECTOR3 CBulletCntMana::m_MainPos = {};
+D3DXVECTOR3 CBulletCntMana::m_SubPos = {};
+
 //==================
 // コンストラクタ
 //==================
@@ -46,24 +50,30 @@ HRESULT CBulletCntMana::Init(D3DXVECTOR3 pos, bool bSub)
 {
 	m_pos = pos;
 	const float fDiv = 1.75f;
-	float fIconSize = BULLETICON_SIZE;
-	float fCntSize = BULLET_COUNT_SIZE;
+	m_fIconSize = BULLETICON_SIZE;
+	m_fCntSize = BULLET_COUNT_SIZE;
 	if (bSub == true)
 	{
-		fIconSize /= fDiv;
-		fCntSize /= fDiv;
+		m_fIconSize /= fDiv;
+		m_fCntSize /= fDiv;
+
+		m_SubPos = pos;
+	}
+	else if(bSub == false)
+	{
+		m_MainPos = pos;
 	}
 
 	// 弾アイコン生成
-	m_pIcon = CBulletIcon::Create(D3DXVECTOR3(pos.x - (fCntSize * 4.5f), pos.y, 0.0f), fIconSize, fIconSize);
+	m_pIcon = CBulletIcon::Create(D3DXVECTOR3(pos.x - (m_fCntSize * 4.5f), pos.y, 0.0f), m_fIconSize, m_fIconSize);
 
 	// ×生成
-	m_cross = CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (fCntSize * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fIconSize, fIconSize, 8);
+	m_cross = CObject2D::Create("data\\TEXTURE\\multiply00.png", D3DXVECTOR3(pos.x - (m_fCntSize * 2.0f), pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_fIconSize, m_fIconSize, 8);
 
 	// 桁数分カウンター生成
 	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
 	{
-		m_pCounter[nCnt] = CBullerCounter::Create(D3DXVECTOR3(pos.x + (nCnt * fCntSize * 2.5f), pos.y, 0.0f), fCntSize, fCntSize);
+		m_pCounter[nCnt] = CBullerCounter::Create(D3DXVECTOR3(pos.x + (nCnt * m_fCntSize * 2.5f), pos.y, 0.0f), m_fCntSize, m_fCntSize);
 	}
 
 	return S_OK;
@@ -87,12 +97,96 @@ void CBulletCntMana::Update(void)
 }
 void CBulletCntMana::BecomeMain()
 {
+	const float SubPosY = 5.0f;
+	const float AddSize = 1.0f;
+	const float fDiv = 1.75f;
 
+	static bool bSize = false;
+	static bool bPos = false;
+
+	m_pos.y -= SubPosY;
+	m_fIconSize += AddSize;
+	m_fCntSize += AddSize;
+	if (m_fCntSize >= BULLET_COUNT_SIZE)
+	{
+		m_fCntSize = BULLET_COUNT_SIZE;
+		m_fIconSize = BULLETICON_SIZE;
+
+		bSize = true;
+	}
+	if (m_pos.y <= m_MainPos.y)
+	{
+		m_pos = m_MainPos;
+	}
+
+	if (bSize == true && bPos == true)
+	{
+		CPlayer* pPlayer = CGame::GetPlayer();
+		pPlayer->GetCntSystem()->SetbMove(false);
+	}
+
+
+	// 弾アイコン
+	m_pIcon->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f));
+	m_pIcon->SetSize(m_fIconSize, m_fIconSize);
+
+	// ×
+	m_cross->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f));
+	m_cross->SetSize(m_fIconSize, m_fIconSize);
+
+	// 桁数分カウンター
+	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
+	{
+		m_pCounter[nCnt]->GetNumber()->SetPos(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f));
+		m_pCounter[nCnt]->GetNumber()->SetSize(m_fCntSize, m_fCntSize);
+	}
 }
 
 void CBulletCntMana::BecomeSub()
 {
+	const float AddPosY = 5.0f;
+	const float SubSize = 1.0f;
+	const float fDiv = 1.75f;
 
+	static bool bSize = false;
+	static bool bPos = false;
+
+	m_pos.y += AddPosY;
+	m_fIconSize -= SubSize;
+	m_fCntSize -= SubSize;
+	if (m_fCntSize <= BULLET_COUNT_SIZE / fDiv)
+	{
+		m_fCntSize = BULLET_COUNT_SIZE / fDiv;
+		m_fIconSize = BULLETICON_SIZE / fDiv;
+
+		bSize = true;
+	}
+	if (m_pos.y >= m_SubPos.y)
+	{
+		m_pos = m_SubPos;
+	}
+
+	if (bSize == true && bPos == true)
+	{
+		CPlayer* pPlayer = CGame::GetPlayer();
+		pPlayer->GetCntSystem()->SetbMove(false);
+	}
+
+
+	// 弾アイコン
+	m_pIcon->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f));
+	m_pIcon->SetSize(m_fIconSize, m_fIconSize);
+
+	// ×
+	m_cross->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f));
+	m_cross->SetSize(m_fIconSize, m_fIconSize);
+
+	// 桁数分カウンター
+	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
+	{
+		m_pCounter[nCnt]->GetNumber()->SetPos(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f));
+		m_pCounter[nCnt]->GetNumber()->SetSize(m_fCntSize, m_fCntSize);
+	}
 }
 
 //============
