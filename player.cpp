@@ -558,6 +558,8 @@ void CPlayer::Action(void)
 				}
 				else
 				{
+					m_BulletCnt->SetBlink(true);
+
 					if (CSoldOut::GetUse() == false)
 					{
 						CSoldOut::Create();

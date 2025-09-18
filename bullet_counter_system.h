@@ -30,8 +30,10 @@ public:
 	void Draw(void);
 	void Change(void);
 	void Reset(void);
+	
 
 	void SetbMove(bool bMove) { m_bMove = bMove; }
+	void SetBlink(bool bBlink) { m_bBlink = bBlink; }
 
 	CBulletCntMana* GetUseCnt(void);
 
@@ -41,16 +43,20 @@ public:
 
 private:
 	void Move(void);
+	void Blink(void);
 
 	// メンバ変数
 	D3DXVECTOR3 m_MainPos;
 	D3DXVECTOR3 m_SubPos;
+	D3DXVECTOR3 m_rot;
 
 	CBulletCntMana* m_pBulletCount;			// 弾数カウンターへのポインタ
 	CBulletCntMana* m_pSubBulletCount;		// 弾数カウンターへのポインタ
 
 	bool m_bWhich;
 	bool m_bMove;
+	bool m_bBlink;
+	bool m_bRLShake;
 };
 
 #endif

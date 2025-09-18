@@ -47,6 +47,7 @@ HRESULT CBullerCntSystem::Init(void)
 {
 	m_bWhich = true;
 	m_bMove = false;
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	m_MainPos = D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.35f, 0.0f);
 	m_SubPos = D3DXVECTOR3(SCREEN_WIDTH / 2 + (BULLET_COUNT_SIZE * 1.0f), SCREEN_HEIGHT / 1.15f, 0.0f);
@@ -112,6 +113,7 @@ void CBullerCntSystem::Update(void)
 	}
 
 	Move();
+	Blink();
 }
 void CBullerCntSystem::Move(void)
 {
@@ -127,6 +129,31 @@ void CBullerCntSystem::Move(void)
 			m_pBulletCount->BecomeSub();
 			m_pSubBulletCount->BecomeMain();
 		}
+	}
+}
+
+void CBullerCntSystem::Blink(void)
+{
+	if (m_bBlink == true)
+	{
+		if (m_bRLShake == true)
+		{
+			m_rot.z += 0.025f;
+			if (m_rot.z >= 0.25f)
+			{
+				m_bRLShake = false;
+			}
+		}
+		else if (m_bRLShake == false)
+		{
+			m_rot.z -= 0.025f;
+			if (m_rot.z <= -0.25f)
+			{
+				m_bRLShake = true;
+			}
+		}
+
+		GetUseCnt()->Set(m_MainPos, m_rot);
 	}
 }
 

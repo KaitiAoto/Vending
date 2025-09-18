@@ -38,6 +38,7 @@ public:
 
 	void SetCnt(int nCnt) { m_nCount = nCnt; }
 	void SetType(CBullet::TYPE type) { m_Bullet = type; }
+	void Set(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 
 	int GetContents(void) { return m_nCount; }
 	CBullet::TYPE GetType(void) { return m_Bullet; }
@@ -48,6 +49,7 @@ public:
 private:
 	//メンバ変数
 	D3DXVECTOR3 m_pos;
+	D3DXVECTOR3 m_rot;
 	int m_nCount;								// カウント
 	CBullerCounter* m_pCounter[MAX_BULLETCNT];	// カウンターへのポインタ
 	CBulletIcon* m_pIcon;						// 弾アイコンへのポインタ

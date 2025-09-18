@@ -189,6 +189,19 @@ void CBulletCntMana::BecomeSub()
 	}
 }
 
+void CBulletCntMana::Set(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+{
+	m_pos = pos;
+	m_rot = rot;
+
+	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
+	{
+		m_pCounter[nCnt]->GetNumber()->Set(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f), m_rot);
+	}
+	m_cross->Set(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f), m_rot);
+	m_pIcon->Set(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f), m_rot);
+}
+
 //============
 // ï`âÊèàóù
 //============

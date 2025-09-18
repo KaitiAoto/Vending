@@ -41,6 +41,7 @@ public:
 	void SetColor(D3DXCOLOR Color);
 	void SetIdxTex(int nIdx) { m_nIdxTex = nIdx; }
 	void SetSize(float fWidth, float fHeight);
+	void Set(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 	// 静的メンバ関数
 	static CNumber* Create(const char* pFilename, D3DXVECTOR3 pos, float fWidth, float fHeight);
 
@@ -50,6 +51,9 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff; // 頂点情報
 	D3DXVECTOR3 m_pos;					// 位置
 	D3DCOLOR m_col;
+	D3DXVECTOR3 m_rot;					//角度
+	float m_fLength;					//対角線の長さ
+	float m_fAngle;						//対角線の角度
 	float m_fWidth;						// 横幅
 	float m_fHeight;					// 高さ
 	int m_nIdxTex;						// テクスチャのインデックス番号
