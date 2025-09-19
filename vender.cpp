@@ -11,6 +11,9 @@
 #include "restock.h"
 #include "gauge_enemybase.h"
 
+//
+CRestock* CVender::m_pRestock = nullptr;
+
 //==================
 // コンストラクタ
 //==================
@@ -77,6 +80,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 	m_bShake = false;
 	m_scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	m_bRLShake = true;
+	m_bCanRestock = false;
 
 	//モデル生成
 	const char* pFilename = SetModelName();
@@ -92,7 +96,10 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
 		float radius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
-		m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
+		if (m_pRestock == nullptr)
+		{
+			m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
+		}
 
 		const char* pTexName[CEnemyBaseGauge::TYPE_MAX + 1] =
 		{
@@ -156,7 +163,7 @@ void CVender::Update(void)
 		{
 			if (m_bUseRestock == true)
 			{
-				if (m_pRestock != nullptr && m_pRestock->GetUse() == true)
+				if (m_pRestock != nullptr && m_bCanRestock == true)
 				{
 					if (m_bShake != true)
 					{
@@ -164,13 +171,14 @@ void CVender::Update(void)
 						nType = rand() % SHAKE_MAX;
 
 						m_ShakeType = (SHAKE)nType;
-
 					}
 					Shake();
 					m_bShake = true;
+					m_pRestock->SetUse(true);
 				}
 				else
 				{
+					m_pRestock->SetUse(false);
 					m_rot = m_Offrot;
 					m_pModel->SetRot(m_rot);
 					m_bShake = false;
@@ -257,7 +265,6 @@ void CVender::Shake(void)
 			m_scale.y = 1.0f;
 		}
 	}
-
 	
 	m_pModel->SetRot(m_rot);
 }

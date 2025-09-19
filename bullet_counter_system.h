@@ -57,6 +57,8 @@ private:
 	bool m_bMove;
 	bool m_bBlink;
 	bool m_bRLShake;
+
+	int m_nCntBlink;
 };
 
 #endif

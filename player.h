@@ -88,10 +88,12 @@ public:
 	CBullet::TYPE GetMyBullet(void) { return m_Bullet; }
 	STATE GetState(void) { return m_State; }
 	bool GetbMove(void) { return m_bMove; }
+	bool GetCnaRestock(void) { return m_bCanRestock; }
 	int GetContents(void) { return m_nCntContents; }
 	int GetNumModel(void) { return m_nNumModel; }
 	int GetLife(void) { return m_nLife; }
 	CBullerCntSystem* GetCntSystem(void) { return m_BulletCnt; }
+
 
 	// ê√ìIÉÅÉìÉoä÷êî
 	static CPlayer* Create(const char* pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot);

@@ -18,7 +18,6 @@
 class CMapEnemyBase:public CObject2D
 {
 public:
-
 	// メンバ関数
 	CMapEnemyBase(int nPriority = 8);
 	~CMapEnemyBase();
@@ -34,7 +33,8 @@ public:
 	// 設定処理
 	void SetIdxTex(const int nIdxTex) { m_nIdxTex = nIdxTex; }
 	void SetUse(bool bUse) { m_bUse = bUse; }
-	void SetBlink(bool bBlink) { m_bBlink = bBlink; }
+	void SetBlink(D3DXCOLOR col, bool bBlink) { m_bBlink = bBlink; m_BlinkCol = col; }
+	void SetHelp(bool bHelp) { m_bHelp = bHelp; }
 	// 静的メンバ変数
 	static CMapEnemyBase* Create(const char* pFileName, D3DXVECTOR3 pos, float fWidth, float fHeight);
 
@@ -43,10 +43,13 @@ private:
 	// メンバ変数
 	D3DXVECTOR3 m_pos;	// 位置
 	D3DXCOLOR m_col;	// 色
+	D3DXCOLOR m_BlinkCol;	// 色
 	int m_nIdxTex;		// テクスチャのインデックス番号
 	int m_nCntTime;		// カウンター
+	int m_nBlinkTime;
 	bool m_bUse;		// 使用しているか
 	bool m_bBlink;		// 点滅するかどうか
+	bool m_bHelp;
 };
 
 #endif

@@ -378,7 +378,7 @@ bool CCollision::Vender(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVEC
 	D3DXVECTOR3 VenderRot = pVender->GetRot();//ˆÊ’uŽæ“¾
 	D3DXVECTOR3 Vendersize = pVender->GetSize();
 
-	bool bCOLL = OBB(pos, rot, size, VenderPos, VenderRot, Vendersize, outNormal);;//ƒ‚ƒfƒ‹
+	bool bCOLL = OBB(pos, rot, size, VenderPos, VenderRot, Vendersize, outNormal);//ƒ‚ƒfƒ‹
 
 	if (mytype == CObject::TYPE_PLAYER)
 	{
@@ -400,25 +400,26 @@ bool CCollision::Vender(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVEC
 					if (bUse == true)
 					{
 						pPlayer->SetCanRestock(true);
-
-						pRestock->SetUse(true);
+						pVender->SetCanRestock(true);
+						//pRestock->SetUse(true);
 						pRestock->Set(nRestock, type, pVender);
 					}
 					else
 					{
-						pRestock->SetUse(false);
+						//pRestock->SetUse(false);
 					}
 				}
 				else
 				{
-					pRestock->SetUse(false);
+					//pRestock->SetUse(false);
 				}
 			}
 		}
 		else if (bColl == false)
 		{
-			pRestock->SetUse(false);
+			//pRestock->SetUse(false);
 			pPlayer->SetCanRestock(false);
+			pVender->SetCanRestock(false);
 		}
 	}
 

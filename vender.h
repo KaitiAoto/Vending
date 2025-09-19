@@ -52,6 +52,7 @@ public:
 	// 設定
 	void SetUseRestock(bool bUse) { m_bUseRestock = bUse; }
 	void SetRestock(int nRestock) { m_nRestock = nRestock; }
+	void SetCanRestock(bool bUse) { m_bCanRestock = bUse; }
 	// 取得
 	D3DXVECTOR3 GetSize(void) { return m_size; }
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
@@ -81,12 +82,13 @@ private:
 	D3DXMATRIX m_mtxWorld;		// ワールドマトリックス
 	CModel* m_pModel;			// モデルへのポインタ
 	CMeshCylinder* m_pCylinder;	// シリンダーへのポインタ
-	CRestock* m_pRestock;		// 補充ＵＩへのポインタ
+	static CRestock* m_pRestock;		// 補充ＵＩへのポインタ
 	CMapEnemyBase* m_pMapIcon;
 	CBullet::TYPE m_type;		// 補充する中身の種類
 	SHAKE m_ShakeType;			//
 	bool m_bUse;				// 使用しているか
 	bool m_bUseRestock;			// 補充できるか
+	bool m_bCanRestock;
 	bool m_bShake;
 	bool m_bRLShake;
 	int m_nCntReuse;			// 再使用できるまでの時間

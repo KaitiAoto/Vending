@@ -73,7 +73,6 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 	m_rot = rot;
 	m_nLife = ENEMY_BASE_LIFE;
 	m_bUse = true;
-	m_nDecreaseTime = 0;
 	//ƒ‚ƒfƒ‹¶¬
 	m_pModel = CModel::Create("data\\MODEL\\convenience_store00.x", m_pos, m_rot);
 	m_size = m_pModel->SetSize();
@@ -276,9 +275,25 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 void CEnemyBase::SoldOut(void)
 {
 	int nType;
-	nType = rand() % STOCK_TYPE;
+	nType = rand() % CEnemyBaseGauge::TYPE_MAX;
 
-	m_nDecreaseTime = 0;
+	D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	switch ((CEnemyBaseGauge::TYPE)nType)
+	{
+	case CEnemyBaseGauge::TYPE_DRINK:
+		col = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+		break;
+	case CEnemyBaseGauge::TYPE_FOOD:
+		col = D3DXCOLOR(1.0f, 0.5f, 1.0f, 1.0f);
+		break;
+	case CEnemyBaseGauge::TYPE_GENERAL:
+		col = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+		break;
+	default:
+		break;
+	}
+	m_pMapIcon->SetBlink(col, true);
+
 	m_nStock[nType]--;
 	if (m_nStock[nType] <= 0)
 	{
@@ -295,13 +310,14 @@ void CEnemyBase::BlinkIcon(void)
 	{
 		if (m_nStock[nCnt] < MAX_STOCK / 3)
 		{
-			m_pMapIcon->SetBlink(true);
+			m_pMapIcon->SetBlink(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), true);
+			m_pMapIcon->SetHelp(true);
 			m_Help->SetUse(true);
 			break;
 		}
 		else
 		{
-			m_pMapIcon->SetBlink(false);
+			m_pMapIcon->SetHelp(false);
 			m_Help->SetUse(false);
 		}
 	}

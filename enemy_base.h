@@ -81,7 +81,6 @@ private:
 	CEnemyBaseGauge* m_pGauge[STOCK_TYPE];	// ゲージへのポインタ
 	CMapEnemyBase* m_pMapIcon;				// マップアイコンへのポインタ
 	int m_nLife;							// 寿命
-	int m_nDecreaseTime;					// 在庫消費までの時間
 	int m_nStock[STOCK_TYPE];				// 在庫（種類分）
 	bool m_bUse;							// 使用しているか
 	bool m_bRespawn;						// 

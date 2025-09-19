@@ -138,19 +138,28 @@ void CBullerCntSystem::Blink(void)
 	{
 		if (m_bRLShake == true)
 		{
-			m_rot.z += 0.025f;
-			if (m_rot.z >= 0.25f)
+			m_rot.z += 0.1f;
+			if (m_rot.z >= 0.3f)
 			{
 				m_bRLShake = false;
 			}
 		}
 		else if (m_bRLShake == false)
 		{
-			m_rot.z -= 0.025f;
-			if (m_rot.z <= -0.25f)
+			m_rot.z -= 0.1f;
+			if (m_rot.z <= -0.3f)
 			{
 				m_bRLShake = true;
 			}
+		}
+
+		m_nCntBlink++;
+		if (m_nCntBlink >= 30)
+		{
+			m_bBlink = false;
+			m_nCntBlink = 0;
+
+			m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		}
 
 		GetUseCnt()->Set(m_MainPos, m_rot);

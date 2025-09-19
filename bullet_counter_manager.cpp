@@ -127,17 +127,17 @@ void CBulletCntMana::BecomeMain()
 
 
 	// 弾アイコン
-	m_pIcon->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f));
+	m_pIcon->Set(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_pIcon->SetSize(m_fIconSize, m_fIconSize);
 
 	// ×
-	m_cross->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f));
+	m_cross->Set(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_cross->SetSize(m_fIconSize, m_fIconSize);
 
 	// 桁数分カウンター
 	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
 	{
-		m_pCounter[nCnt]->GetNumber()->SetPos(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f));
+		m_pCounter[nCnt]->GetNumber()->Set(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_pCounter[nCnt]->GetNumber()->SetSize(m_fCntSize, m_fCntSize);
 	}
 }
@@ -172,19 +172,18 @@ void CBulletCntMana::BecomeSub()
 		pPlayer->GetCntSystem()->SetbMove(false);
 	}
 
-
 	// 弾アイコン
-	m_pIcon->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f));
+	m_pIcon->Set(D3DXVECTOR3(m_pos.x - (m_fCntSize * 4.5f), m_pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_pIcon->SetSize(m_fIconSize, m_fIconSize);
 
 	// ×
-	m_cross->SetPos(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f));
+	m_cross->Set(D3DXVECTOR3(m_pos.x - (m_fCntSize * 2.0f), m_pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_cross->SetSize(m_fIconSize, m_fIconSize);
 
 	// 桁数分カウンター
 	for (int nCnt = 0; nCnt < MAX_BULLETCNT; nCnt++)
 	{
-		m_pCounter[nCnt]->GetNumber()->SetPos(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f));
+		m_pCounter[nCnt]->GetNumber()->Set(D3DXVECTOR3(m_pos.x + (nCnt * m_fCntSize * 2.5f), m_pos.y, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		m_pCounter[nCnt]->GetNumber()->SetSize(m_fCntSize, m_fCntSize);
 	}
 }

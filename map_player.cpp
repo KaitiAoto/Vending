@@ -47,7 +47,8 @@ HRESULT CMapPlayer::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	m_bUse = true;
 
 	CObject2D::Init("data\\TEXTURE\\playerIcon00.png", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
-	m_pArrow = CObject2D::Create("data\\TEXTURE\\playerIcon00.png", D3DXVECTOR3(pos.x, pos.y, pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 8);
+
+	m_pArrow = CObject2D::Create("data\\TEXTURE\\arrow01.png", D3DXVECTOR3(pos.x, pos.y, pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 8);
 
 	//オブジェクトの種類設定
 	SetObjType(TYPE_UI);
@@ -115,5 +116,7 @@ void CMapPlayer::PlayerMove(void)
 
 void CMapPlayer::ArrowMove(void)
 {
-
+	//CPlayer* pPlayer = CGame::GetPlayer();
+	//
+	//m_pArrow->Set(m_pos, pPlayer->GetRot());
 }

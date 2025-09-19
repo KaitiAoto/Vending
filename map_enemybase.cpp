@@ -50,9 +50,11 @@ HRESULT CMapEnemyBase::Init(const char* pFileName,D3DXVECTOR3 pos, float fWidth,
 	//値を代入
 	m_pos = pos;
 	m_bUse = true;
+	m_nCntTime = 0;
 
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	
+	m_BlinkCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
 	CObject2D::Init(pFileName, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
 
 	// ミニマップの情報
@@ -76,7 +78,6 @@ HRESULT CMapEnemyBase::Init(const char* pFileName,D3DXVECTOR3 pos, float fWidth,
 
 	CObject2D::SetPos(m_pos);
 
-
 	//オブジェクトの種類設定
 	SetObjType(TYPE_UI);
 
@@ -94,18 +95,41 @@ void CMapEnemyBase::Uninit(void)
 //============
 void CMapEnemyBase::Update(void)
 {
+	// 点滅する速さ
+	float fSpeed = 0.25f;
+
 	if (m_bBlink == true)
 	{
 		m_nCntTime++;
 
-		// 点滅する速さ
-		const float Speed = 0.025f;
+		if (m_bHelp == true)
+		{
+			m_BlinkCol = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+			fSpeed = 0.25f;
+		}
+		else if (m_bHelp == false)
+		{
+			fSpeed = 0.05f;
+			if (m_nCntTime >= 60)
+			{
+				m_nCntTime = 0;
+				m_bBlink = false;
+				return;
+			}
+		}
 
-		m_col.g = 1.0f * fabsf(sinf(Speed * m_nCntTime));
-		m_col.b = 1.0f * fabsf(sinf(Speed * m_nCntTime));
+		float fBlink = 1.0f * sinf(fSpeed * m_nCntTime);
+		
+		D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		
+		m_col.r = col.r * (1.0f - fBlink) + m_BlinkCol.r * fBlink;
+		m_col.g = col.g * (1.0f - fBlink) + m_BlinkCol.g * fBlink;
+		m_col.b = col.b * (1.0f - fBlink) + m_BlinkCol.b * fBlink;
+		m_col.a = col.a;
 
 		// 色を設定
 		CObject2D::SetColor(m_col);
+		
 	}
 	else
 	{
