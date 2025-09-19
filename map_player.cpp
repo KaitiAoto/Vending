@@ -48,7 +48,7 @@ HRESULT CMapPlayer::Init(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	CObject2D::Init("data\\TEXTURE\\playerIcon00.png", pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight);
 
-	m_pArrow = CObject2D::Create("data\\TEXTURE\\arrow01.png", D3DXVECTOR3(pos.x, pos.y, pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 8);
+	m_pArrow = CObject2D::Create("data\\TEXTURE\\arrow01.png", D3DXVECTOR3(pos.x, pos.y, pos.z), D3DXVECTOR3(0.0f, 0.0f, 0.0f), fWidth, fHeight, 9);
 
 	//オブジェクトの種類設定
 	SetObjType(TYPE_UI);
@@ -70,8 +70,6 @@ void CMapPlayer::Update(void)
 	PlayerMove();
 
 	ArrowMove();
-
-	m_pArrow->SetUse(m_bUse);
 }
 //============
 // 描画処理
@@ -83,13 +81,15 @@ void CMapPlayer::Draw(void)
 		CObject2D::Draw();
 	}
 }
-
+//============================
+// プレイヤーのアイコン移動
+//============================
 void CMapPlayer::PlayerMove(void)
 {
 	//プレイヤー情報取得
 	CPlayer* pPlayer = CGame::GetPlayer();
 
-	// ワールド座標を取得
+	// プレイヤーの位置を取得
 	D3DXVECTOR3 playerPos = pPlayer->GetPos();
 
 	// ミニマップの情報
@@ -98,7 +98,7 @@ void CMapPlayer::PlayerMove(void)
 	const float miniMapW = CGame::GetMap()->GetWidth();
 	const float miniMapH = CGame::GetMap()->GetHeight();
 
-	// ワールド座標を正規化
+	// ステージのサイズ
 	const float worldSizeX = 1900.0f;
 	const float worldSizeZ = 1900.0f;
 
@@ -113,10 +113,25 @@ void CMapPlayer::PlayerMove(void)
 
 	CObject2D::SetPos(m_pos);
 }
-
+//==============
+// 矢印移動
+//==============
 void CMapPlayer::ArrowMove(void)
 {
-	//CPlayer* pPlayer = CGame::GetPlayer();
-	//
-	//m_pArrow->Set(m_pos, pPlayer->GetRot());
+	//プレイヤー情報取得
+	CPlayer* pPlayer = CGame::GetPlayer();
+	// プレイヤーの位置を取得
+	float fPlayerRotY = pPlayer->GetRot().y - (D3DX_PI / 2);
+
+	float fRadius = 15.0f;
+
+	float fArrowX = -cosf(fPlayerRotY)* fRadius;
+	float fArrowY = -sinf(fPlayerRotY) * fRadius;
+
+	D3DXVECTOR3 ArrowRot = D3DXVECTOR3(0.0f, 00.0f, 0.0f);
+	ArrowRot.z = -fPlayerRotY + (D3DX_PI / 2);
+
+	m_pArrow->Set(D3DXVECTOR3(m_pos.x + fArrowX, m_pos.y + fArrowY, m_pos.z), ArrowRot);
+
+	m_pArrow->SetUse(m_bUse);
 }

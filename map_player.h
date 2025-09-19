@@ -20,7 +20,7 @@ class CMapPlayer:public CObject2D
 public:
 
 	// ƒƒ“ƒoŠÖ”
-	CMapPlayer(int nPriority = 8);
+	CMapPlayer(int nPriority = 9);
 	~CMapPlayer();
 
 	HRESULT Init(D3DXVECTOR3 pos, float fWidth, float fHeight);
