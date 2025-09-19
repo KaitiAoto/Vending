@@ -44,6 +44,7 @@ private:
 
 	// メンバ変数
 	D3DXVECTOR3 m_pos;		// 位置
+	D3DXVECTOR3 m_posOld;	// 位置
 	D3DXVECTOR3 m_posStay;	// 止まる位置
 	D3DXVECTOR3 m_rot;		// 角度
 	D3DXVECTOR3 m_move;		// 移動量

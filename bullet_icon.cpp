@@ -135,7 +135,7 @@ void CBulletIcon::ChangeIcon(CBullet::TYPE type)
 		pTexName = "data\\TEXTURE\\bullet06.png";
 		break;
 	case CBullet::TYPE_CARD:
-		pTexName = "data\\TEXTURE\\card00.jpg";
+		pTexName = "data\\TEXTURE\\card01.jpg";
 		break;
 	case CBullet::TYPE_BOTTLE:
 		pTexName = "data\\TEXTURE\\bullet08.png";

@@ -47,6 +47,7 @@ HRESULT CTitleLogo::Init(const char* pTexName, D3DXVECTOR3 pos, float fWidth, fl
 {
 	//’l‚ð‘ã“ü
 	m_pos = D3DXVECTOR3(pos.x, -fHeight, pos.z);
+	m_posOld = D3DXVECTOR3(pos.x, -fHeight, pos.z);
 	m_posStay = pos;
 	m_nTime = 0;
 	m_bStop = false;
@@ -79,9 +80,21 @@ void CTitleLogo::Update(void)
 		m_bStop = true;
 	}
 	
-	m_pos.y = m_posStay.y * CEasing::OutBounce((float)m_AnimCnt / 75.0f);
+	float fOldY = m_pos.y;
+	
+	m_pos.y = m_posStay.y * CEasing::OutBounce((float)m_AnimCnt / 75.0f);	
+	
+	float fVelocity = m_pos.y - fOldY;
+
+	if (fVelocity < 0.0f && m_posOld.y > 0.0f)
+	{
+		CSound* pSound = CManager::GetSound();
+		pSound->PlaySound(CSound::SOUND_LABEL_TITLELOGO);
+	}
 
 	CObject2D::SetPos(m_pos);
+
+	m_posOld.y = fVelocity;
 
 	if (m_bUse == false)
 	{
