@@ -58,7 +58,7 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }
-	CRestock* GetpRestock(void) { return m_pRestock; }
+	static CRestock* GetpRestock(void) { return m_pRestock; }
 	CBullet::TYPE GetType(void) { return m_type; }
 	bool GetUse(void) { return m_bUseRestock; }
 	int GetRestock(void) { return m_nRestock; }

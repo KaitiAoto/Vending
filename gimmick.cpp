@@ -139,27 +139,30 @@ void CGimmick::Draw(void)
 //===========
 void CGimmick::Move(void)
 {
-	CEffect::Create(D3DXVECTOR3( m_pos.x,m_pos.y + (m_size.y / 2),m_pos.z ), m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f), 0, 7);
-
-	m_posOld = m_pos;
-
-	m_pos += m_move;
-
-	m_fMoveDis += D3DXVec3Length(&m_move);
-
-	if (m_fMoveDis >= m_fMaxDis)
+	//if (CGame::GetMode() != CGame::MODE_TUTORIAL)
 	{
-		m_rot.y += D3DX_PI;
-		if (m_rot.y > D3DX_PI * 2.0f)
+		CEffect::Create(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2), m_pos.z), m_rot, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.5f, 0.0f, 1.0f), 0, 7);
+
+		m_posOld = m_pos;
+
+		m_pos += m_move;
+
+		m_fMoveDis += D3DXVec3Length(&m_move);
+
+		if (m_fMoveDis >= m_fMaxDis)
 		{
-			m_rot.y -= D3DX_PI * 2.0f;
+			m_rot.y += D3DX_PI;
+			if (m_rot.y > D3DX_PI * 2.0f)
+			{
+				m_rot.y -= D3DX_PI * 2.0f;
+			}
+
+			m_fMoveDis = 0.0f;
+			m_move = D3DXVECTOR3(sinf(m_rot.y - D3DX_PI) * GIMMICK_SPEED, 0.0f, cosf(m_rot.y - D3DX_PI) * GIMMICK_SPEED);
 		}
 
-		m_fMoveDis = 0.0f;
-		m_move = D3DXVECTOR3(sinf(m_rot.y - D3DX_PI) * GIMMICK_SPEED, 0.0f, cosf(m_rot.y - D3DX_PI) * GIMMICK_SPEED);
+		m_pModel->Set(m_pos, m_rot);
 	}
-
-	m_pModel->Set(m_pos, m_rot);
 }
 //=====================
 // ƒ‚ƒfƒ‹–¼‚²‚Æ‚ÌŽí—Þ

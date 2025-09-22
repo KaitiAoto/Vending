@@ -523,8 +523,9 @@ void CPlayer::Action(void)
 
 	CSound* pSound = CManager::GetSound();
 
+	CRestock* pRestock = CVender::GetpRestock();
 	//’e”­Ë
-	if (m_bCanRestock != true)
+	if (m_bCanRestock != true && pRestock->GetUse() != true)
 	{
 		if (pInputMouse->GetPress(1) == false)
 		{
