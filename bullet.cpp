@@ -261,7 +261,7 @@ bool CBullet::Collision(void)
 		// 自販機との判定
 		bCollVender = pColl->ToVender(m_pos, m_rot, m_size, TYPE_BULLET, contactNormal);
 		// ステージとの判定
-		bCollStage = pColl->ToStage(m_pos, m_rot, m_size, contactNormal);
+		bCollStage = pColl->ToStage(m_pos, m_rot, m_size, contactNormal,TYPE_BULLET);
 	}
 	// ユーザーが敵なら
 	else if (m_user == USER_ENEMY)

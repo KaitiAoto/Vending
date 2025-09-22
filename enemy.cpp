@@ -592,7 +592,7 @@ bool CEnemy::Collision(void)
 	//Ž©”Ì‹@‚Æ‚Ì”»’è
 	bool bCOLL = pColl->ToVender(m_pos, m_rot, m_size, TYPE_ENEMY, contactNormal);
 	//
-	bool bCollStage = pColl->ToStage(m_pos, m_rot, m_size, contactNormal);
+	bool bCollStage = pColl->ToStage(m_pos, m_rot, m_size, contactNormal,TYPE_ENEMY);
 	//
 	bool bCollGimmick = pColl->ToGimmick(m_pos, m_size, TYPE_ENEMY);
 

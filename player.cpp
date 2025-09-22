@@ -752,7 +752,7 @@ bool CPlayer::Collision(void)
 			anyHit = true;
 			hit = true;
 		}
-		if (pColl->ToStage(m_pos, m_rot, m_size, normal)) {
+		if (pColl->ToStage(m_pos, m_rot, m_size, normal,TYPE_PLAYER)) {
 			contactNormals.push_back(normal);
 			anyHit = true;
 			hit = true;

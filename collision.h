@@ -25,7 +25,7 @@ public:
 	bool ToEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, CObject::TYPE mytype, D3DXVECTOR3& outNormal);
 	bool ToPlayer(D3DXVECTOR3 pos, D3DXVECTOR3 size, CEnemy* pEnemy);
 	bool ToVender(D3DXVECTOR3 pos, D3DXVECTOR3 rot , D3DXVECTOR3 size, CObject::TYPE mytype, D3DXVECTOR3& outNormal);
-	bool ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3DXVECTOR3& outNormal);
+	bool ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3DXVECTOR3& outNormal, CObject::TYPE mytype);
 	bool ToGimmick(D3DXVECTOR3 pos, D3DXVECTOR3 size, CObject::TYPE mytype);
 	bool ToStart(D3DXVECTOR3 pos, CObject::TYPE mytype);
 

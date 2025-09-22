@@ -133,7 +133,7 @@ bool CCollision::ToVender(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, CO
 //=================================
 // ステージとの当たり判定
 //=================================
-bool CCollision::ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3DXVECTOR3& outNormal)
+bool CCollision::ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3DXVECTOR3& outNormal, CObject::TYPE mytype)
 {
 	bool bColl = false;
 
@@ -151,7 +151,10 @@ bool CCollision::ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3D
 				bColl = Stage(pObj, pos, rot, size, outNormal);
 				break;
 			case CObject::TYPE_WALL:
-				bColl = InvisibleWall(pObj, pos, rot, size, outNormal);
+				if (mytype != CObject::TYPE_BULLET)
+				{
+					bColl = InvisibleWall(pObj, pos, rot, size, outNormal);
+				}
 				break;
 
 			default:
