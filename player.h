@@ -63,6 +63,7 @@ public:
 	void Heal(int nHeal) { m_nLife += nHeal; if (m_nLife >= PLAYER_LIFE) { m_nLife = PLAYER_LIFE; } }
 	void AddSpeed(float fAddSpeed) { m_fSpeed += fAddSpeed; }
 	void Hit(const int nDamage);
+	void Return(void) { m_pos = m_posOffSet; }
 
 	// ê›íË
 	void SetType(TYPE type) { m_type = type; };

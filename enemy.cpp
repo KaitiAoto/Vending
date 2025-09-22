@@ -146,102 +146,105 @@ void CEnemy::Uninit(void)
 //============
 void CEnemy::Update(void)
 {
-	if (m_bUse == true)
+	if (CGame::GetMode() != CGame::MODE_TUTORIAL)
 	{
-		float rate = (float)m_nLife / (float)ENEMY_LIFE;
-		rate = max(0.0f, min(rate, 1.0f));
-
-		m_pGauge->SetPos(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y * 1.5f), m_pos.z));
-		m_pGauge->SetRate(rate);
-
-		switch (m_State)
+		if (m_bUse == true)
 		{
-		case STATE_STAY:
-			//移動
-			Move();
-			break;
-		case STATE_MOVE:
-			//移動
-			Move();
-			break;
-		case STATE_HIT:
-			
-			m_move.y -= GRAVITY; //重力加算
+			float rate = (float)m_nLife / (float)ENEMY_LIFE;
+			rate = max(0.0f, min(rate, 1.0f));
 
-			// 前回の位置保存
-			m_posOld = m_pos;
-			// 移動
-			m_pos += m_move;
-			// 地面判定
-			if (m_pos.y <= 0.0f)
+			m_pGauge->SetPos(D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y * 1.5f), m_pos.z));
+			m_pGauge->SetRate(rate);
+
+			switch (m_State)
 			{
-				m_pos.y = 0.0f;
-				m_move.y = 0.0f;
+			case STATE_STAY:
+				//移動
+				Move();
+				break;
+			case STATE_MOVE:
+				//移動
+				Move();
+				break;
+			case STATE_HIT:
+
+				m_move.y -= GRAVITY; //重力加算
+
+				// 前回の位置保存
+				m_posOld = m_pos;
+				// 移動
+				m_pos += m_move;
+				// 地面判定
+				if (m_pos.y <= 0.0f)
+				{
+					m_pos.y = 0.0f;
+					m_move.y = 0.0f;
+				}
+				m_posHalf = D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2), m_pos.z);
+				m_pModel->Set(m_pos, m_rot);
+
+
+				m_nCntState--;
+				if (m_nCntState <= 0)
+				{
+					m_nCntState = 0;
+					State(STATE_STAY);
+				}
+				break;
+
+			default:
+				break;
 			}
-			m_posHalf = D3DXVECTOR3(m_pos.x, m_pos.y + (m_size.y / 2), m_pos.z);
-			m_pModel->Set(m_pos, m_rot);
 
-
-			m_nCntState--;
-			if (m_nCntState <= 0)
+			if (m_State != STATE_HIT)
 			{
-				m_nCntState = 0;
-				State(STATE_STAY);
+				m_pModel->SetColorChange(false);
 			}
-			break;
-
-		default:
-			break;
-		}
-		
-		if (m_State != STATE_HIT)
-		{
-			m_pModel->SetColorChange(false);
-		}
-		if (m_State == STATE_STAY)
-		{
-			m_pGauge->SetDraw(false);
-		}
-		else
-		{
-			m_pGauge->SetDraw(true);
-		}
-
-		//当たり判定
-		Collision();
-
-
-		if (m_pShadow != nullptr)
-		{
-			m_pShadow->SetPos(D3DXVECTOR3(m_pos.x, 0.3f, m_pos.z));
-			m_pShadow->SetRot(m_rot);
-		}
-
-		//寿命
-		if (m_nLife <= 0)
-		{
-			CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 15, 5, CParticle::TYPE_NONE);
-
-			m_bUse = false;
-			m_pGauge->SetDraw(false);
-
-			if (m_pMyGroup != nullptr)
+			if (m_State == STATE_STAY)
 			{
-				m_pMyGroup->SubMyEnemy();
+				m_pGauge->SetDraw(false);
 			}
-			m_pShadow->SetUse(false);
-		}
-	}
-	else if (m_bUse == false)
-	{//使っていないなら
-		m_nCntKill++;
-		if (m_nCntKill >= 5)
-		{
-			CGame::GetBuff()->AddSpeed(PLAYER_SPEED * 1.5f, 5);
-			m_nCntKill = 0;
-		}
+			else
+			{
+				m_pGauge->SetDraw(true);
+			}
 
-		Uninit();
+			//当たり判定
+			Collision();
+
+
+			if (m_pShadow != nullptr)
+			{
+				m_pShadow->SetPos(D3DXVECTOR3(m_pos.x, 0.3f, m_pos.z));
+				m_pShadow->SetRot(m_rot);
+			}
+
+			//寿命
+			if (m_nLife <= 0)
+			{
+				CParticle::Create(m_posHalf, m_rot, D3DCOLOR_RGBA(255, 1, 1, 255), 15, 5, CParticle::TYPE_NONE);
+
+				m_bUse = false;
+				m_pGauge->SetDraw(false);
+
+				if (m_pMyGroup != nullptr)
+				{
+					m_pMyGroup->SubMyEnemy();
+				}
+				m_pShadow->SetUse(false);
+			}
+		}
+		else if (m_bUse == false)
+		{//使っていないなら
+			m_nCntKill++;
+			if (m_nCntKill >= 5)
+			{
+				CGame::GetBuff()->AddSpeed(PLAYER_SPEED * 1.5f, 5);
+				m_nCntKill = 0;
+			}
+
+			Uninit();
+		}
 	}
 }
 //============
@@ -249,22 +252,25 @@ void CEnemy::Update(void)
 //============
 void CEnemy::Draw(void)
 {
-	if (m_bUse == true)
+	if (CGame::GetMode() != CGame::MODE_TUTORIAL)
 	{
-		//デバイスの取得
-		CRenderer* pRenderer = CManager::GetRenderer();
-		LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
+		if (m_bUse == true)
+		{
+			//デバイスの取得
+			CRenderer* pRenderer = CManager::GetRenderer();
+			LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
-		//計算用マトリックス
-		D3DXMATRIX mtxRot, mtxTrans;
-		//ワールドマトリックスの初期化
-		D3DXMatrixIdentity(&m_mtxWorld);
+			//計算用マトリックス
+			D3DXMATRIX mtxRot, mtxTrans;
+			//ワールドマトリックスの初期化
+			D3DXMatrixIdentity(&m_mtxWorld);
 
-		//ワールドマトリックスの設定
-		pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
+			//ワールドマトリックスの設定
+			pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
-		//モデル描画
-		m_pModel->Draw();
+			//モデル描画
+			m_pModel->Draw();
+		}
 	}
 }
 //===========

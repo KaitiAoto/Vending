@@ -91,6 +91,16 @@ void CStart::Update(void)
 	if (m_bDraw == true)
 	{
 		SetObjType(TYPE_STAGE);
+
+		if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+		{
+			CPlayer* pPlayer = CGame::GetPlayer();
+
+			if(pPlayer->GetPos().x > m_pos.x)
+			{
+				pPlayer->Return();
+			}
+		}
 	}
 	else if (m_bDraw == false)
 	{
