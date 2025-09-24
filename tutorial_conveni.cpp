@@ -196,7 +196,6 @@ void CTutorialConveni::Update(void)
 
 		CManager::SetPause(false);
 
-
 		const float fWidth = 250.0f;
 		const float fHeight = 100.0f;
 

@@ -659,7 +659,8 @@ void CEnemy::Hit(const int nDamage)
 			}
 			else if (nDamage <= 0)
 			{//ƒm[ƒ_ƒ
-				m_pModel->SetColor(D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.0f));
+				//m_pModel->SetColor(D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.0f));
+				m_pModel->SetColor(D3DXCOLOR(0.4f, 0.4f, 0.9f, 1.0f));
 
 				pSound->PlaySound(CSound::SOUND_LABEL_NODAMAGE);
 			}

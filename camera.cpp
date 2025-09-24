@@ -212,21 +212,6 @@ void CCamera::Update(void)
 	{
 		m_rot.y -= 0.05f;
 	}
-	// éãì_ÇÃè„â∫
-	if (pInputKey->GetPress(DIK_Y) == true)
-	{// è„
-		if (m_posV.y <= 500)
-		{
-			m_posV.y += 3;
-		}
-	}
-	if (pInputKey->GetPress(DIK_N) == true)
-	{// â∫
-		if (m_posV.y >= -500)
-		{
-			m_posV.y -= 3;
-		}
-	}
 #endif // DEBUG
 
 	// äpìxÇÃê≥ãKâª

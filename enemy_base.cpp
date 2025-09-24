@@ -84,7 +84,7 @@ HRESULT CEnemyBase::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
 
 	// ƒ‚[ƒh‚ªƒQ[ƒ€‚È‚ç
 	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
-	{		
+	{
 		for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
 		{
 			float GauseY = m_pos.y + (m_size.y);

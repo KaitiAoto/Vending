@@ -15,7 +15,7 @@
 #include "enemy.h"
 
 // マクロ定義
-#define ADVANTAGE (2) 
+#define ADVANTAGE (3) 
 #define DISADVANTAGE (2)
 
 // 相性クラス
@@ -29,7 +29,8 @@ public:
 	int Check(CBullet::TYPE Bullet,CEnemy::TYPE Enemy);
 	void One_Shot(void) { m_nAttack = ENEMY_LIFE; }
 	void Advantage(void) { m_nAttack *= ADVANTAGE; }
-	void Disadvantage(void) { m_nAttack /= DISADVANTAGE; }
+	//void Disadvantage(void) { m_nAttack /= DISADVANTAGE; }
+	void Disadvantage(void) { m_nAttack = 0; }
 	void NoDamage(void) { m_nAttack = 0; }
 
 private:

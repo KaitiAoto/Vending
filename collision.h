@@ -28,9 +28,8 @@ public:
 	bool ToStage(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 size, D3DXVECTOR3& outNormal, CObject::TYPE mytype);
 	bool ToGimmick(D3DXVECTOR3 pos, D3DXVECTOR3 size, CObject::TYPE mytype);
 	bool ToStart(D3DXVECTOR3 pos, CObject::TYPE mytype);
-
 	bool EnemyBullet(D3DXVECTOR3 pos, D3DXVECTOR3 size);
-
+	//bool CameraToStage();
 
 	bool OverlapOnAxis(const D3DXVECTOR3& T, const D3DXVECTOR3& axis,
 		const D3DXVECTOR3 axes0[3], const D3DXVECTOR3& size0,
