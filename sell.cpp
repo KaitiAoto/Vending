@@ -29,11 +29,11 @@ void CSell::Update(void)
 {
 	CScoreMana* pTotalScore = CGame::GetTotalScore();
 
-	int nDecreaseTime = 30;
+	int nDecreaseTime = 35;
 
 	if (CGame::GetTime()->GetTime() >= GAME_TIME / 6)
 	{
-		nDecreaseTime = 15;
+		nDecreaseTime = 20;
 	}
 
 	m_nCntSellTime++;

@@ -123,7 +123,7 @@ void CTutorial::Update(void)
 	//ƒpƒbƒh
 	CInputPad* pInputPad = CManager::GetInputPad();
 
-	if (pInputKey->GetTrigger(DIK_R) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_X) == true)
+	if (pInputKey->GetTrigger(DIK_R) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_BACK) == true)
 	{
 		m_state = STATE_SLIDEOUT;
 		m_type = TYPE_MATCHUP;

@@ -120,7 +120,7 @@ void CTutorialConveni::Update(void)
 
 	if (m_bUse == true)
 	{
-		if (pInputKey->GetTrigger(DIK_R) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_X) == true)
+		if (pInputKey->GetTrigger(DIK_R) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_BACK) == true)
 		{
 			m_state = STATE_SLIDEOUT;
 			m_type = TYPE_ENEMY;
