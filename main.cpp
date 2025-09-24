@@ -160,7 +160,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hInstancePrev, _
 					// カーソル位置をセット
 					SetCursorPos(pt.x, pt.y);
 				}
-				if (pManager->GetInputKey()->GetTrigger(DIK_F11))
+				if (pManager->GetInputKey()->GetTrigger(DIK_F10))
 				{
 					if (bFull == false)
 					{
