@@ -201,7 +201,6 @@ void CModel::Draw(void)
 	forcedMat.Diffuse = m_forcedColor;
 	forcedMat.Ambient = forcedMat.Diffuse;
 
-
 	for (int nCntMat = 0; nCntMat < (int)m_dwNumMat; nCntMat++)
 	{
 		LPDIRECT3DTEXTURE9 tex = nullptr;

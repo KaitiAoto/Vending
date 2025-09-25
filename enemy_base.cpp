@@ -256,16 +256,21 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 
 		if (HitType == m_pGauge[nCnt]->GetType())
 		{
+			CSound* pSound = CManager::GetSound();
+
 			CScoreMana* pTotalScore = CGame::GetTotalScore();
 
 			if (m_nStock[nCnt] < MAX_STOCK)
 			{
+				pSound->PlaySound(CSound::SOUND_LABEL_ADD);
+
 				m_nStock[nCnt]++;
 				pTotalScore->AddScore(100);
 
 				if (m_nStock[nCnt] == MAX_STOCK)
 				{
 					pTotalScore->AddScore(500);
+					pSound->PlaySound(CSound::SOUND_LABEL_CONVENI);
 				}
 			}
 			if (m_nStock[nCnt] > MAX_STOCK)

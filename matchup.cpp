@@ -130,7 +130,6 @@ void CMatchUp::CapsuleToEnemy(void)
 	case CEnemy::TYPE_RANGE:
 		Disadvantage();
 		break;
-
 	default:
 		break;
 	}

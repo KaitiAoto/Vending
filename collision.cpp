@@ -724,7 +724,7 @@ bool CCollision::OBB(D3DXVECTOR3 pos0, D3DXVECTOR3 rot0, D3DXVECTOR3 size0, D3DX
 
 	D3DXMATRIX world0 = rot0Mtx * trans0Mtx;
 	D3DXMATRIX world1 = rot1Mtx * trans1Mtx;
-
+	
 	// OBB軸ベクトルをワールド行列から取得
 	D3DXVECTOR3 axes0[3] = {
 		D3DXVECTOR3(world0._11, world0._12, world0._13),

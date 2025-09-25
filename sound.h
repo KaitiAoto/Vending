@@ -44,6 +44,9 @@ public:
 		SOUND_LABEL_START,
 		SOUND_LABEL_FINISH,
 		SOUND_LABEL_SELECT,
+		SOUND_LABEL_CHANGE,
+		SOUND_LABEL_CONVENI,
+		SOUND_LABEL_ADD,
 
 		SOUND_LABEL_MAX,
 	} SOUND_LABEL;
@@ -101,6 +104,9 @@ private:
 		{"data/SOUND/SE/start00.wav", 0},
 		{"data/SOUND/SE/finish00.wav", 0},
 		{"data/SOUND/SE/Laser.wav", 0},
+		{"data/SOUND/SE/change.wav", 0},
+		{"data/SOUND/SE/conveni.wav", 0},
+		{"data/SOUND/SE/add.wav", 0},
 
 	};
 

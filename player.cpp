@@ -606,6 +606,9 @@ void CPlayer::Action(void)
 
 #endif
 }
+//
+//
+//
 void CPlayer::ChangeBullet(void)
 {
 	//ƒ}ƒEƒXŽæ“¾
@@ -618,6 +621,9 @@ void CPlayer::ChangeBullet(void)
 		if (pInputMouse->GetTrigger(1) == true || pInputPad->GetTrigger(CInputPad::JOYKEY_R1) == true)
 		{
 			m_BulletCnt->Change();
+
+			CSound* pSound = CManager::GetSound();
+			pSound->PlaySound(CSound::SOUND_LABEL_CHANGE);
 		}
 	}
 }
@@ -701,7 +707,6 @@ void CPlayer::State(STATE state)
 	case STATE_DEAD:
 		m_bUse = false;
 		break;
-
 	default:
 		break;
 	}
