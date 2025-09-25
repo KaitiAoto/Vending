@@ -15,12 +15,12 @@
 // É}ÉNÉçíËã`
 #define NUM_PRIORITY (11)
 
-#define PRIORITY_PLAYER (6)
+#define PRIORITY_PLAYER (5)
 #define PRIORITY_BULLET (5)
 #define PRIORITY_ENEMY (5)
 #define PRIORITY_ENEMYBASE (6)
 #define PRIORITY_VENDER (5)
-#define PRIORITY_STAGE (4)
+#define PRIORITY_STAGE (6)
 #define PRIORITY_GIMMIC (5)
 #define PRIORITY_ITEM (5)
 #define PRIORITY_START (4)

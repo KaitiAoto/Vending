@@ -13,6 +13,7 @@
 #include "main.h"
 #include "object.h"
 #include "enemy.h"
+#include "stage.h"
 
 // ìñÇΩÇËîªíËÉNÉâÉX
 class CCollision
@@ -29,7 +30,8 @@ public:
 	bool ToGimmick(D3DXVECTOR3 pos, D3DXVECTOR3 size, CObject::TYPE mytype);
 	bool ToStart(D3DXVECTOR3 pos, CObject::TYPE mytype);
 	bool EnemyBullet(D3DXVECTOR3 pos, D3DXVECTOR3 size);
-	//bool CameraToStage();
+
+	bool CameraToStage(CStage* pStage);
 
 	bool OverlapOnAxis(const D3DXVECTOR3& T, const D3DXVECTOR3& axis,
 		const D3DXVECTOR3 axes0[3], const D3DXVECTOR3& size0,
@@ -51,9 +53,7 @@ private:
 	bool Start(CObject* pObj, D3DXVECTOR3 pos, CObject::TYPE mytype);
 	bool Item(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 size, CObject::TYPE mytype);
 
-
 	bool OBB(D3DXVECTOR3 pos0, D3DXVECTOR3 rot0, D3DXVECTOR3 size0, D3DXVECTOR3 pos1, D3DXVECTOR3 rot1, D3DXVECTOR3 size1, D3DXVECTOR3& outNormal);
-
 	bool SphereToOBB(const D3DXVECTOR3& sphereCenter, float sphereRadius, const D3DXVECTOR3& obbCenter, const D3DXVECTOR3& obbSize, const D3DXMATRIX& obbRotation);
 
 	//ÉÅÉìÉoïœêî

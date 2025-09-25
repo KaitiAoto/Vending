@@ -98,7 +98,7 @@ HRESULT CVender::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, CBullet::TYP
 		float radius = max(m_size.x, max(m_size.y, m_size.z)) * 0.5f;
 		if (m_pRestock == nullptr)
 		{
-			m_pRestock = CRestock::Create("data\\TEXTURE\\restock01.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
+			m_pRestock = CRestock::Create("data\\TEXTURE\\restock02.png", D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 1.35f - 100.0f, 0.0f), RESTOCK_SIZE, RESTOCK_SIZE / 2);
 		}
 
 		const char* pTexName[CEnemyBaseGauge::TYPE_MAX + 1] =

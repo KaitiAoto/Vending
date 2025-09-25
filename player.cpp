@@ -207,11 +207,6 @@ void CPlayer::Update(void)
 		m_BulletCnt->GetUseCnt()->SetCnt(m_nCntContents);
 		m_BulletCnt->GetUseCnt()->SetType(m_Bullet);
 
-		//CGame::GetMainCnt()->SetCnt(m_nCntContents);
-		//CGame::GetMainCnt()->SetType(m_Bullet);
-		//CGame::GetSubCnt()->SetCnt(m_nCntSubContents);
-		//CGame::GetSubCnt()->SetType(m_SubBullet);
-
 		//モーション更新
 		if (m_pMotion != nullptr)
 		{
@@ -731,7 +726,10 @@ bool CPlayer::Collision(void)
 		axes0[0] = D3DXVECTOR3(rotMtx._11, rotMtx._12, rotMtx._13);
 		axes0[1] = D3DXVECTOR3(rotMtx._21, rotMtx._22, rotMtx._23);
 		axes0[2] = D3DXVECTOR3(rotMtx._31, rotMtx._32, rotMtx._33);
-		for (int i = 0; i < 3; ++i) D3DXVec3Normalize(&axes0[i], &axes0[i]);
+		for (int i = 0; i < 3; ++i)
+		{
+			D3DXVec3Normalize(&axes0[i], &axes0[i]);
+		}
 	}
 
 	for (int iter = 0; iter < maxIterations; ++iter)
@@ -742,17 +740,20 @@ bool CPlayer::Collision(void)
 		std::vector<D3DXVECTOR3> contactNormals;
 
 		D3DXVECTOR3 normal;
-		if (pColl->ToEnemy(m_pos, m_rot, m_size, TYPE_PLAYER, normal)) {
+		if (pColl->ToEnemy(m_pos, m_rot, m_size, TYPE_PLAYER, normal))
+		{
 			contactNormals.push_back(normal);
 			anyHit = true;
 			hit = true;
 		}
-		if (pColl->ToVender(m_pos, m_rot, m_size, TYPE_PLAYER, normal)) {
+		if (pColl->ToVender(m_pos, m_rot, m_size, TYPE_PLAYER, normal))
+		{
 			contactNormals.push_back(normal);
 			anyHit = true;
 			hit = true;
 		}
-		if (pColl->ToStage(m_pos, m_rot, m_size, normal,TYPE_PLAYER)) {
+		if (pColl->ToStage(m_pos, m_rot, m_size, normal,TYPE_PLAYER)) 
+		{
 			contactNormals.push_back(normal);
 			anyHit = true;
 			hit = true;
@@ -770,8 +771,9 @@ bool CPlayer::Collision(void)
 
 			// 移動方向と逆なら法線反転
 			if (D3DXVec3Dot(&moveVec, &contactNormal) > 0.0f)
+			{
 				contactNormal *= -1.0f;
-
+			}
 			// penetration 押し戻し
 			float penetration = 0.0f;
 			pColl->OverlapOnAxis(
@@ -781,7 +783,9 @@ bool CPlayer::Collision(void)
 				penetration
 			);
 			if (penetration > 0.001f)
+			{
 				m_pos += contactNormal * penetration;
+			}
 
 			// スライド処理
 			moveVec = m_pos - m_posOld;
@@ -792,7 +796,6 @@ bool CPlayer::Collision(void)
 			moveVec = slideVec;
 		}
 	}
-
 
 	pColl->ToGimmick(m_pos, m_size, TYPE_PLAYER);
 

@@ -16,7 +16,7 @@
 #include "vender.h"
 
 // マクロ定義
-#define RESTOCK_SIZE (150)
+#define RESTOCK_SIZE (250)
 
 // オブジェクト2Dクラス
 class CRestock:public CObject2D

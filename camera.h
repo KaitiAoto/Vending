@@ -28,6 +28,8 @@ public:
 
 	// éÊìæ
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
+	D3DXVECTOR3 GetPosV(void) { return m_posV; }
+	D3DXVECTOR3 GetPosR(void) { return m_posR; }
 
 	// ê›íË
 	void Set(void);

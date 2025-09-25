@@ -274,6 +274,55 @@ bool CCollision::EnemyBullet(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	return bColl;
 }
 
+bool CCollision::CameraToStage(CStage* pStage)
+{
+	bool bColl = false;
+
+	CCamera* pCamera = CManager::GetCamera();
+	CPlayer* pPlayer = CGame::GetPlayer();
+
+	if (!pCamera || !pPlayer || !pStage)
+	{
+		return false;
+	}
+
+	// 位置取得
+	D3DXVECTOR3 CameraPos = pCamera->GetPosV();
+	D3DXVECTOR3 PlayerPos = pPlayer->GetPos();
+	D3DXVECTOR3 StagePos = pStage->GetPos();
+	D3DXVECTOR3 StageSize = pStage->GetSize();
+
+	// 線分情報
+	D3DXVECTOR3 dir = PlayerPos - CameraPos;
+	float length = D3DXVec3Length(&dir);
+	if (length < 1e-6f)
+	{
+		return false;
+	}
+	D3DXVec3Normalize(&dir, &dir);
+
+	// ステージのコライダー
+	float radius = max(StageSize.x, max(StageSize.y, StageSize.z)) * 0.5f;
+
+	// 線分と球の最短距離
+	D3DXVECTOR3 m = StagePos - CameraPos;
+	float t = D3DXVec3Dot(&m, &dir);
+	t = max(0.0f, min(length, t)); // 線分内にクランプ
+	D3DXVECTOR3 closest = CameraPos + dir * t;
+
+	D3DXVECTOR3 diff = closest - StagePos;
+	float distSq = D3DXVec3LengthSq(&diff);
+	if (distSq <= (radius * radius))
+	{
+		bColl = true;
+	}
+	else
+	{
+		bColl = false;
+	}
+
+	return bColl;
+}
 //=============================================================
 // 
 // 種類別の判定に関する処理(オブジェクトごとの当たり判定)
