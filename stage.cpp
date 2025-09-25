@@ -81,14 +81,17 @@ void CStage::Uninit(void)
 //============
 void CStage::Update(void)
 {
-	bool bColl = false;
-
-	bColl = CGame::GetColl()->CameraToStage(this);
-	if (bColl == true)
+	if (CManager::GetScene()->GetMode() == CScene::MODE_GAME)
 	{
-		m_pModel->SetColor(D3DXCOLOR(1.0f,1.0f,1.0f,0.25f));
+		bool bColl = false;
+
+		bColl = CGame::GetColl()->CameraToStage(this);
+		if (bColl == true)
+		{
+			m_pModel->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.25f));
+		}
+		m_pModel->SetColorChange(bColl);
 	}
-	m_pModel->SetColorChange(bColl);
 }
 //============
 // •`‰æˆ—

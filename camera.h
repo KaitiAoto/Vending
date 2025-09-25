@@ -30,7 +30,7 @@ public:
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	D3DXVECTOR3 GetPosV(void) { return m_posV; }
 	D3DXVECTOR3 GetPosR(void) { return m_posR; }
-
+	float GetDis(void) { return m_fDistance; }
 	// ê›íË
 	void Set(void);
 	void SetPosV(D3DXVECTOR3 posV) { m_posV = posV; }

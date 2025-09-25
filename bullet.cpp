@@ -125,6 +125,14 @@ void CBullet::Update(void)
 		// ユーザーがプレイヤーなら
 		if (m_user == USER_PLAYER)
 		{
+			if (CGame::GetMode() == CGame::MODE_TUTORIAL)
+			{
+				if (m_pos.x > CGame::GetStart()->GetPos().x)
+				{
+					m_bUse = false;
+				}
+			}
+
 			// バウンド移動
 			MoveBounce();
 

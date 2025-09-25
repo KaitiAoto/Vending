@@ -147,7 +147,6 @@ void CCamera::Update(void)
 		}
 	}
 
-
 	// マウスの左右移動で視点旋回
 	if (pInputMouse != nullptr)
 	{

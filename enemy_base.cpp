@@ -256,15 +256,22 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 
 		if (HitType == m_pGauge[nCnt]->GetType())
 		{
-			m_nStock[nCnt]++;
-			if (m_nStock[nCnt] >= MAX_STOCK)
+			CScoreMana* pTotalScore = CGame::GetTotalScore();
+
+			if (m_nStock[nCnt] < MAX_STOCK)
+			{
+				m_nStock[nCnt]++;
+				pTotalScore->AddScore(100);
+
+				if (m_nStock[nCnt] == MAX_STOCK)
+				{
+					pTotalScore->AddScore(500);
+				}
+			}
+			if (m_nStock[nCnt] > MAX_STOCK)
 			{
 				m_nStock[nCnt] = MAX_STOCK;
-			}
-
-			CScoreMana* pTotalScore = CGame::GetTotalScore();
-			pTotalScore->AddScore(100);
-			
+			}	
 			break;
 		}
 	}

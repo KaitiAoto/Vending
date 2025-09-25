@@ -302,12 +302,12 @@ bool CCollision::CameraToStage(CStage* pStage)
 	D3DXVec3Normalize(&dir, &dir);
 
 	// ステージのコライダー
-	float radius = max(StageSize.x, max(StageSize.y, StageSize.z)) * 0.5f;
+	float radius = max(StageSize.x, max(StageSize.y * 1.5f, StageSize.z)) * 0.5f;
 
 	// 線分と球の最短距離
 	D3DXVECTOR3 m = StagePos - CameraPos;
 	float t = D3DXVec3Dot(&m, &dir);
-	t = max(0.0f, min(length, t)); // 線分内にクランプ
+	t = max(0.0f, min(length, t));
 	D3DXVECTOR3 closest = CameraPos + dir * t;
 
 	D3DXVECTOR3 diff = closest - StagePos;
