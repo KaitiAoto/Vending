@@ -90,6 +90,7 @@ public:
 	HRESULT Init(HINSTANCE hInstance);
 	void Uninit(void);
 	void Update(void);
+	void SetVibration(WORD leftMotor, WORD rightMotor, DWORD dwUserIndex, int nFrame);
 
 	// 取得
 	bool GetPress(JOYKEY nKey);
@@ -111,6 +112,7 @@ private:
 	SHORT m_prevLY;						// 左スティックのＹ
 	BYTE m_prevR2Trigger;				// R2のトリガー
 	BYTE m_prevL2Trigger;				// L2のトリガー
+	int m_nVibFrame;
 
 };
 

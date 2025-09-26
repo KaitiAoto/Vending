@@ -653,6 +653,11 @@ void CPlayer::Hit(const int nDamage)
 		CManager::GetCamera()->SetShake(5.0f, 5.0f, 30);
 
 		pSound->PlaySound(CSound::SOUND_LABEL_HIT);
+
+		//パッド
+		CInputPad* pInputPad = CManager::GetInputPad();
+		pInputPad->SetVibration(20000, 20000, 0, 30);
+
 	}
 }
 //===============
@@ -757,6 +762,7 @@ bool CPlayer::Collision(void)
 			anyHit = true;
 			hit = true;
 		}
+
 		if (pColl->ToStage(m_pos, m_rot, m_size, normal,TYPE_PLAYER)) 
 		{
 			contactNormals.push_back(normal);
@@ -769,36 +775,32 @@ bool CPlayer::Collision(void)
 			break;
 		}
 
-		// 全衝突法線に対して順番に押し戻し＋スライドを行う
-		for (const auto& contactNormalRaw : contactNormals)
+		D3DXVECTOR3 totalNormal(0, 0, 0);
+		for (const auto& n : contactNormals) 
 		{
-			D3DXVECTOR3 contactNormal = contactNormalRaw;
+			totalNormal += n;
+		}
+		if (D3DXVec3LengthSq(&totalNormal) > 0.0001f) 
+		{
+			D3DXVec3Normalize(&totalNormal, &totalNormal);
 
-			// 移動方向と逆なら法線反転
-			if (D3DXVec3Dot(&moveVec, &contactNormal) > 0.0f)
-			{
-				contactNormal *= -1.0f;
-			}
-			// penetration 押し戻し
 			float penetration = 0.0f;
 			pColl->OverlapOnAxis(
-				moveVec, contactNormal,
+				moveVec, totalNormal,
 				axes0, m_size,
 				axes0, m_size,
 				penetration
 			);
 			if (penetration > 0.001f)
 			{
-				m_pos += contactNormal * penetration;
+				m_pos += totalNormal * penetration;
 			}
 
-			// スライド処理
+			// スライドベクトルを計算
 			moveVec = m_pos - m_posOld;
-			float dot = D3DXVec3Dot(&moveVec, &contactNormal);
-			D3DXVECTOR3 slideVec = moveVec - contactNormal * dot;
-
-			m_pos = m_posOld + slideVec;
-			moveVec = slideVec;
+			float dot = D3DXVec3Dot(&moveVec, &totalNormal);
+			moveVec = moveVec - totalNormal * dot;
+			m_pos = m_posOld + moveVec;
 		}
 	}
 

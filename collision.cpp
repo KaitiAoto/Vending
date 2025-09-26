@@ -490,9 +490,10 @@ bool CCollision::Stage(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECT
 	bool bColl = false;
 
 	bColl = OBB(pos, rot, size, EnemyPos, EnemyRot, Enemysize, outNormal);
+
 	if (bColl == true)
 	{//“–‚½‚Á‚½‚ç
-		//ModelOn(pos, size, EnemyPos, Enemysize);
+		
 	}
 	return bColl;
 }

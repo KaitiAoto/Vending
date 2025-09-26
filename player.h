@@ -83,6 +83,7 @@ public:
 	D3DXVECTOR3 GetPos(void) { return m_pos; }
 	D3DXVECTOR3 GetRot(void) { return m_rot; }
 	D3DXVECTOR3 GetSize(void) { return m_size; }
+	D3DXVECTOR3 GetMove(void) { return m_move; }
 	D3DXVECTOR3 GetPosOld(void) { return m_posOld; }
 	D3DXVECTOR3 GetPosOffSet(void) { return m_posOffSet; }
 	D3DXMATRIX GetMtx(void) { return m_mtxWorld; }

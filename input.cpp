@@ -262,6 +262,15 @@ void CInputPad::Update(void)
 
 		m_joyKeyState = joykeyState;
 	}
+
+	m_nVibFrame--;
+	if (m_nVibFrame <= 0)
+	{
+		XINPUT_VIBRATION vibration{};
+		vibration.wLeftMotorSpeed = 0;
+		vibration.wRightMotorSpeed = 0;
+		XInputSetState(0, &vibration);
+	}
 }
 //=================================
 //コントローラーのプレス情報を取得
@@ -334,7 +343,23 @@ bool CInputPad::GetL2Press(BYTE threshold)
 {
 	return (m_joyKeyState.Gamepad.bLeftTrigger > threshold);
 }
+//============================
+// パッド振動の設定
+//============================
+void CInputPad::SetVibration(WORD leftMotor, WORD rightMotor, DWORD dwUserIndex, int nFrame)
+{
+	XINPUT_VIBRATION vibration;
+	ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
 
+	// 左右モーターの強さを設定
+	vibration.wLeftMotorSpeed = leftMotor;   // 左モーター（低周波・強い振動）
+	vibration.wRightMotorSpeed = rightMotor;  // 右モーター（高周波・細かい振動）
+
+	// 実際に振動をセット
+	XInputSetState(dwUserIndex, &vibration);
+
+	m_nVibFrame = nFrame;
+}
 
 //==========================================
 // 

@@ -176,6 +176,11 @@ void CEnemyBase::Update(void)
 					CSound* pSound = CManager::GetSound();
 					pSound->PlaySound(CSound::SOUND_LABEL_BREAK);
 
+					//ƒpƒbƒh
+					CInputPad* pInputPad = CManager::GetInputPad();
+					pInputPad->SetVibration(30000, 30000, 0, 60);
+
+
 					pBreakScore->AddScore(-1);
 
 					for (int nCnt = 0; nCnt < STOCK_TYPE; nCnt++)
