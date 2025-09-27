@@ -341,10 +341,8 @@ bool CCollision::EnemyBase(CObject* pObj, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DX
 	bool bRespawn = false;
 
 	bColl = OBB(pos, rot, size, EnemyPos, EnemyRot, Enemysize, outNormal);
-	//CollisionModel(pos, size, EnemyPos, Enemysize);
 	if (bColl == true)
 	{//当たったら
-		//ModelOn(pos, size, EnemyPos, Enemysize);
 		if (mytype == CObject::TYPE_BULLET)
 		{
 			pEnemyBase->Hit(CGame::GetPlayer()->GetMyBullet());
@@ -727,38 +725,56 @@ bool CCollision::OBB(D3DXVECTOR3 pos0, D3DXVECTOR3 rot0, D3DXVECTOR3 size0, D3DX
 	D3DXMATRIX world1 = rot1Mtx * trans1Mtx;
 	
 	// OBB軸ベクトルをワールド行列から取得
-	D3DXVECTOR3 axes0[3] = {
+	D3DXVECTOR3 axes0[3] = 
+	{
 		D3DXVECTOR3(world0._11, world0._12, world0._13),
 		D3DXVECTOR3(world0._21, world0._22, world0._23),
 		D3DXVECTOR3(world0._31, world0._32, world0._33),
 	};
-	D3DXVECTOR3 axes1[3] = {
+	D3DXVECTOR3 axes1[3] = 
+	{
 		D3DXVECTOR3(world1._11, world1._12, world1._13),
 		D3DXVECTOR3(world1._21, world1._22, world1._23),
 		D3DXVECTOR3(world1._31, world1._32, world1._33),
 	};
 
-	for (int i = 0; i < 3; i++) {
-		D3DXVec3Normalize(&axes0[i], &axes0[i]);
-		D3DXVec3Normalize(&axes1[i], &axes1[i]);
+	// 軸を正規化
+	for (int nCnt = 0; nCnt < 3; nCnt++) 
+	{
+		D3DXVec3Normalize(&axes0[nCnt], &axes0[nCnt]);
+		D3DXVec3Normalize(&axes1[nCnt], &axes1[nCnt]);
 	}
 
+	// 中心同士のベクトル
 	D3DXVECTOR3 T = pos1 - pos0;
 
-	// 最小ペネトレーション軸を探す
+	// 最小侵入量と軸を保持
 	float minPenetration = FLT_MAX;
-	D3DXVECTOR3 minAxis = { 0, 1, 0 }; // デフォルト法線（上向き）
+	D3DXVECTOR3 minAxis = { 0, 1, 0 }; 
 
-	auto tryAxis = [&](const D3DXVECTOR3& axis) -> bool {
-		if (D3DXVec3LengthSq(&axis) < 1e-6f) return true; // 無効な軸
+	auto tryAxis = [&](const D3DXVECTOR3& axis) -> bool
+	{
+		// 無効な軸はスキップ
+		if (D3DXVec3LengthSq(&axis) < 1e-6f)
+		{
+			return true;
+		}
+
+		// 軸を正規化
 		D3DXVECTOR3 normAxis = axis;
 		D3DXVec3Normalize(&normAxis, &normAxis);
 
-		float penetration;
-		if (!OverlapOnAxis(T, normAxis, axes0, size0, axes1, size1, penetration)) return false;
+		// 2つのOBBの投影を比較
+		float fPenetration;
+		if (!OverlapOnAxis(T, normAxis, axes0, size0, axes1, size1, fPenetration))
+		{
+			return false;
+		}
 
-		if (penetration < minPenetration) {
-			minPenetration = penetration;
+		// 最小侵入軸を更新
+		if (fPenetration < minPenetration)
+		{
+			minPenetration = fPenetration;
 			minAxis = normAxis;
 		}
 		return true;
@@ -766,17 +782,30 @@ bool CCollision::OBB(D3DXVECTOR3 pos0, D3DXVECTOR3 rot0, D3DXVECTOR3 size0, D3DX
 
 
 	// 各軸チェック
-	for (int i = 0; i < 3; i++) {
-		if (!tryAxis(axes0[i])) return false;
-		if (!tryAxis(axes1[i])) return false;
+	for (int nCnt = 0; nCnt < 3; nCnt++)
+	{
+		if (!tryAxis(axes0[nCnt]))
+		{
+			return false;
+		}
+		if (!tryAxis(axes1[nCnt]))
+		{
+			return false;
+
+		}
 	}
 
 	// 交差軸チェック
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
+	for (int nCnt = 0; nCnt < 3; nCnt++)
+	{
+		for (int nCnt2 = 0; nCnt2 < 3; nCnt2++)
+		{
 			D3DXVECTOR3 cross;
-			D3DXVec3Cross(&cross, &axes0[i], &axes1[j]);
-			if (!tryAxis(cross)) return false;
+			D3DXVec3Cross(&cross, &axes0[nCnt], &axes1[nCnt2]);
+			if (!tryAxis(cross))
+			{
+				return false;
+			}
 		}
 	}
 
@@ -787,27 +816,31 @@ bool CCollision::OverlapOnAxis(const D3DXVECTOR3& T,const D3DXVECTOR3& axis,
 							   const D3DXVECTOR3 axes0[3], const D3DXVECTOR3& size0,
 							   const D3DXVECTOR3 axes1[3], const D3DXVECTOR3& size1, float& outPenetration)
 {
-	float r0 =
+	// OBB0 の半径
+	float fRadius0 =
 		fabsf(D3DXVec3Dot(&axis, &axes0[0])) * size0.x / 2 +
 		fabsf(D3DXVec3Dot(&axis, &axes0[1])) * size0.y / 2 +
 		fabsf(D3DXVec3Dot(&axis, &axes0[2])) * size0.z / 2;
 
-	float r1 =
+	// OBB1 の半径
+	float fRadius1 =
 		fabsf(D3DXVec3Dot(&axis, &axes1[0])) * size1.x / 2 +
 		fabsf(D3DXVec3Dot(&axis, &axes1[1])) * size1.y / 2 +
 		fabsf(D3DXVec3Dot(&axis, &axes1[2])) * size1.z / 2;
 
-	float distance = fabsf(D3DXVec3Dot(&T, &axis));
+	// 中心間距離
+	float fDistance = fabsf(D3DXVec3Dot(&T, &axis));
 
-	float penetration = (r0 + r1) - distance;
-	outPenetration = penetration;
-	return penetration > 0;
-	//return distance <= (r0 + r1);
+	// 侵入量 
+	float fPenetration = (fRadius0 + fRadius1) - fDistance;
+	outPenetration = fPenetration;
+
+	return fPenetration > 0;
 }
 
 bool CCollision::SphereToOBB(const D3DXVECTOR3& sphereCenter, float sphereRadius, const D3DXVECTOR3& obbCenter, const D3DXVECTOR3& obbSize, const D3DXMATRIX& obbRotation)
 {
-	// OBBの各軸（ローカルのx, y, z）
+	// OBBの各軸
 	D3DXVECTOR3 obbX(obbRotation._11, obbRotation._12, obbRotation._13);
 	D3DXVECTOR3 obbY(obbRotation._21, obbRotation._22, obbRotation._23);
 	D3DXVECTOR3 obbZ(obbRotation._31, obbRotation._32, obbRotation._33);
@@ -819,20 +852,20 @@ bool CCollision::SphereToOBB(const D3DXVECTOR3& sphereCenter, float sphereRadius
 	D3DXVECTOR3 closest = obbCenter;
 
 	// 各軸について処理
-	for (int i = 0; i < 3; ++i) {
+	for (int nCnt = 0; nCnt < 3; ++nCnt)
+	{
 		D3DXVECTOR3 axis;
-		float halfLength = 0.0f;
+		float fHalfLength = 0.0f;
 
-		if (i == 0) { axis = obbX; halfLength = obbSize.x / 2.0f; }
-		if (i == 1) { axis = obbY; halfLength = obbSize.y / 2.0f; }
-		if (i == 2) { axis = obbZ; halfLength = obbSize.z / 2.0f; }
+		if (nCnt == 0) { axis = obbX; fHalfLength = obbSize.x / 2.0f; }
+		if (nCnt == 1) { axis = obbY; fHalfLength = obbSize.y / 2.0f; }
+		if (nCnt == 2) { axis = obbZ; fHalfLength = obbSize.z / 2.0f; }
 
 		// 球中心を軸に投影
 		float dist = D3DXVec3Dot(&d, &axis);
 
-		// -halfLength ～ +halfLength にクランプ
-		if (dist > halfLength) dist = halfLength;
-		if (dist < -halfLength) dist = -halfLength;
+		if (dist > fHalfLength) dist = fHalfLength;
+		if (dist < -fHalfLength) dist = -fHalfLength;
 
 		// 最近接点にその軸方向を足す
 		closest += axis * dist;
