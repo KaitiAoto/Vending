@@ -63,11 +63,14 @@ void CPauseSelect::Update(void)
 //============
 void CPauseSelect::Draw(void)
 {
-	if (CManager::GetPause() == true)
+	if (CGame::GetMode() != CGame::MODE_TUTORIAL_CONVENI)
 	{
-		if (m_bDraw == true)
+		if (CManager::GetPause() == true)
 		{
-			CObject2D::Draw();
+			if (m_bDraw == true)
+			{
+				CObject2D::Draw();
+			}
 		}
 	}
 }
