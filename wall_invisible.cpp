@@ -1,9 +1,9 @@
-//==============================
+//================================
 //
 // Œ©‚¦‚È‚¢•Ç[wall_invisible.cpp]
 // Author : Kaiti Aoto
 //
-//==============================
+//================================
 #include "wall_invisible.h"
 #include "renderer.h"
 #include "manager.h"
