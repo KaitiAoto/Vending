@@ -134,7 +134,11 @@ void CInputKey::Update(void)
 	{
 		m_pDevice->Acquire();
 		hr = m_pDevice->GetDeviceState(sizeof(aKeyState), &aKeyState[0]); // 再取得
+
+#ifdef _DEBUG
 		OutputDebugStringA("GetDeviceState failed. Trying to Acquire...\n");
+#endif // _DEBUG
+
 	}
 	if (SUCCEEDED(hr)) 
 	{
@@ -144,18 +148,6 @@ void CInputKey::Update(void)
 	{
 		memset(m_aKeyState, 0, sizeof(m_aKeyState));  // 失敗時はクリア
 	}
-
-	//HRESULT hr = m_pDevice->GetDeviceState(sizeof(aKeyState), &aKeyState[0]);
-	//if (SUCCEEDED(hr))
-	//{
-	//	memcpy(m_aKeyState, aKeyState, sizeof(m_aKeyState));
-	//}
-	//else
-	//{
-	//	m_pDevice->Acquire();
-	//	//m_pDevice = NULL;
-	//	memset(m_aKeyState, 0, sizeof(m_aKeyState));  // 状態をクリア
-	//}
 }
 //==============================
 //キーボードのプレス情報を取得
@@ -436,7 +428,10 @@ void CInputMouse::Update(void)
 	{
 		m_pDevice->Acquire();
 		hr = m_pDevice->GetDeviceState(sizeof(DIMOUSESTATE2), &mouseState);
+
+#ifdef _DEBUG
 		OutputDebugStringA("Mouse GetDeviceState failed. Trying to Acquire...\n");
+#endif
 	}
 	if (SUCCEEDED(hr))
 	{
