@@ -97,8 +97,6 @@ void CObject::DrawAll(void)
 	CCamera* pCamera = CManager::GetCamera();
 	pCamera->Set();
 
-	//CFade* pFade = CManager::GetFade();
-	//CFade::FADE fade = pFade->GetFade();
 	CDebugProc* pDegub = CManager::GetDebug();
 	pDegub->Print("オブジェクト数：%d", m_nNumAll);
 

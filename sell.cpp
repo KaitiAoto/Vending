@@ -24,48 +24,59 @@ CSell::~CSell()
 {
 
 }
-
+//
+//
+//
 void CSell::Update(void)
 {
-	CScoreMana* pTotalScore = CGame::GetTotalScore();
-
-	int nDecreaseTime = 45;
-
-	if (CGame::GetTime()->GetTime() >= GAME_TIME / 6)
+	if (CGame::GetMode() == CGame::MODE_PLAY)
 	{
-		nDecreaseTime = 30;
-	}
+		CScoreMana* pTotalScore = CGame::GetTotalScore();
 
-	m_nCntSellTime++;
+		static int nDecreaseTime = 45;
 
-	if (m_nCntSellTime >= nDecreaseTime)
-	{
-		int nNumBase = CEnemyBase::GetNum();
-		int nTarget = rand() % nNumBase;
-
-		int nCntBase = 0;
-
-		CObject* pObj = CObject::GetTop(PRIORITY_ENEMYBASE);
-		while (pObj != NULL)
+		if (CGame::GetTime()->GetTime() >= GAME_TIME / 6)
 		{
-			CObject* pObjNext = pObj->GetNext();
-			if (pObj->GetObjType() == CObject::TYPE_ENEMY_BASE)
-			{
-				if (nTarget == nCntBase)
-				{
-					CEnemyBase* pBase = (CEnemyBase*)pObj;
-					pBase->SoldOut();
-					break;
-				}
-
-				pTotalScore->AddScore(1);
-
-				nCntBase++;
-			}
-			pObj = pObjNext;
+			nDecreaseTime = 30;
 		}
 
+		m_nCntSellTime++;
+
+		if (m_nCntSellTime >= nDecreaseTime)
+		{
+			int nNumBase = CEnemyBase::GetNum();
+			int nTarget = rand() % nNumBase;
+
+			int nCntBase = 0;
+
+			CObject* pObj = CObject::GetTop(PRIORITY_ENEMYBASE);
+			while (pObj != NULL)
+			{
+				CObject* pObjNext = pObj->GetNext();
+				if (pObj->GetObjType() == CObject::TYPE_ENEMY_BASE)
+				{
+					if (nTarget == nCntBase)
+					{
+						CEnemyBase* pBase = (CEnemyBase*)pObj;
+						if (pBase->GetUse() == true)
+						{
+							pBase->SoldOut();
+							break;
+						}
+					}
+
+					pTotalScore->AddScore(1);
+
+					nCntBase++;
+				}
+				pObj = pObjNext;
+			}
+
+			m_nCntSellTime = 0;
+		}
+	}
+	else
+	{
 		m_nCntSellTime = 0;
 	}
-
 }

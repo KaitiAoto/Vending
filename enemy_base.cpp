@@ -291,7 +291,7 @@ void CEnemyBase::Hit(const CBullet::TYPE type)
 //=====================
 void CEnemyBase::SoldOut(void)
 {
-	int nType;
+	int nType = 0;
 	nType = rand() % CEnemyBaseGauge::TYPE_MAX;
 
 	D3DXCOLOR col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
@@ -312,6 +312,7 @@ void CEnemyBase::SoldOut(void)
 	m_pMapIcon->SetBlink(col, true);
 
 	m_nStock[nType]--;
+
 	if (m_nStock[nType] <= 0)
 	{
 		m_nStock[nType] = 0;
