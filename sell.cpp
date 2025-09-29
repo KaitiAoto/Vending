@@ -10,6 +10,7 @@
 
 //
 int CSell::m_nCntSellTime = 0;
+int CSell::m_nCntSell = 0;
 
 //==================
 // コンストラクタ
@@ -27,17 +28,25 @@ CSell::~CSell()
 //
 //
 //
+void CSell::Init(void)
+{
+	m_nCntSellTime = 0;
+	m_nCntSell = 0;
+}
+//
+//
+//
 void CSell::Update(void)
 {
 	if (CGame::GetMode() == CGame::MODE_PLAY)
 	{
 		CScoreMana* pTotalScore = CGame::GetTotalScore();
 
-		static int nDecreaseTime = 45;
+		static int nDecreaseTime = 60;
 
 		if (CGame::GetTime()->GetTime() >= GAME_TIME / 6)
 		{
-			nDecreaseTime = 30;
+			nDecreaseTime = 45;
 		}
 
 		m_nCntSellTime++;
@@ -60,11 +69,12 @@ void CSell::Update(void)
 						CEnemyBase* pBase = (CEnemyBase*)pObj;
 						if (pBase->GetUse() == true)
 						{
+							m_nCntSell++;
 							pBase->SoldOut();
 							break;
 						}
 					}
-
+					
 					pTotalScore->AddScore(1);
 
 					nCntBase++;
@@ -79,4 +89,9 @@ void CSell::Update(void)
 	{
 		m_nCntSellTime = 0;
 	}
+
+	CDebugProc* pDegub = CManager::GetDebug();
+	pDegub->Print("売れた数：%d", m_nCntSell);
+	pDegub->Print("拠点数：%d", CEnemyBase::GetNum());
+
 }

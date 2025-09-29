@@ -26,6 +26,7 @@ CScreenFlash* CGame::m_pScreenFlash = nullptr;
 CTutorial* CGame::m_pTutorial = nullptr;
 CTutorialConveni* CGame::m_pTutoConveni = nullptr;
 CPause* CGame::m_pPause = nullptr;
+CSell* CGame::m_pSell = nullptr;
 
 CGame::MODE CGame::m_mode = CGame::MODE_NONE;
 //==================
@@ -132,6 +133,12 @@ void CGame::Init(void)
 	
 	m_pScreenFlash = CScreenFlash::Create(nullptr, D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
 
+	if (m_pSell == nullptr)
+	{
+		m_pSell = new CSell;
+		m_pSell->Init();
+	}
+
 	SetMode(MODE_TUTORIAL);
 
 	CSound* pSound = CManager::GetSound();
@@ -223,6 +230,13 @@ void CGame::Uninit(void)
 		m_pPause = nullptr;
 	}
 
+	if (m_pSell != nullptr)
+	{
+		delete m_pSell;
+		m_pSell = nullptr;
+	}
+
+
 	CObject::Release();
 }
 //=======================
@@ -273,7 +287,7 @@ void CGame::Update(void)
 			m_pBuff->Update(1.0f / 60.0f);
 		}
 
-		CSell::Update();
+		m_pSell->Update();
 	}
 	if (m_pBreakCnt != nullptr)
 	{

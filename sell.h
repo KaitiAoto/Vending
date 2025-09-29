@@ -23,13 +23,14 @@ public:
 	CSell();
 	~CSell();
 
+	void Init(void);
 	static void Update(void);
 
 private:
 	
-
 	// ƒƒ“ƒo•Ï”
 	static int m_nCntSellTime;
+	static int m_nCntSell;
 
 };
 

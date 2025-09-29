@@ -137,7 +137,7 @@ private:
 	static CTutorial* m_pTutorial;				// チュートリアルへのポインタ
 	static CPause* m_pPause;					// ポーズへのポインタ
 	static CTutorialConveni* m_pTutoConveni;
-
+	static CSell* m_pSell;
 	static MODE m_mode;							// ゲームモード
 
 };
