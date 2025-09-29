@@ -126,6 +126,8 @@ void CEnemyBase::Uninit(void)
 		m_pBreakModel = NULL;
 	}
 	
+	m_nNum = 0;
+
 	CObject::Release();
 }
 //============
