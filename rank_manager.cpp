@@ -184,8 +184,6 @@ void CRankMana::Blink(void)
 {
 	const int nBlinkFrame = 20;//“_–ÅƒtƒŒ[ƒ€”
 	const int nBlinkTime = 60;
-	const D3DXCOLOR BaseCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	const D3DXCOLOR BlinkCol = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
 
 	m_BlinkTime++;
 

@@ -56,6 +56,12 @@ HRESULT CCamera::Init(void)
 					  + ((m_posV.z - m_posR.z) * (m_posV.z - m_posR.z)));	
 
 	m_posV.y = 150.0f;
+
+	m_nShakeTime = 0;
+	m_fMaxShakeX = 0;
+	m_fMaxShakeY = 0;
+	m_bShake = false;
+
 	return S_OK;
 }
 //===================
