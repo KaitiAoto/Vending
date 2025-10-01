@@ -455,7 +455,7 @@ void CEnemy::Move_Jump(void)
 	const float JumpRange = 75.0f;
 	const float JumpMove = 22.5f;
 	const float JumpFrame = 30.0f;
-	const int waitTime = 60;
+	const int waitTime = 120;
 
 	CPlayer* pPlayer = CGame::GetPlayer();
 	D3DXVECTOR3 playerPos = pPlayer->GetPos();
